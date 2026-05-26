@@ -45,8 +45,8 @@ hex_vertices <- function(cx = 0, cy = 0, r = 1) {
 # for the wordmark below.
 check_path <- function() {
   return(data.frame(
-    x = c(-0.215, -0.05, 0.245),
-    y = c(0.072, -0.108, 0.295)
+    x = c(-0.24, -0.056, 0.274),
+    y = c(0.031, -0.171, 0.280)
   ))
 }
 
@@ -99,7 +99,7 @@ build_base_layer <- function() {
       data = check,
       aes(x, y),
       colour = col_check,
-      linewidth = 16,
+      linewidth = 18,
       lineend = "round",
       linejoin = "round"
     ) +
@@ -108,7 +108,7 @@ build_base_layer <- function() {
       data = check,
       aes(x, y),
       colour = col_check_core,
-      linewidth = 5,
+      linewidth = 6,
       lineend = "round",
       linejoin = "round"
     ) +
@@ -116,10 +116,10 @@ build_base_layer <- function() {
     annotate(
       "text",
       x = 0,
-      y = -0.40,
+      y = -0.34,
       label = "assert",
       colour = col_wordmark,
-      size = 14,
+      size = 15,
       fontface = "bold",
       family = "sans"
     ) +
@@ -135,7 +135,7 @@ build_glow_layer <- function() {
       data = check,
       aes(x, y),
       colour = col_glow,
-      linewidth = 19,
+      linewidth = 21,
       lineend = "round",
       linejoin = "round"
     ) +
