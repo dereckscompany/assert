@@ -45,10 +45,16 @@ passes_as_null <- function(x, null_ok) {
 #' returned invisibly so checks can be stacked; on failure an error is raised
 #' against the calling function.
 #'
+#' [assert_scalar_character()] additionally accepts `non_empty`: set it to
+#' `TRUE` to reject the empty string `""` as well, for arguments such as
+#' identifiers or codes where an empty value is never valid.
+#'
 #' @param x Object to check.
 #' @param null_ok Single logical. If `TRUE`, a `NULL` value passes the check
 #'   without error. Use this for optional arguments that default to `NULL`.
 #'   Defaults to `FALSE`, so `NULL` is rejected unless you opt in.
+#' @param non_empty Single logical, used by [assert_scalar_character()] only. If
+#'   `TRUE`, the empty string `""` is rejected as well. Defaults to `FALSE`.
 #' @param arg Name used to refer to `x` in error messages. Defaults to the
 #'   name of the expression passed as `x`.
 #' @param call Environment used as the error's call context. Defaults to the
@@ -64,17 +70,23 @@ passes_as_null <- function(x, null_ok) {
 #' # Optional argument that defaults to NULL:
 #' assert_scalar_numeric(NULL, null_ok = TRUE)
 #'
+#' # Reject empty strings for identifiers and codes:
+#' assert_scalar_character("BTC/USDT", non_empty = TRUE)
+#'
 #' @name scalar-assertions
 NULL
 
 #' @rdname scalar-assertions
 #' @export
-assert_scalar_character <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+assert_scalar_character <- function(x, null_ok = FALSE, non_empty = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
   if (passes_as_null(x, null_ok)) {
     return(invisible(x))
   }
   if (length(x) != 1L || !is.character(x) || is.na(x)) {
     abort_assertion(arg, "be a single character value", call)
+  }
+  if (non_empty && !nzchar(x)) {
+    abort_assertion(arg, "be a non-empty single character value", call)
   }
   return(invisible(x))
 }
