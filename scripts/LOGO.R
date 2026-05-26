@@ -86,7 +86,7 @@ build_base_layer <- function() {
 
   ggplot() +
     # Hex field
-    geom_polygon(data = hex_outer, aes(x, y), fill = col_hex_fill, colour = col_hex_edge, linewidth = 3) +
+    geom_polygon(data = hex_outer, aes(x, y), fill = col_hex_fill, colour = col_hex_edge, linewidth = 7) +
     # Inner "gate" ring
     geom_path(
       data = rbind(hex_inner, hex_inner[1, ]),
