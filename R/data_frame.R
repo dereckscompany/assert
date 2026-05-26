@@ -221,7 +221,7 @@ assert_no_missing_in_columns <- function(
   } else {
     assert_has_columns(x, columns, arg = arg, call = call)
   }
-  columns_with_missing <- columns[vapply(x[columns], anyNA, logical(1))]
+  columns_with_missing <- columns[vapply(columns, function(column) anyNA(x[[column]]), logical(1))]
   if (length(columns_with_missing) > 0L) {
     formatted <- paste(columns_with_missing, collapse = ", ")
     abort_assertion(arg, paste0("not contain missing values in columns: ", formatted), call)
@@ -286,7 +286,7 @@ assert_column_types <- function(x, type, columns, null_ok = FALSE, arg = rlang::
   assert_data_frame(x, arg = arg, call = call)
   assert_has_columns(x, columns, arg = arg, call = call)
 
-  wrong_columns <- columns[!vapply(x[columns], value_matches_type, logical(1), type = type)]
+  wrong_columns <- columns[!vapply(columns, function(column) value_matches_type(x[[column]], type), logical(1))]
   if (length(wrong_columns) > 0L) {
     formatted <- paste(wrong_columns, collapse = ", ")
     abort_assertion(arg, paste0("have columns of type ", type, "; these are not: ", formatted), call)
