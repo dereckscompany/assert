@@ -35,13 +35,20 @@ Write assertions at the top of a function. If one fails, it throws an
 error and the function stops immediately.
 
 ``` r
-box::use(assert)
+box::use(
+  assert[
+    assert_numeric,
+    assert_no_missing_values,
+    assert_all_positive,
+    assert_same_length
+  ]
+)
 
 average_price <- function(prices, weights) {
-  assert$assert_numeric(prices)
-  assert$assert_no_missing_values(prices)
-  assert$assert_all_positive(prices)
-  assert$assert_same_length(prices, weights)
+  assert_numeric(prices)
+  assert_no_missing_values(prices)
+  assert_all_positive(prices)
+  assert_same_length(prices, weights)
 
   return(sum(prices * weights) / sum(weights))
 }
@@ -66,9 +73,11 @@ let the assertion accept `NULL` while still checking any value that is
 supplied:
 
 ``` r
+box::use(assert[assert_scalar_character, assert_scalar_integer])
+
 connect <- function(host, port = NULL) {
-  assert$assert_scalar_character(host)
-  assert$assert_scalar_integer(port, null_ok = TRUE)
+  assert_scalar_character(host)
+  assert_scalar_integer(port, null_ok = TRUE)
   return(invisible(TRUE))
 }
 
@@ -84,12 +93,14 @@ hands it to the next, so a chain reads like a list of guarantees about
 the same object:
 
 ``` r
+box::use(assert[assert_data_frame, assert_has_columns, assert_column_types])
+
 people <- data.frame(name = c("Ada", "Alan"), age = c(36L, 41L))
 
 people |>
-  assert$assert_data_frame() |>
-  assert$assert_has_columns(c("name", "age")) |>
-  assert$assert_column_types(list(name = "character", age = "integer")) |>
+  assert_data_frame() |>
+  assert_has_columns(c("name", "age")) |>
+  assert_column_types(list(name = "character", age = "integer")) |>
   invisible()
 ```
 
