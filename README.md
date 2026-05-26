@@ -110,6 +110,8 @@ people |>
 |----|----|
 | Scalars | `assert_scalar_character()`, `assert_scalar_integer()`, `assert_scalar_count()` |
 | Vectors | `assert_character()`, `assert_numeric()`, `assert_list()`, `assert_list_of()` |
+| Dates & times | `assert_date()`, `assert_datetime()`, `assert_scalar_datetime()` |
+| Ranges | `assert_range()`, `assert_between()` |
 | Length & names | `assert_length()`, `assert_not_empty()`, `assert_named()`, `assert_has_names()` |
 | Values | `assert_no_missing_values()`, `assert_all_positive()`, `assert_all_within_range()`, `assert_values_in_set()` |
 | Strings | `assert_matches_pattern()`, `assert_no_empty_strings()`, `assert_minimum_characters()` |

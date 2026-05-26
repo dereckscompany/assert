@@ -1,3 +1,17 @@
+# assert 0.0.2
+
+New assertions for dates, date-times, and ranges.
+
+* **Date and date-time types**: `assert_date()`, `assert_datetime()`,
+  `assert_scalar_date()`, `assert_scalar_datetime()`. The scalar forms require
+  length 1 and reject `NA`. The date-time checks accept any `POSIXct`, including
+  values created with lubridate.
+* **Ranges** (work on any comparable type — numbers, dates, date-times,
+  strings): `assert_range(lower, upper)` checks that two bounds form a sensible
+  range (`lower <= upper`), treating a `NULL` bound as open-ended;
+  `assert_between(x, lower, upper)` checks that values fall within bounds, with
+  either bound optional.
+
 # assert 0.0.1
 
 First release of **assert**, a lightweight toolkit of readable assertion

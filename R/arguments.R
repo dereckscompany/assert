@@ -102,8 +102,11 @@ assert_exactly_one <- function(..., call = rlang::caller_env()) {
     all_labels <- paste(described$labels, collapse = ", ")
     cli::cli_abort(
       paste0(
-        "Exactly one of these must be supplied: ", all_labels,
-        " (", number_supplied, " were supplied)."
+        "Exactly one of these must be supplied: ",
+        all_labels,
+        " (",
+        number_supplied,
+        " were supplied)."
       ),
       call = call
     )
