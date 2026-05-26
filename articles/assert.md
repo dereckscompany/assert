@@ -7,6 +7,12 @@ outputs of your functions. You place assertions at the top of a
 function; if one fails, it throws an error and the function stops before
 any real work happens.
 
+The examples below load the package with `box::use(assert)` and call
+functions through the namespace, as in `assert$assert_numeric(x)`, so it
+is always clear where each function comes from.
+[`library(assert)`](https://dereckscompany.github.io/assert) followed by
+bare `assert_numeric(x)` works too.
+
 Every assertion shares the same contract:
 
 - it checks **one** condition,
@@ -18,11 +24,11 @@ Every assertion shares the same contract:
 ``` r
 
 scale_values <- function(values, factor) {
-  assert_numeric(values)
-  assert_no_missing_values(values)
-  assert_scalar_numeric(factor)
+  assert$assert_numeric(values)
+  assert$assert_no_missing_values(values)
+  assert$assert_scalar_numeric(factor)
 
-  values * factor
+  return(values * factor)
 }
 
 scale_values(c(1, 2, 3), 10)
@@ -60,7 +66,7 @@ legitimate.
 
 ``` r
 
-assert_scalar_numeric(NA)
+assert$assert_scalar_numeric(NA)
 #> Error:
 #> ! `NA` must be a single numeric value.
 ```
@@ -74,10 +80,10 @@ any value that *is* supplied.
 ``` r
 
 greet <- function(name, title = NULL) {
-  assert_scalar_character(name)
-  assert_scalar_character(title, null_ok = TRUE)
+  assert$assert_scalar_character(name)
+  assert$assert_scalar_character(title, null_ok = TRUE)
 
-  if (is.null(title)) name else paste(title, name)
+  return(if (is.null(title)) name else paste(title, name))
 }
 
 greet("Ada")
@@ -92,9 +98,9 @@ Beyond types, you can assert the *content* of a vector.
 
 ``` r
 
-assert_all_positive(c(1, 2, 3))
-assert_all_within_range(c(0.2, 0.5, 0.9), minimum = 0, maximum = 1)
-assert_values_in_set(c("buy", "sell"), c("buy", "sell", "hold"))
+assert$assert_all_positive(c(1, 2, 3))
+assert$assert_all_within_range(c(0.2, 0.5, 0.9), minimum = 0, maximum = 1)
+assert$assert_values_in_set(c("buy", "sell"), c("buy", "sell", "hold"))
 invisible(NULL)
 ```
 
@@ -106,8 +112,8 @@ express the rule directly. They treat `NULL` as “not supplied”.
 ``` r
 
 open_file <- function(path = NULL, connection = NULL) {
-  assert_exactly_one(path, connection)
-  "ok"
+  assert$assert_exactly_one(path, connection)
+  return("ok")
 }
 
 open_file(path = "data.csv")
@@ -118,9 +124,14 @@ open_file()  # neither supplied
 #>   supplied).
 ```
 
-## Checking data frames
+## Stacking checks with the pipe
 
-Data frame helpers check structure and column types in one place.
+Because every assertion returns its input invisibly, checks compose
+naturally with the native pipe `|>`. Each one validates the value and
+passes it to the next, so a chain reads top to bottom as a list of
+guarantees about the same object. This works for any object, and is
+especially handy for data frames, where you often want to confirm
+structure and column types in one place.
 
 ``` r
 
@@ -131,10 +142,10 @@ trades <- data.frame(
 )
 
 trades |>
-  assert_data_frame() |>
-  assert_has_columns(c("symbol", "quantity", "price")) |>
-  assert_column_types(list(symbol = "character", quantity = "integer", price = "numeric")) |>
-  assert_unique_rows() |>
+  assert$assert_data_frame() |>
+  assert$assert_has_columns(c("symbol", "quantity", "price")) |>
+  assert$assert_column_types(list(symbol = "character", quantity = "integer", price = "numeric")) |>
+  assert$assert_unique_rows() |>
   invisible()
 ```
 
@@ -147,9 +158,9 @@ with a custom message.
 ``` r
 
 set_threshold <- function(x) {
-  assert_scalar_numeric(x)
-  assert_true(x %% 2 == 0, message = "`x` must be an even number.")
-  x
+  assert$assert_scalar_numeric(x)
+  assert$assert_true(x %% 2 == 0, message = "`x` must be an even number.")
+  return(x)
 }
 
 set_threshold(4)

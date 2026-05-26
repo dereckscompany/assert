@@ -71,8 +71,9 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p><code>assert</code> is not on CRAN; install it from GitHub with renv:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("renv")</span></span>
+<code class="sourceCode R"><span><span class="co"># first install renv itself if you don't have it: install.packages("renv")</span></span>
 <span><span class="fu">renv</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"dereckscompany/assert"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -80,15 +81,15 @@
 </h2>
 <p>Write assertions at the top of a function. If one fails, it throws an error and the function stops immediately.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">[</span><span class="va">...</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">average_price</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">prices</span>, <span class="va">weights</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="reference/vector-assertions.html">assert_numeric</a></span><span class="op">(</span><span class="va">prices</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="reference/assert_no_missing_values.html">assert_no_missing_values</a></span><span class="op">(</span><span class="va">prices</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="reference/sign-assertions.html">assert_all_positive</a></span><span class="op">(</span><span class="va">prices</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="reference/assert_same_length.html">assert_same_length</a></span><span class="op">(</span><span class="va">prices</span>, <span class="va">weights</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_numeric</span><span class="op">(</span><span class="va">prices</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_no_missing_values</span><span class="op">(</span><span class="va">prices</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_all_positive</span><span class="op">(</span><span class="va">prices</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_same_length</span><span class="op">(</span><span class="va">prices</span>, <span class="va">weights</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">prices</span> <span class="op">*</span> <span class="va">weights</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">weights</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">prices</span> <span class="op">*</span> <span class="va">weights</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">weights</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">average_price</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -104,24 +105,25 @@
 <p>Arguments that default to <code>NULL</code> are optional. Pass <code>null_ok = TRUE</code> to let the assertion accept <code>NULL</code> while still checking any value that is supplied:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">connect</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">host</span>, <span class="va">port</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="reference/scalar-assertions.html">assert_scalar_character</a></span><span class="op">(</span><span class="va">host</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="reference/scalar-assertions.html">assert_scalar_integer</a></span><span class="op">(</span><span class="va">port</span>, null_ok <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_scalar_character</span><span class="op">(</span><span class="va">host</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_scalar_integer</span><span class="op">(</span><span class="va">port</span>, null_ok <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">connect</span><span class="op">(</span><span class="st">"localhost"</span><span class="op">)</span>          <span class="co"># port omitted — fine</span></span>
 <span><span class="fu">connect</span><span class="op">(</span><span class="st">"localhost"</span>, <span class="fl">8080L</span><span class="op">)</span>   <span class="co"># port supplied and valid — fine</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="checking-data-frames">Checking data frames<a class="anchor" aria-label="anchor" href="#checking-data-frames"></a>
+<h3 id="stacking-checks-with-the-pipe">Stacking checks with the pipe<a class="anchor" aria-label="anchor" href="#stacking-checks-with-the-pipe"></a>
 </h3>
+<p>Because every assertion returns its input invisibly, checks compose naturally with the native pipe <code>|&gt;</code>. Each one validates the value and hands it to the next, so a chain reads like a list of guarantees about the same object:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">people</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ada"</span>, <span class="st">"Alan"</span><span class="op">)</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">36L</span>, <span class="fl">41L</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">people</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/assert_data_frame.html">assert_data_frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/assert_has_columns.html">assert_has_columns</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"age"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"character"</span>, age <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_data_frame</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_has_columns</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"age"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_column_types</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"character"</span>, age <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -205,7 +207,15 @@
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h2>
-<p>MIT</p>
+<p>MIT © Dereck Mezquita. See <a href="LICENSE">LICENSE</a> for details.</p>
+</div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>If you use <code>assert</code> in your work, please cite it:</p>
+<blockquote>
+<p>Mezquita, D. (2026). assert. <a href="https://github.com/dereckscompany/assert" class="external-link uri">https://github.com/dereckscompany/assert</a>. ORCID: <a href="https://orcid.org/0000-0002-9307-6762" class="external-link">0000-0002-9307-6762</a></p>
+</blockquote>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -220,8 +230,9 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+</li>
 </ul>
 </div>
 

@@ -22,9 +22,11 @@ Every assertion follows the same simple contract:
 
 ## Installation
 
+`assert` is not on CRAN; install it from GitHub with renv:
+
 ``` r
 
-# install.packages("renv")
+# first install renv itself if you don't have it: install.packages("renv")
 renv::install("dereckscompany/assert")
 ```
 
@@ -35,15 +37,15 @@ error and the function stops immediately.
 
 ``` r
 
-box::use(assert[...])
+box::use(assert)
 
 average_price <- function(prices, weights) {
-  assert_numeric(prices)
-  assert_no_missing_values(prices)
-  assert_all_positive(prices)
-  assert_same_length(prices, weights)
+  assert$assert_numeric(prices)
+  assert$assert_no_missing_values(prices)
+  assert$assert_all_positive(prices)
+  assert$assert_same_length(prices, weights)
 
-  sum(prices * weights) / sum(weights)
+  return(sum(prices * weights) / sum(weights))
 }
 
 average_price(c(10, 20, 30), c(1, 1, 2))
@@ -69,25 +71,30 @@ supplied:
 ``` r
 
 connect <- function(host, port = NULL) {
-  assert_scalar_character(host)
-  assert_scalar_integer(port, null_ok = TRUE)
-  invisible(TRUE)
+  assert$assert_scalar_character(host)
+  assert$assert_scalar_integer(port, null_ok = TRUE)
+  return(invisible(TRUE))
 }
 
 connect("localhost")          # port omitted — fine
 connect("localhost", 8080L)   # port supplied and valid — fine
 ```
 
-### Checking data frames
+### Stacking checks with the pipe
+
+Because every assertion returns its input invisibly, checks compose
+naturally with the native pipe `|>`. Each one validates the value and
+hands it to the next, so a chain reads like a list of guarantees about
+the same object:
 
 ``` r
 
 people <- data.frame(name = c("Ada", "Alan"), age = c(36L, 41L))
 
 people |>
-  assert_data_frame() |>
-  assert_has_columns(c("name", "age")) |>
-  assert_column_types(list(name = "character", age = "integer")) |>
+  assert$assert_data_frame() |>
+  assert$assert_has_columns(c("name", "age")) |>
+  assert$assert_column_types(list(name = "character", age = "integer")) |>
   invisible()
 ```
 
@@ -112,7 +119,16 @@ for a tour.
 
 ## License
 
-MIT
+MIT © Dereck Mezquita. See
+[LICENSE](https://dereckscompany.github.io/assert/LICENSE) for details.
+
+## Citation
+
+If you use `assert` in your work, please cite it:
+
+> Mezquita, D. (2026). assert.
+> <https://github.com/dereckscompany/assert>. ORCID:
+> [0000-0002-9307-6762](https://orcid.org/0000-0002-9307-6762)
 
 # Package index
 

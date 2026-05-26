@@ -52,7 +52,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Getting started with assert</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.1/vignettes/assert.Rmd" class="external-link"><code>vignettes/assert.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dereckscompany/assert/blob/master/vignettes/assert.Rmd" class="external-link"><code>vignettes/assert.Rmd</code></a></small>
       <div class="d-none name"><code>assert.Rmd</code></div>
     </div>
 
@@ -65,6 +65,11 @@
 the inputs and outputs of your functions. You place assertions at the
 top of a function; if one fails, it throws an error and the function
 stops before any real work happens.</p>
+<p>The examples below load the package with
+<code>box::use(assert)</code> and call functions through the namespace,
+as in <code>assert$assert_numeric(x)</code>, so it is always clear where
+each function comes from. <code><a href="https://dereckscompany.github.io/assert">library(assert)</a></code> followed by bare
+<code>assert_numeric(x)</code> works too.</p>
 <p>Every assertion shares the same contract:</p>
 <ul>
 <li>it checks <strong>one</strong> condition,</li>
@@ -79,11 +84,11 @@ on failure.</li>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scale_values</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">values</span>, <span class="va">factor</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/vector-assertions.html">assert_numeric</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="../reference/assert_no_missing_values.html">assert_no_missing_values</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="../reference/scalar-assertions.html">assert_scalar_numeric</a></span><span class="op">(</span><span class="va">factor</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_numeric</span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_no_missing_values</span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_scalar_numeric</span><span class="op">(</span><span class="va">factor</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">values</span> <span class="op">*</span> <span class="va">factor</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">values</span> <span class="op">*</span> <span class="va">factor</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">scale_values</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -111,7 +116,7 @@ non-<code>NA</code> value, because a lone value that is secretly
 still allow <code>NA</code>, since a missing value among many is often
 legitimate.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/scalar-assertions.html">assert_scalar_numeric</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">assert</span><span class="op">$</span><span class="fu">assert_scalar_numeric</span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> `NA` must be a single numeric value.</span></span></code></pre></div>
 </div>
@@ -124,10 +129,10 @@ to allow it while still validating any value that <em>is</em>
 supplied.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">greet</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">title</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/scalar-assertions.html">assert_scalar_character</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="../reference/scalar-assertions.html">assert_scalar_character</a></span><span class="op">(</span><span class="va">title</span>, null_ok <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_scalar_character</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_scalar_character</span><span class="op">(</span><span class="va">title</span>, null_ok <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span><span class="op">)</span> <span class="va">name</span> <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">title</span>, <span class="va">name</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span><span class="op">)</span> <span class="va">name</span> <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">title</span>, <span class="va">name</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">greet</span><span class="op">(</span><span class="st">"Ada"</span><span class="op">)</span></span>
@@ -140,9 +145,9 @@ supplied.</p>
 </h2>
 <p>Beyond types, you can assert the <em>content</em> of a vector.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/sign-assertions.html">assert_all_positive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/assert_all_within_range.html">assert_all_within_range</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span><span class="op">)</span>, minimum <span class="op">=</span> <span class="fl">0</span>, maximum <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/assert_values_in_set.html">assert_values_in_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"buy"</span>, <span class="st">"sell"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"buy"</span>, <span class="st">"sell"</span>, <span class="st">"hold"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">assert</span><span class="op">$</span><span class="fu">assert_all_positive</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">assert</span><span class="op">$</span><span class="fu">assert_all_within_range</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span><span class="op">)</span>, minimum <span class="op">=</span> <span class="fl">0</span>, maximum <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">assert</span><span class="op">$</span><span class="fu">assert_values_in_set</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"buy"</span>, <span class="st">"sell"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"buy"</span>, <span class="st">"sell"</span>, <span class="st">"hold"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -153,8 +158,8 @@ express the rule directly. They treat <code>NULL</code> as “not
 supplied”.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">open_file</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">path</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">connection</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/assert_exactly_one.html">assert_exactly_one</a></span><span class="op">(</span><span class="va">path</span>, <span class="va">connection</span><span class="op">)</span></span>
-<span>  <span class="st">"ok"</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_exactly_one</span><span class="op">(</span><span class="va">path</span>, <span class="va">connection</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="st">"ok"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">open_file</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data.csv"</span><span class="op">)</span></span>
@@ -165,9 +170,14 @@ supplied”.</p>
 <span><span class="co">#&gt;   supplied).</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="checking-data-frames">Checking data frames<a class="anchor" aria-label="anchor" href="#checking-data-frames"></a>
+<h2 id="stacking-checks-with-the-pipe">Stacking checks with the pipe<a class="anchor" aria-label="anchor" href="#stacking-checks-with-the-pipe"></a>
 </h2>
-<p>Data frame helpers check structure and column types in one place.</p>
+<p>Because every assertion returns its input invisibly, checks compose
+naturally with the native pipe <code>|&gt;</code>. Each one validates
+the value and passes it to the next, so a chain reads top to bottom as a
+list of guarantees about the same object. This works for any object, and
+is especially handy for data frames, where you often want to confirm
+structure and column types in one place.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">trades</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAA"</span>, <span class="st">"BBB"</span><span class="op">)</span>,</span>
@@ -176,10 +186,10 @@ supplied”.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">trades</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/assert_data_frame.html">assert_data_frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/assert_has_columns.html">assert_has_columns</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symbol"</span>, <span class="st">"quantity"</span>, <span class="st">"price"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>symbol <span class="op">=</span> <span class="st">"character"</span>, quantity <span class="op">=</span> <span class="st">"integer"</span>, price <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/assert_unique_rows.html">assert_unique_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_data_frame</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_has_columns</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symbol"</span>, <span class="st">"quantity"</span>, <span class="st">"price"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_column_types</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>symbol <span class="op">=</span> <span class="st">"character"</span>, quantity <span class="op">=</span> <span class="st">"integer"</span>, price <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_unique_rows</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -189,9 +199,9 @@ supplied”.</p>
 <code><a href="../reference/assert_true.html">assert_true()</a></code> with a custom message.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">set_threshold</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/scalar-assertions.html">assert_scalar_numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="../reference/assert_true.html">assert_true</a></span><span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span>, message <span class="op">=</span> <span class="st">"`x` must be an even number."</span><span class="op">)</span></span>
-<span>  <span class="va">x</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_scalar_numeric</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="va">assert</span><span class="op">$</span><span class="fu">assert_true</span><span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span>, message <span class="op">=</span> <span class="st">"`x` must be an even number."</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">set_threshold</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
