@@ -87,6 +87,17 @@ connect("localhost")          # port omitted — fine
 connect("localhost", 8080L)   # port supplied and valid — fine
 ```
 
+### Rejecting empty strings
+
+`assert_scalar_character()` accepts any single string, including `""`. For arguments such as identifiers or codes where an empty value is never valid, pass `non_empty = TRUE`:
+
+```{r non-empty, error=TRUE}
+box::use(assert[assert_scalar_character])
+
+assert_scalar_character("BTC/USDT", non_empty = TRUE)  # fine
+assert_scalar_character("", non_empty = TRUE)          # empty string is rejected
+```
+
 ### Stacking checks with the pipe
 
 Because every assertion returns its input invisibly, checks compose naturally with the native pipe `|>`. Each one validates the value and hands it to the next, so a chain reads like a list of guarantees about the same object:
