@@ -96,10 +96,10 @@ assert_all_whole_numbers <- function(x, null_ok = FALSE, arg = rlang::caller_arg
 #' @return The input `x`, invisibly.
 #'
 #' @examples
-#' assert_no_empty_strings(c("a", "b"))
+#' assert_nonempty_strings(c("a", "b"))
 #'
 #' @export
-assert_no_empty_strings <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+assert_nonempty_strings <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
   if (passes_as_null(x, null_ok)) {
     return(invisible(x))
   }
@@ -172,38 +172,6 @@ assert_all_non_positive <- function(x, null_ok = FALSE, arg = rlang::caller_arg(
   return(invisible(x))
 }
 
-#' Assert that all values fall within a range
-#'
-#' Checks that `x` is numeric and every value lies between `minimum` and
-#' `maximum` inclusive. Missing values cause the check to fail.
-#'
-#' @inheritParams scalar-assertions
-#' @param minimum Single number: the smallest allowed value.
-#' @param maximum Single number: the largest allowed value.
-#'
-#' @return The input `x`, invisibly.
-#'
-#' @examples
-#' assert_all_within_range(c(1, 5, 10), minimum = 0, maximum = 10)
-#'
-#' @export
-assert_all_within_range <- function(
-  x,
-  minimum,
-  maximum,
-  null_ok = FALSE,
-  arg = rlang::caller_arg(x),
-  call = rlang::caller_env()
-) {
-  if (passes_as_null(x, null_ok)) {
-    return(invisible(x))
-  }
-  if (!is.numeric(x) || anyNA(x) || any(x < minimum) || any(x > maximum)) {
-    abort_assertion(arg, "contain only values between {minimum} and {maximum}", call)
-  }
-  return(invisible(x))
-}
-
 #' Assert that all values belong to a set
 #'
 #' Checks that every value in `x` appears in `allowed_values`. Missing values
@@ -247,10 +215,10 @@ assert_values_in_set <- function(
 #' @return The input `x`, invisibly.
 #'
 #' @examples
-#' assert_one_of("b", allowed_values = c("a", "b", "c"))
+#' assert_value_in_set("b", allowed_values = c("a", "b", "c"))
 #'
 #' @export
-assert_one_of <- function(
+assert_value_in_set <- function(
   x,
   allowed_values,
   null_ok = FALSE,

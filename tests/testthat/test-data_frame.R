@@ -39,29 +39,18 @@ test_that("missing-in-columns and unique-rows checks work", {
   expect_error(assert_unique_rows(data.frame(a = c(1, 1), b = c(3, 3))), "duplicate rows")
 })
 
-test_that("assert_column_types checks each column's type", {
-  people <- data.frame(name = "Ada", age = 36L, stringsAsFactors = FALSE)
-  expect_invisible(assert_column_types(people, list(name = "character", age = "integer")))
+test_that("assert_column_types checks a set of columns share one type", {
+  people <- data.frame(name = "Ada", height = 1.8, weight = 75.0, stringsAsFactors = FALSE)
+  expect_invisible(assert_column_types(people, "numeric", c("height", "weight")))
   expect_error(
-    assert_column_types(people, list(age = "character")),
-    "expected character"
+    assert_column_types(people, "numeric", c("height", "name")),
+    "name"
   )
-  expect_error(assert_column_types(people, list(missing = "integer")), "missing")
-  expect_error(assert_column_types(people, list("character")), "must be named")
+  expect_error(assert_column_types(people, "numeric", "missing"), "missing")
 })
 
 test_that("assert_column_types falls back to inherits for arbitrary classes", {
   events <- data.frame(when = Sys.Date(), label = "x", stringsAsFactors = FALSE)
-  expect_invisible(assert_column_types(events, list(when = "Date")))
-  expect_error(assert_column_types(events, list(label = "Date")), "expected Date")
-})
-
-test_that("assert_columns_are_type checks a shared type", {
-  measurements <- data.frame(height = 1.8, weight = 75.0, label = "a", stringsAsFactors = FALSE)
-  expect_invisible(assert_columns_are_type(measurements, c("height", "weight"), "numeric"))
-  expect_error(
-    assert_columns_are_type(measurements, c("height", "label"), "numeric"),
-    "label"
-  )
-  expect_error(assert_columns_are_type(measurements, "missing", "numeric"), "missing")
+  expect_invisible(assert_column_types(events, "Date", "when"))
+  expect_error(assert_column_types(events, "Date", "label"), "type Date")
 })

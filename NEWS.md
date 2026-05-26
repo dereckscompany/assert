@@ -1,3 +1,12 @@
+# assert 0.0.5
+
+Naming and consistency cleanup.
+
+* `assert_no_empty_strings()` renamed to `assert_nonempty_strings()`.
+* `assert_one_of()` renamed to `assert_value_in_set()`, parallel with `assert_values_in_set()`.
+* `assert_column_types()` now checks that a set of `columns` are all one `type` — `assert_column_types(x, type, columns)`, stacked for multiple types. The previous named-list form and the separate `assert_columns_are_type()` are removed.
+* `assert_all_within_range()` removed; use `assert_between()`.
+
 # assert 0.0.4
 
 * Removed the `non_empty` argument from `assert_scalar_character()` (added in

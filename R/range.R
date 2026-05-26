@@ -49,7 +49,7 @@ assert_range <- function(
 #' Checks that every element of `x` lies between `lower` and `upper`, inclusive.
 #' Works for any comparable type: numbers, dates, date-times, strings. Pass
 #' `NULL` for a bound to leave that side open. Missing values cause the check to
-#' fail. For numeric-only bounds you may also use [assert_all_within_range()].
+#' fail.
 #'
 #' @inheritParams scalar-assertions
 #' @param lower Lower bound (inclusive), or `NULL` for unbounded below.
