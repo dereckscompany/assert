@@ -1,5 +1,5 @@
 Package: assert
-Title: Assert
+Title: Readable Assertions for Validating Function Inputs and Outputs
 Version: 0.0.0.9000
 URL: https://dereckscompany.github.io/assert,
     https://github.com/dereckscompany/assert
@@ -10,23 +10,25 @@ Authors@R:
            role = c("aut", "cre"),
            email = "dereck@mezquita.io",
            comment = c(ORCID = "0000-0002-9307-6762"))
-Description: What the package does.
+Description: A lightweight toolkit of assertion helpers for checking the
+    inputs and outputs of your functions. Each assertion checks a single
+    condition, returns its input invisibly so checks can be stacked, and
+    raises a clear error pointing at the calling function when the
+    condition is not met. Covers scalars, vectors, lists, data frames and
+    data tables, value constraints, comparisons, and relationships between
+    arguments.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Suggests:
     box,
-    ggplot2,
     knitr,
-    microbenchmark,
     pkgdown,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-LinkingTo:
-    Rcpp
 Imports:
-    Rcpp
-
+    cli,
+    rlang

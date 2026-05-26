@@ -13,20 +13,8 @@ navbar:
       href: https://github.com/dereckscompany/assert
       aria-label: GitHub repository
 
-reference:
-  - title: R Functions
-    desc: Pure R functions
-    contents:
-      - add
-
-  - title: Rcpp Functions
-    desc: High-performance C++ functions
-    contents:
-      - sum_array_cpp
-
-
 articles:
   - title: Getting Started
     navbar: ~
     contents:
-      - demo
+      - assert

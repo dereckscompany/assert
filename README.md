@@ -1,52 +1,38 @@
----
-output: github_document
----
-
-```{r, include=FALSE}
-knitr::opts_chunk$set(
-    warning = FALSE,
-    message = FALSE,
-    fig.path = "./man/figures/README-",
-    fig.align = "center",
-    fig.width = 12,
-    fig.height = 10,
-    dpi = 150,
-    collapse = TRUE,
-    comment = "#>"
-)
-```
 
 # assert <img src="man/figures/logo.png" alt="assert logo" align="right" height="139" />
 
-`assert` is a lightweight toolkit of assertion helpers for checking the inputs
-and outputs of your functions. Drop a few assertions at the top of a function
-and get a clear, immediate error when an argument is the wrong type, shape, or
-value.
+`assert` is a lightweight toolkit of assertion helpers for checking the
+inputs and outputs of your functions. Drop a few assertions at the top
+of a function and get a clear, immediate error when an argument is the
+wrong type, shape, or value.
 
 ## Why
 
 Every assertion follows the same simple contract:
 
-- **Checks one thing.** Each function tests a single, explicit condition.
-- **Returns its input invisibly.** Checks can be stacked, one per line, reading
-  like a checklist of preconditions.
-- **Fails loudly and clearly.** On failure it throws an error that names the
-  offending argument and points at *your* function, not at `assert`'s internals.
-- **Explicit, readable names.** `assert_scalar_character()`, not `assert_chr()`.
+- **Checks one thing.** Each function tests a single, explicit
+  condition.
+- **Returns its input invisibly.** Checks can be stacked, one per line,
+  reading like a checklist of preconditions.
+- **Fails loudly and clearly.** On failure it throws an error that names
+  the offending argument and points at *your* function, not at
+  `assert`’s internals.
+- **Explicit, readable names.** `assert_scalar_character()`, not
+  `assert_chr()`.
 
 ## Installation
 
-```r
+``` r
 # install.packages("renv")
 renv::install("dereckscompany/assert")
 ```
 
 ## Usage
 
-Write assertions at the top of a function. If one fails, it throws an error and
-the function stops immediately.
+Write assertions at the top of a function. If one fails, it throws an
+error and the function stops immediately.
 
-```{r usage}
+``` r
 box::use(assert[...])
 
 average_price <- function(prices, weights) {
@@ -59,20 +45,25 @@ average_price <- function(prices, weights) {
 }
 
 average_price(c(10, 20, 30), c(1, 1, 2))
+#> [1] 22.5
 ```
 
-When an input is invalid, the error names the argument and the calling function:
+When an input is invalid, the error names the argument and the calling
+function:
 
-```{r usage-fail, error=TRUE}
+``` r
 average_price(c(10, -5, 30), c(1, 1, 2))
+#> Error in `average_price()`:
+#> ! `prices` must contain only positive values (greater than zero).
 ```
 
 ### Optional arguments
 
-Arguments that default to `NULL` are optional. Pass `null_ok = TRUE` to let the
-assertion accept `NULL` while still checking any value that is supplied:
+Arguments that default to `NULL` are optional. Pass `null_ok = TRUE` to
+let the assertion accept `NULL` while still checking any value that is
+supplied:
 
-```{r optional}
+``` r
 connect <- function(host, port = NULL) {
   assert_scalar_character(host)
   assert_scalar_integer(port, null_ok = TRUE)
@@ -85,7 +76,7 @@ connect("localhost", 8080L)   # port supplied and valid — fine
 
 ### Checking data frames
 
-```{r data-frame}
+``` r
 people <- data.frame(name = c("Ada", "Alan"), age = c(36L, 41L))
 
 people |>
@@ -98,7 +89,7 @@ people |>
 ## What it covers
 
 | Group | Examples |
-|-------|----------|
+|----|----|
 | Scalars | `assert_scalar_character()`, `assert_scalar_integer()`, `assert_scalar_count()` |
 | Vectors | `assert_character()`, `assert_numeric()`, `assert_list()`, `assert_list_of()` |
 | Length & names | `assert_length()`, `assert_not_empty()`, `assert_named()`, `assert_has_names()` |

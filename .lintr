@@ -1,11 +1,13 @@
 linters: linters_with_defaults(
     line_length_linter = line_length_linter(120),
     indentation_linter = indentation_linter(2),
-    return_linter = return_linter(return_style = "explicit"),
+    return_linter = return_linter(return_style = "explicit", return_functions = c("cli_abort", "abort_assertion")),
+    object_length_linter = object_length_linter(length = 40L),
     object_name_linter = object_name_linter(styles = c("snake_case", "SNAKE_CASE", "CamelCase"))
   )
 exclusions: list(
     "renv/activate.R",
     "packages/*/renv/",
-    "scripts/"
+    "scripts/",
+    "vignettes/"
   )

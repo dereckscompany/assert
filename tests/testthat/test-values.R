@@ -1,0 +1,40 @@
+test_that("missing and duplicate assertions work", {
+  expect_invisible(assert_no_missing_values(1:3))
+  expect_error(assert_no_missing_values(c(1, NA)), "missing values")
+  expect_invisible(assert_no_duplicates(1:3))
+  expect_error(assert_no_duplicates(c(1, 1, 2)), "duplicate values")
+})
+
+test_that("finite and sign assertions work", {
+  expect_invisible(assert_all_finite(c(1, 2, 3)))
+  expect_error(assert_all_finite(c(1, Inf)), "finite")
+  expect_error(assert_all_finite(c(1, NA)), "finite")
+  expect_invisible(assert_all_positive(c(1, 2)))
+  expect_error(assert_all_positive(c(0, 1)), "positive")
+  expect_invisible(assert_all_non_negative(c(0, 1)))
+  expect_error(assert_all_non_negative(c(-1, 1)), "non-negative")
+  expect_invisible(assert_all_negative(c(-1, -2)))
+  expect_error(assert_all_negative(c(0, -1)), "negative")
+  expect_invisible(assert_all_non_positive(c(0, -1)))
+  expect_error(assert_all_non_positive(c(1, -1)), "non-positive")
+})
+
+test_that("whole number and empty string assertions work", {
+  expect_invisible(assert_all_whole_numbers(c(1, 2, 3)))
+  expect_invisible(assert_all_whole_numbers(4L))
+  expect_error(assert_all_whole_numbers(c(1, 2.5)), "whole numbers")
+  expect_error(assert_all_whole_numbers(c(1, NA)), "whole numbers")
+  expect_invisible(assert_no_empty_strings(c("a", "b")))
+  expect_error(assert_no_empty_strings(c("a", "")), "non-empty strings")
+  expect_error(assert_no_empty_strings(c("a", NA)), "non-empty strings")
+  expect_error(assert_no_empty_strings(1:3), "non-empty strings")
+})
+
+test_that("range, set and pattern assertions work", {
+  expect_invisible(assert_all_within_range(c(1, 5, 10), 0, 10))
+  expect_error(assert_all_within_range(c(1, 11), 0, 10), "between 0 and 10")
+  expect_invisible(assert_values_in_set(c("a", "b"), c("a", "b", "c")))
+  expect_error(assert_values_in_set(c("a", "z"), c("a", "b")), "only these values")
+  expect_invisible(assert_matches_pattern(c("abc", "abd"), "^ab"))
+  expect_error(assert_matches_pattern(c("abc", "xyz"), "^ab"), "pattern")
+})
