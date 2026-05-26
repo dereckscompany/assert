@@ -1,3 +1,15 @@
+# assert 0.0.4
+
+* Removed the `non_empty` argument from `assert_scalar_character()` (added in
+  0.0.3). Compose with `assert_no_empty_strings()` to reject `""`, keeping the
+  one-condition-per-function design.
+* New `assert_scalar_positive()`: a single, finite, positive number — the
+  positive-and-finite counterpart of `assert_scalar_count()`.
+* New `assert_one_of()`: a single value belonging to a set, the scalar
+  counterpart of `assert_values_in_set()`.
+* `assert_scalar_count()` now rejects non-finite values (`Inf` previously
+  passed).
+
 # assert 0.0.3
 
 * `assert_scalar_character()` gains a `non_empty` argument. Set it to `TRUE` to

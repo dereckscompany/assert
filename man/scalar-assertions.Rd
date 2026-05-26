@@ -13,7 +13,6 @@
 assert_scalar_character(
   x,
   null_ok = FALSE,
-  non_empty = FALSE,
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
 )
@@ -60,9 +59,6 @@ assert_scalar_complex(
 without error. Use this for optional arguments that default to \code{NULL}.
 Defaults to \code{FALSE}, so \code{NULL} is rejected unless you opt in.}
 
-\item{non_empty}{Single logical, used by \code{\link[=assert_scalar_character]{assert_scalar_character()}} only. If
-\code{TRUE}, the empty string \code{""} is rejected as well. Defaults to \code{FALSE}.}
-
 \item{arg}{Name used to refer to \code{x} in error messages. Defaults to the
 name of the expression passed as \code{x}.}
 
@@ -80,11 +76,6 @@ bug, so it is rejected here; use the plain vector checks such as
 returned invisibly so checks can be stacked; on failure an error is raised
 against the calling function.
 }
-\details{
-\code{\link[=assert_scalar_character]{assert_scalar_character()}} additionally accepts \code{non_empty}: set it to
-\code{TRUE} to reject the empty string \code{""} as well, for arguments such as
-identifiers or codes where an empty value is never valid.
-}
 \examples{
 assert_scalar_character("hello")
 assert_scalar_numeric(42)
@@ -92,8 +83,5 @@ assert_scalar_logical(TRUE)
 
 # Optional argument that defaults to NULL:
 assert_scalar_numeric(NULL, null_ok = TRUE)
-
-# Reject empty strings for identifiers and codes:
-assert_scalar_character("BTC/USDT", non_empty = TRUE)
 
 }

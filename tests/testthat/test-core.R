@@ -26,15 +26,6 @@ test_that("scalar assertions reject NA", {
   expect_error(assert_scalar_complex(NA_complex_), "single complex")
 })
 
-test_that("assert_scalar_character non_empty rejects the empty string", {
-  expect_invisible(assert_scalar_character("a", non_empty = TRUE))
-  expect_equal(assert_scalar_character("a", non_empty = TRUE), "a")
-  expect_invisible(assert_scalar_character("")) # empty allowed by default
-  expect_invisible(assert_scalar_character("", non_empty = FALSE))
-  expect_invisible(assert_scalar_character(NULL, null_ok = TRUE, non_empty = TRUE))
-  expect_error(assert_scalar_character("", non_empty = TRUE), "non-empty single character")
-})
-
 test_that("vector type assertions still allow NA", {
   expect_invisible(assert_character(c("a", NA)))
   expect_invisible(assert_numeric(c(1, NA)))
@@ -58,8 +49,22 @@ test_that("assert_scalar_count checks single non-negative whole numbers", {
   expect_invisible(assert_scalar_count(0L))
   expect_error(assert_scalar_count(-1), "non-negative whole number")
   expect_error(assert_scalar_count(1.5), "non-negative whole number")
+  expect_error(assert_scalar_count(Inf), "non-negative whole number")
   expect_error(assert_scalar_count(c(1, 2)), "non-negative whole number")
   expect_error(assert_scalar_count("a"), "non-negative whole number")
+})
+
+test_that("assert_scalar_positive checks single finite positive numbers", {
+  expect_invisible(assert_scalar_positive(42))
+  expect_invisible(assert_scalar_positive(0.5))
+  expect_equal(assert_scalar_positive(42), 42)
+  expect_invisible(assert_scalar_positive(NULL, null_ok = TRUE))
+  expect_error(assert_scalar_positive(0), "single positive number")
+  expect_error(assert_scalar_positive(-1), "single positive number")
+  expect_error(assert_scalar_positive(Inf), "single positive number")
+  expect_error(assert_scalar_positive(NA_real_), "single positive number")
+  expect_error(assert_scalar_positive(c(1, 2)), "single positive number")
+  expect_error(assert_scalar_positive("a"), "single positive number")
 })
 
 test_that("assert_class checks inheritance", {
