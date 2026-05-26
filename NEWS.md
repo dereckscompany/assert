@@ -1,3 +1,10 @@
+# assert 0.0.3
+
+* `assert_scalar_character()` gains a `non_empty` argument. Set it to `TRUE` to
+  also reject the empty string `""` — useful for identifiers and codes where an
+  empty value is never valid. Defaults to `FALSE`, so existing behaviour is
+  unchanged.
+
 # assert 0.0.2
 
 New assertions for dates, date-times, and ranges.

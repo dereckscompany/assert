@@ -26,6 +26,15 @@ test_that("scalar assertions reject NA", {
   expect_error(assert_scalar_complex(NA_complex_), "single complex")
 })
 
+test_that("assert_scalar_character non_empty rejects the empty string", {
+  expect_invisible(assert_scalar_character("a", non_empty = TRUE))
+  expect_equal(assert_scalar_character("a", non_empty = TRUE), "a")
+  expect_invisible(assert_scalar_character("")) # empty allowed by default
+  expect_invisible(assert_scalar_character("", non_empty = FALSE))
+  expect_invisible(assert_scalar_character(NULL, null_ok = TRUE, non_empty = TRUE))
+  expect_error(assert_scalar_character("", non_empty = TRUE), "non-empty single character")
+})
+
 test_that("vector type assertions still allow NA", {
   expect_invisible(assert_character(c("a", NA)))
   expect_invisible(assert_numeric(c(1, NA)))
