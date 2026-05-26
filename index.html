@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,22 +123,10 @@
 <span><span class="fu">connect</span><span class="op">(</span><span class="st">"localhost"</span>, <span class="fl">8080L</span><span class="op">)</span>   <span class="co"># port supplied and valid — fine</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="rejecting-empty-strings">Rejecting empty strings<a class="anchor" aria-label="anchor" href="#rejecting-empty-strings"></a>
-</h3>
-<p><code><a href="reference/scalar-assertions.html">assert_scalar_character()</a></code> accepts any single string, including <code>""</code>. For arguments such as identifiers or codes where an empty value is never valid, pass <code>non_empty = TRUE</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">[</span><span class="va">assert_scalar_character</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="reference/scalar-assertions.html">assert_scalar_character</a></span><span class="op">(</span><span class="st">"BTC/USDT"</span>, non_empty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># fine</span></span>
-<span><span class="fu"><a href="reference/scalar-assertions.html">assert_scalar_character</a></span><span class="op">(</span><span class="st">""</span>, non_empty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>          <span class="co"># empty string is rejected</span></span>
-<span><span class="co">#&gt; Error:</span></span>
-<span><span class="co">#&gt; ! `""` must be a non-empty single character value.</span></span></code></pre></div>
-</div>
-<div class="section level3">
 <h3 id="stacking-checks-with-the-pipe">Stacking checks with the pipe<a class="anchor" aria-label="anchor" href="#stacking-checks-with-the-pipe"></a>
 </h3>
 <p>Because every assertion returns its input invisibly, checks compose naturally with the native pipe <code>|&gt;</code>. Each one validates the value and hands it to the next, so a chain reads like a list of guarantees about the same object:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">[</span><span class="va">assert_data_frame</span>, <span class="va">assert_has_columns</span>, <span class="va">assert_column_types</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">people</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ada"</span>, <span class="st">"Alan"</span><span class="op">)</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">36L</span>, <span class="fl">41L</span><span class="op">)</span><span class="op">)</span></span>
@@ -166,7 +154,7 @@
 <tr>
 <td>Scalars</td>
 <td>
-<code><a href="reference/scalar-assertions.html">assert_scalar_character()</a></code>, <code><a href="reference/scalar-assertions.html">assert_scalar_integer()</a></code>, <code><a href="reference/assert_scalar_count.html">assert_scalar_count()</a></code>
+<code><a href="reference/scalar-assertions.html">assert_scalar_character()</a></code>, <code><a href="reference/assert_scalar_count.html">assert_scalar_count()</a></code>, <code><a href="reference/assert_scalar_positive.html">assert_scalar_positive()</a></code>
 </td>
 </tr>
 <tr>
@@ -196,7 +184,7 @@
 <tr>
 <td>Values</td>
 <td>
-<code><a href="reference/assert_no_missing_values.html">assert_no_missing_values()</a></code>, <code><a href="reference/sign-assertions.html">assert_all_positive()</a></code>, <code><a href="reference/assert_all_within_range.html">assert_all_within_range()</a></code>, <code><a href="reference/assert_values_in_set.html">assert_values_in_set()</a></code>
+<code><a href="reference/assert_no_missing_values.html">assert_no_missing_values()</a></code>, <code><a href="reference/sign-assertions.html">assert_all_positive()</a></code>, <code><a href="reference/assert_values_in_set.html">assert_values_in_set()</a></code>, <code><a href="reference/assert_one_of.html">assert_one_of()</a></code>
 </td>
 </tr>
 <tr>

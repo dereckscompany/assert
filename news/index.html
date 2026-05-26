@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,9 +28,17 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.3/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.4/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.4" id="assert-004">assert 0.0.4<a class="anchor" aria-label="anchor" href="#assert-004"></a></h2>
+<ul><li>Removed the <code>non_empty</code> argument from <code><a href="../reference/scalar-assertions.html">assert_scalar_character()</a></code> (added in 0.0.3). Compose with <code><a href="../reference/assert_no_empty_strings.html">assert_no_empty_strings()</a></code> to reject <code>""</code>, keeping the one-condition-per-function design.</li>
+<li>New <code><a href="../reference/assert_scalar_positive.html">assert_scalar_positive()</a></code>: a single, finite, positive number — the positive-and-finite counterpart of <code><a href="../reference/assert_scalar_count.html">assert_scalar_count()</a></code>.</li>
+<li>New <code><a href="../reference/assert_one_of.html">assert_one_of()</a></code>: a single value belonging to a set, the scalar counterpart of <code><a href="../reference/assert_values_in_set.html">assert_values_in_set()</a></code>.</li>
+<li>
+<code><a href="../reference/assert_scalar_count.html">assert_scalar_count()</a></code> now rejects non-finite values (<code>Inf</code> previously passed).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.3" id="assert-003">assert 0.0.3<a class="anchor" aria-label="anchor" href="#assert-003"></a></h2>
 <ul><li>

@@ -15,7 +15,6 @@ calling function.
 assert_scalar_character(
   x,
   null_ok = FALSE,
-  non_empty = FALSE,
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
 )
@@ -68,11 +67,6 @@ assert_scalar_complex(
   error. Use this for optional arguments that default to `NULL`.
   Defaults to `FALSE`, so `NULL` is rejected unless you opt in.
 
-- non_empty:
-
-  Single logical, used by `assert_scalar_character()` only. If `TRUE`,
-  the empty string `""` is rejected as well. Defaults to `FALSE`.
-
 - arg:
 
   Name used to refer to `x` in error messages. Defaults to the name of
@@ -87,12 +81,6 @@ assert_scalar_complex(
 
 The input `x`, invisibly.
 
-## Details
-
-`assert_scalar_character()` additionally accepts `non_empty`: set it to
-`TRUE` to reject the empty string `""` as well, for arguments such as
-identifiers or codes where an empty value is never valid.
-
 ## Examples
 
 ``` r
@@ -102,7 +90,4 @@ assert_scalar_logical(TRUE)
 
 # Optional argument that defaults to NULL:
 assert_scalar_numeric(NULL, null_ok = TRUE)
-
-# Reject empty strings for identifiers and codes:
-assert_scalar_character("BTC/USDT", non_empty = TRUE)
 ```

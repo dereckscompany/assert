@@ -42,11 +42,13 @@
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_null.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_number_of_columns.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_number_of_rows.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_one_of.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_range.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_same_length.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_count.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_date.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_positive.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_set_equal.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_sorted.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_true.html</loc></url>

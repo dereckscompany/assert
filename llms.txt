@@ -89,23 +89,6 @@ connect("localhost")          # port omitted — fine
 connect("localhost", 8080L)   # port supplied and valid — fine
 ```
 
-### Rejecting empty strings
-
-[`assert_scalar_character()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
-accepts any single string, including `""`. For arguments such as
-identifiers or codes where an empty value is never valid, pass
-`non_empty = TRUE`:
-
-``` r
-
-box::use(assert[assert_scalar_character])
-
-assert_scalar_character("BTC/USDT", non_empty = TRUE)  # fine
-assert_scalar_character("", non_empty = TRUE)          # empty string is rejected
-#> Error:
-#> ! `""` must be a non-empty single character value.
-```
-
 ### Stacking checks with the pipe
 
 Because every assertion returns its input invisibly, checks compose
@@ -130,12 +113,12 @@ people |>
 
 | Group | Examples |
 |----|----|
-| Scalars | [`assert_scalar_character()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md), [`assert_scalar_integer()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md), [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md) |
+| Scalars | [`assert_scalar_character()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md), [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md), [`assert_scalar_positive()`](https://dereckscompany.github.io/assert/reference/assert_scalar_positive.md) |
 | Vectors | [`assert_character()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md), [`assert_numeric()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md), [`assert_list()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md), [`assert_list_of()`](https://dereckscompany.github.io/assert/reference/assert_list_of.md) |
 | Dates & times | [`assert_date()`](https://dereckscompany.github.io/assert/reference/assert_date.md), [`assert_datetime()`](https://dereckscompany.github.io/assert/reference/assert_datetime.md), [`assert_scalar_datetime()`](https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.md) |
 | Ranges | [`assert_range()`](https://dereckscompany.github.io/assert/reference/assert_range.md), [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md) |
 | Length & names | [`assert_length()`](https://dereckscompany.github.io/assert/reference/assert_length.md), [`assert_not_empty()`](https://dereckscompany.github.io/assert/reference/assert_not_empty.md), [`assert_named()`](https://dereckscompany.github.io/assert/reference/assert_named.md), [`assert_has_names()`](https://dereckscompany.github.io/assert/reference/assert_has_names.md) |
-| Values | [`assert_no_missing_values()`](https://dereckscompany.github.io/assert/reference/assert_no_missing_values.md), [`assert_all_positive()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md), [`assert_all_within_range()`](https://dereckscompany.github.io/assert/reference/assert_all_within_range.md), [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md) |
+| Values | [`assert_no_missing_values()`](https://dereckscompany.github.io/assert/reference/assert_no_missing_values.md), [`assert_all_positive()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md), [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md), [`assert_one_of()`](https://dereckscompany.github.io/assert/reference/assert_one_of.md) |
 | Strings | [`assert_matches_pattern()`](https://dereckscompany.github.io/assert/reference/assert_matches_pattern.md), [`assert_no_empty_strings()`](https://dereckscompany.github.io/assert/reference/assert_no_empty_strings.md), [`assert_minimum_characters()`](https://dereckscompany.github.io/assert/reference/assert_minimum_characters.md) |
 | Comparisons | [`assert_all_greater_than()`](https://dereckscompany.github.io/assert/reference/comparison-assertions.md), [`assert_all_less_than_or_equal()`](https://dereckscompany.github.io/assert/reference/comparison-assertions.md), [`assert_sorted()`](https://dereckscompany.github.io/assert/reference/assert_sorted.md), [`assert_same_length()`](https://dereckscompany.github.io/assert/reference/assert_same_length.md) |
 | Sets | [`assert_set_equal()`](https://dereckscompany.github.io/assert/reference/assert_set_equal.md), [`assert_disjoint()`](https://dereckscompany.github.io/assert/reference/assert_disjoint.md) |
@@ -237,6 +220,8 @@ If you use `assert` in your work, please cite it:
   : Assert that a data frame has an exact number of columns
 - [`assert_number_of_rows()`](https://dereckscompany.github.io/assert/reference/assert_number_of_rows.md)
   : Assert that a data frame has an exact number of rows
+- [`assert_one_of()`](https://dereckscompany.github.io/assert/reference/assert_one_of.md)
+  : Assert that a single value belongs to a set
 - [`assert_range()`](https://dereckscompany.github.io/assert/reference/assert_range.md)
   : Assert that two bounds form a range
 - [`assert_same_length()`](https://dereckscompany.github.io/assert/reference/assert_same_length.md)
@@ -247,6 +232,8 @@ If you use `assert` in your work, please cite it:
   : Assert that an object is a single date
 - [`assert_scalar_datetime()`](https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.md)
   : Assert that an object is a single date-time
+- [`assert_scalar_positive()`](https://dereckscompany.github.io/assert/reference/assert_scalar_positive.md)
+  : Assert that an object is a single positive number
 - [`assert_set_equal()`](https://dereckscompany.github.io/assert/reference/assert_set_equal.md)
   : Assert that two objects hold the same set of values
 - [`assert_sorted()`](https://dereckscompany.github.io/assert/reference/assert_sorted.md)

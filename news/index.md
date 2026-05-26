@@ -1,5 +1,24 @@
 # Changelog
 
+## assert 0.0.4
+
+- Removed the `non_empty` argument from
+  [`assert_scalar_character()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
+  (added in 0.0.3). Compose with
+  [`assert_no_empty_strings()`](https://dereckscompany.github.io/assert/reference/assert_no_empty_strings.md)
+  to reject `""`, keeping the one-condition-per-function design.
+- New
+  [`assert_scalar_positive()`](https://dereckscompany.github.io/assert/reference/assert_scalar_positive.md):
+  a single, finite, positive number — the positive-and-finite
+  counterpart of
+  [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md).
+- New
+  [`assert_one_of()`](https://dereckscompany.github.io/assert/reference/assert_one_of.md):
+  a single value belonging to a set, the scalar counterpart of
+  [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md).
+- [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md)
+  now rejects non-finite values (`Inf` previously passed).
+
 ## assert 0.0.3
 
 - [`assert_scalar_character()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
