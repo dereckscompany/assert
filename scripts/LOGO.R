@@ -88,7 +88,7 @@ build_base_layer <- function() {
   ring_radii <- c(0.52, 0.43, 0.34, 0.25, 0.16)
   rings <- lapply(ring_radii, function(r) {
     hv <- hex_vertices(0, 0, r)
-    geom_path(data = rbind(hv, hv[1, ]), aes(x, y), colour = col_gate_ring, linewidth = 1.6)
+    geom_path(data = rbind(hv, hv[1, ]), aes(x, y), colour = col_gate_ring, linewidth = 4)
   })
   # The innermost hexagon is solid.
   hex_centre <- hex_vertices(0, 0, 0.08)
