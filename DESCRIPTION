@@ -1,6 +1,6 @@
 Package: assert
 Title: Readable Assertions for Validating Function Inputs and Outputs
-Version: 0.0.0.9000
+Version: 0.0.1
 URL: https://dereckscompany.github.io/assert,
     https://github.com/dereckscompany/assert
 BugReports: https://github.com/dereckscompany/assert/issues
