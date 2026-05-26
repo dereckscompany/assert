@@ -17,7 +17,7 @@ against the calling function."><meta property="og:image" content="https://dereck
 
     <a class="navbar-brand me-2" href="../index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ against the calling function."><meta property="og:image" content="https://dereck
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Assert that an object is a single value of a given type</h1>
-      <small class="dont-index">Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.2/R/core.R" class="external-link"><code>R/core.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.3/R/core.R" class="external-link"><code>R/core.R</code></a></small>
       <div class="d-none name"><code>scalar-assertions.Rd</code></div>
     </div>
 
@@ -56,6 +56,7 @@ against the calling function.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">assert_scalar_character</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  null_ok <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  non_empty <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  arg <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/caller_arg.html" class="external-link">caller_arg</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  call <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -110,6 +111,11 @@ without error. Use this for optional arguments that default to <code>NULL</code>
 Defaults to <code>FALSE</code>, so <code>NULL</code> is rejected unless you opt in.</p></dd>
 
 
+<dt id="arg-non-empty">non_empty<a class="anchor" aria-label="anchor" href="#arg-non-empty"></a></dt>
+<dd><p>Single logical, used by <code>assert_scalar_character()</code> only. If
+<code>TRUE</code>, the empty string <code>""</code> is rejected as well. Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt id="arg-arg">arg<a class="anchor" aria-label="anchor" href="#arg-arg"></a></dt>
 <dd><p>Name used to refer to <code>x</code> in error messages. Defaults to the
 name of the expression passed as <code>x</code>.</p></dd>
@@ -124,6 +130,12 @@ calling function, so errors point at the user's code.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>The input <code>x</code>, invisibly.</p>
     </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>assert_scalar_character()</code> additionally accepts <code>non_empty</code>: set it to
+<code>TRUE</code> to reject the empty string <code>""</code> as well, for arguments such as
+identifiers or codes where an empty value is never valid.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -133,6 +145,9 @@ calling function, so errors point at the user's code.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Optional argument that defaults to NULL:</span></span></span>
 <span class="r-in"><span><span class="fu">assert_scalar_numeric</span><span class="op">(</span><span class="cn">NULL</span>, null_ok <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Reject empty strings for identifiers and codes:</span></span></span>
+<span class="r-in"><span><span class="fu">assert_scalar_character</span><span class="op">(</span><span class="st">"BTC/USDT"</span>, non_empty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

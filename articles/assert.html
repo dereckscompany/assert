@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Getting started with assert</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.2/vignettes/assert.Rmd" class="external-link"><code>vignettes/assert.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.3/vignettes/assert.Rmd" class="external-link"><code>vignettes/assert.Rmd</code></a></small>
       <div class="d-none name"><code>assert.Rmd</code></div>
     </div>
 
@@ -152,10 +152,30 @@ supplied.</p>
 <span><span class="co">#&gt; [1] "Ms Lovelace"</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="rejecting-empty-strings">Rejecting empty strings<a class="anchor" aria-label="anchor" href="#rejecting-empty-strings"></a>
+</h2>
+<p>A scalar-character check accepts any single string, including the
+empty string <code>""</code>. When an empty value is never valid —
+identifiers, codes, keys — add <code>non_empty = TRUE</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">[</span><span class="va">assert_scalar_character</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tag_order</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">order_id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/scalar-assertions.html">assert_scalar_character</a></span><span class="op">(</span><span class="va">order_id</span>, non_empty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">order_id</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">tag_order</span><span class="op">(</span><span class="st">"ord-42"</span><span class="op">)</span>  <span class="co"># fine</span></span>
+<span><span class="co">#&gt; [1] "ord-42"</span></span>
+<span><span class="fu">tag_order</span><span class="op">(</span><span class="st">""</span><span class="op">)</span>        <span class="co"># empty string is rejected</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `tag_order()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> `order_id` must be a non-empty single character value.</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="constraining-values">Constraining values<a class="anchor" aria-label="anchor" href="#constraining-values"></a>
 </h2>
 <p>Beyond types, you can assert the <em>content</em> of a vector.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">assert</span><span class="op">[</span></span>
 <span>    <span class="va">assert_all_positive</span>,</span>
@@ -175,7 +195,7 @@ supplied.</p>
 <p>When several optional arguments interact, the argument-group helpers
 express the rule directly. They treat <code>NULL</code> as “not
 supplied”.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">[</span><span class="va">assert_exactly_one</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">open_file</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">path</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">connection</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
@@ -199,7 +219,7 @@ the value and passes it to the next, so a chain reads top to bottom as a
 list of guarantees about the same object. This works for any object, and
 is especially handy for data frames, where you often want to confirm
 structure and column types in one place.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">assert</span><span class="op">[</span></span>
 <span>    <span class="va">assert_data_frame</span>,</span>
@@ -227,7 +247,7 @@ structure and column types in one place.</p>
 </h2>
 <p>For any condition without a dedicated assertion, use
 <code><a href="../reference/assert_true.html">assert_true()</a></code> with a custom message.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">[</span><span class="va">assert_scalar_numeric</span>, <span class="va">assert_true</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">set_threshold</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>

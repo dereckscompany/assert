@@ -103,6 +103,28 @@ greet("Lovelace", title = "Ms")
 #> [1] "Ms Lovelace"
 ```
 
+## Rejecting empty strings
+
+A scalar-character check accepts any single string, including the empty
+string `""`. When an empty value is never valid — identifiers, codes,
+keys — add `non_empty = TRUE`.
+
+``` r
+
+box::use(assert[assert_scalar_character])
+
+tag_order <- function(order_id) {
+  assert_scalar_character(order_id, non_empty = TRUE)
+  return(order_id)
+}
+
+tag_order("ord-42")  # fine
+#> [1] "ord-42"
+tag_order("")        # empty string is rejected
+#> Error in `tag_order()`:
+#> ! `order_id` must be a non-empty single character value.
+```
+
 ## Constraining values
 
 Beyond types, you can assert the *content* of a vector.

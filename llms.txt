@@ -89,6 +89,23 @@ connect("localhost")          # port omitted — fine
 connect("localhost", 8080L)   # port supplied and valid — fine
 ```
 
+### Rejecting empty strings
+
+[`assert_scalar_character()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
+accepts any single string, including `""`. For arguments such as
+identifiers or codes where an empty value is never valid, pass
+`non_empty = TRUE`:
+
+``` r
+
+box::use(assert[assert_scalar_character])
+
+assert_scalar_character("BTC/USDT", non_empty = TRUE)  # fine
+assert_scalar_character("", non_empty = TRUE)          # empty string is rejected
+#> Error:
+#> ! `""` must be a non-empty single character value.
+```
+
 ### Stacking checks with the pipe
 
 Because every assertion returns its input invisibly, checks compose
