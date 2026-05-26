@@ -25,7 +25,7 @@ library(magick)
 col_hex_fill <- "#0E1320" # deep slate field
 col_hex_edge <- "#2BD46A" # green hex border
 col_gate_ring <- "#1E2A3A" # subtle concentric "gate" rings
-col_central <- "#243650" # central solid hexagon (lightest slate)
+col_central <- "#8FB0A0" # central solid hexagon (lightest greyish-green)
 col_check <- "#2BD46A" # the checkmark — valid green
 col_check_core <- "#9CF7C2" # bright inner highlight of the check
 col_glow <- "#2BD46A" # glow source colour
@@ -84,13 +84,24 @@ build_base_layer <- function() {
   hex_outer <- hex_vertices(0, 0, 0.62)
   check <- check_path()
 
-  # Concentric hexagon outlines stepping inward from the border.
+  # Concentric hexagon outlines stepping inward from the border, tinted in a
+  # greyish-green gradient (darker outside, lighter toward the centre). Drawn as
+  # closed polygons with mitred corners so the rings meet cleanly at every
+  # vertex (an open path leaves a notch at the top).
   ring_radii <- c(0.52, 0.43, 0.34, 0.25, 0.16)
-  rings <- lapply(ring_radii, function(r) {
-    hv <- hex_vertices(0, 0, r)
-    geom_path(data = rbind(hv, hv[1, ]), aes(x, y), colour = col_gate_ring, linewidth = 4)
+  ring_palette <- grDevices::colorRampPalette(c("#2E3A34", "#7E9C8A"))(length(ring_radii))
+  rings <- lapply(seq_along(ring_radii), function(i) {
+    hv <- hex_vertices(0, 0, ring_radii[i])
+    geom_polygon(
+      data = hv,
+      aes(x, y),
+      fill = NA,
+      colour = ring_palette[i],
+      linewidth = 4,
+      linejoin = "mitre"
+    )
   })
-  # The innermost hexagon is solid.
+  # The innermost hexagon is solid, continuing the gradient.
   hex_centre <- hex_vertices(0, 0, 0.08)
 
   ggplot() +
