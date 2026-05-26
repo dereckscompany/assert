@@ -87,17 +87,6 @@ connect("localhost")          # port omitted — fine
 connect("localhost", 8080L)   # port supplied and valid — fine
 ```
 
-### Rejecting empty strings
-
-`assert_scalar_character()` accepts any single string, including `""`. For arguments such as identifiers or codes where an empty value is never valid, pass `non_empty = TRUE`:
-
-```{r non-empty, error=TRUE}
-box::use(assert[assert_scalar_character])
-
-assert_scalar_character("BTC/USDT", non_empty = TRUE)  # fine
-assert_scalar_character("", non_empty = TRUE)          # empty string is rejected
-```
-
 ### Stacking checks with the pipe
 
 Because every assertion returns its input invisibly, checks compose naturally with the native pipe `|>`. Each one validates the value and hands it to the next, so a chain reads like a list of guarantees about the same object:
@@ -118,12 +107,12 @@ people |>
 
 | Group | Examples |
 |-------|----------|
-| Scalars | `assert_scalar_character()`, `assert_scalar_integer()`, `assert_scalar_count()` |
+| Scalars | `assert_scalar_character()`, `assert_scalar_count()`, `assert_scalar_positive()` |
 | Vectors | `assert_character()`, `assert_numeric()`, `assert_list()`, `assert_list_of()` |
 | Dates & times | `assert_date()`, `assert_datetime()`, `assert_scalar_datetime()` |
 | Ranges | `assert_range()`, `assert_between()` |
 | Length & names | `assert_length()`, `assert_not_empty()`, `assert_named()`, `assert_has_names()` |
-| Values | `assert_no_missing_values()`, `assert_all_positive()`, `assert_all_within_range()`, `assert_values_in_set()` |
+| Values | `assert_no_missing_values()`, `assert_all_positive()`, `assert_values_in_set()`, `assert_one_of()` |
 | Strings | `assert_matches_pattern()`, `assert_no_empty_strings()`, `assert_minimum_characters()` |
 | Comparisons | `assert_all_greater_than()`, `assert_all_less_than_or_equal()`, `assert_sorted()`, `assert_same_length()` |
 | Sets | `assert_set_equal()`, `assert_disjoint()` |

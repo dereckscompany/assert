@@ -235,6 +235,38 @@ assert_values_in_set <- function(
   return(invisible(x))
 }
 
+#' Assert that a single value belongs to a set
+#'
+#' Checks that `x` is a single value (length 1) equal to one of `allowed_values`.
+#' The scalar counterpart of [assert_values_in_set()], which checks every element
+#' of a vector.
+#'
+#' @inheritParams scalar-assertions
+#' @param allowed_values Vector of permitted values.
+#'
+#' @return The input `x`, invisibly.
+#'
+#' @examples
+#' assert_one_of("b", allowed_values = c("a", "b", "c"))
+#'
+#' @export
+assert_one_of <- function(
+  x,
+  allowed_values,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  if (length(x) != 1L || !(x %in% allowed_values)) {
+    formatted <- paste(allowed_values, collapse = ", ")
+    abort_assertion(arg, paste0("be one of: ", formatted), call)
+  }
+  return(invisible(x))
+}
+
 #' Assert that strings match a pattern
 #'
 #' Checks that `x` is a character vector and every element matches the regular
