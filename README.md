@@ -74,7 +74,12 @@ connect("localhost")          # port omitted — fine
 connect("localhost", 8080L)   # port supplied and valid — fine
 ```
 
-### Checking data frames
+### Stacking checks with the pipe
+
+Because every assertion returns its input invisibly, checks compose
+naturally with the native pipe `|>`. Each one validates the value and
+hands it to the next, so a chain reads like a list of guarantees about
+the same object:
 
 ``` r
 people <- data.frame(name = c("Ada", "Alan"), age = c(36L, 41L))

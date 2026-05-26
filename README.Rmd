@@ -18,20 +18,15 @@ knitr::opts_chunk$set(
 
 # assert <img src="man/figures/logo.png" alt="assert logo" align="right" height="139" />
 
-`assert` is a lightweight toolkit of assertion helpers for checking the inputs
-and outputs of your functions. Drop a few assertions at the top of a function
-and get a clear, immediate error when an argument is the wrong type, shape, or
-value.
+`assert` is a lightweight toolkit of assertion helpers for checking the inputs and outputs of your functions. Drop a few assertions at the top of a function and get a clear, immediate error when an argument is the wrong type, shape, or value.
 
 ## Why
 
 Every assertion follows the same simple contract:
 
 - **Checks one thing.** Each function tests a single, explicit condition.
-- **Returns its input invisibly.** Checks can be stacked, one per line, reading
-  like a checklist of preconditions.
-- **Fails loudly and clearly.** On failure it throws an error that names the
-  offending argument and points at *your* function, not at `assert`'s internals.
+- **Returns its input invisibly.** Checks can be stacked, one per line, reading like a checklist of preconditions.
+- **Fails loudly and clearly.** On failure it throws an error that names the offending argument and points at *your* function, not at `assert`'s internals.
 - **Explicit, readable names.** `assert_scalar_character()`, not `assert_chr()`.
 
 ## Installation
@@ -43,8 +38,7 @@ renv::install("dereckscompany/assert")
 
 ## Usage
 
-Write assertions at the top of a function. If one fails, it throws an error and
-the function stops immediately.
+Write assertions at the top of a function. If one fails, it throws an error and the function stops immediately.
 
 ```{r usage}
 box::use(assert[...])
@@ -69,8 +63,7 @@ average_price(c(10, -5, 30), c(1, 1, 2))
 
 ### Optional arguments
 
-Arguments that default to `NULL` are optional. Pass `null_ok = TRUE` to let the
-assertion accept `NULL` while still checking any value that is supplied:
+Arguments that default to `NULL` are optional. Pass `null_ok = TRUE` to let the assertion accept `NULL` while still checking any value that is supplied:
 
 ```{r optional}
 connect <- function(host, port = NULL) {
@@ -83,7 +76,9 @@ connect("localhost")          # port omitted — fine
 connect("localhost", 8080L)   # port supplied and valid — fine
 ```
 
-### Checking data frames
+### Stacking checks with the pipe
+
+Because every assertion returns its input invisibly, checks compose naturally with the native pipe `|>`. Each one validates the value and hands it to the next, so a chain reads like a list of guarantees about the same object:
 
 ```{r data-frame}
 people <- data.frame(name = c("Ada", "Alan"), age = c(36L, 41L))

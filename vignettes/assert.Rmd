@@ -17,9 +17,7 @@ box::use(assert[...])
 
 ## The idea
 
-`assert` gives you small, explicit helpers for checking the inputs and outputs
-of your functions. You place assertions at the top of a function; if one fails,
-it throws an error and the function stops before any real work happens.
+`assert` gives you small, explicit helpers for checking the inputs and outputs of your functions. You place assertions at the top of a function; if one fails, it throws an error and the function stops before any real work happens.
 
 Every assertion shares the same contract:
 
@@ -41,9 +39,7 @@ scale_values <- function(values, factor) {
 scale_values(c(1, 2, 3), 10)
 ```
 
-Read top to bottom, the assertions describe the preconditions: "`values` is
-numeric, has no missing values; `factor` is a single number." When something is
-wrong, the message names the argument and the calling function:
+Read top to bottom, the assertions describe the preconditions: "`values` is numeric, has no missing values; `factor` is a single number." When something is wrong, the message names the argument and the calling function:
 
 ```{r guard-fail, error=TRUE}
 scale_values(c(1, NA, 3), 10)
@@ -55,10 +51,7 @@ scale_values(c(1, 2, 3), c(10, 20))
 
 ## Scalars reject `NA`
 
-A `assert_scalar_*` check requires a single, non-`NA` value, because a lone
-value that is secretly `NA` is almost always a mistake. The plain vector checks
-(`assert_numeric()`, `assert_character()`, ...) still allow `NA`, since a
-missing value among many is often legitimate.
+A `assert_scalar_*` check requires a single, non-`NA` value, because a lone value that is secretly `NA` is almost always a mistake. The plain vector checks (`assert_numeric()`, `assert_character()`, ...) still allow `NA`, since a missing value among many is often legitimate.
 
 ```{r scalar-na, error=TRUE}
 assert_scalar_numeric(NA)
@@ -66,9 +59,7 @@ assert_scalar_numeric(NA)
 
 ## Optional arguments with `null_ok`
 
-Arguments that default to `NULL` are optional. By default an assertion rejects
-`NULL`; pass `null_ok = TRUE` to allow it while still validating any value that
-*is* supplied.
+Arguments that default to `NULL` are optional. By default an assertion rejects `NULL`; pass `null_ok = TRUE` to allow it while still validating any value that *is* supplied.
 
 ```{r optional}
 greet <- function(name, title = NULL) {
@@ -95,8 +86,7 @@ invisible(NULL)
 
 ## Relationships between arguments
 
-When several optional arguments interact, the argument-group helpers express
-the rule directly. They treat `NULL` as "not supplied".
+When several optional arguments interact, the argument-group helpers express the rule directly. They treat `NULL` as "not supplied".
 
 ```{r arguments, error=TRUE}
 open_file <- function(path = NULL, connection = NULL) {
@@ -108,9 +98,9 @@ open_file(path = "data.csv")
 open_file()  # neither supplied
 ```
 
-## Checking data frames
+## Stacking checks with the pipe
 
-Data frame helpers check structure and column types in one place.
+Because every assertion returns its input invisibly, checks compose naturally with the native pipe `|>`. Each one validates the value and passes it to the next, so a chain reads top to bottom as a list of guarantees about the same object. This works for any object, and is especially handy for data frames, where you often want to confirm structure and column types in one place.
 
 ```{r data-frame}
 trades <- data.frame(
@@ -129,8 +119,7 @@ trades |>
 
 ## The escape hatch
 
-For any condition without a dedicated assertion, use `assert_true()` with a
-custom message.
+For any condition without a dedicated assertion, use `assert_true()` with a custom message.
 
 ```{r escape, error=TRUE}
 set_threshold <- function(x) {
