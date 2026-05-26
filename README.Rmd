@@ -31,8 +31,10 @@ Every assertion follows the same simple contract:
 
 ## Installation
 
+`assert` is not on CRAN; install it from GitHub with renv:
+
 ```r
-# install.packages("renv")
+# first install renv itself if you don't have it: install.packages("renv")
 renv::install("dereckscompany/assert")
 ```
 
