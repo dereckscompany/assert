@@ -24,7 +24,8 @@ library(magick)
 
 col_hex_fill <- "#0E1320" # deep slate field
 col_hex_edge <- "#2BD46A" # green hex border
-col_gate_ring <- "#1E2A3A" # subtle inner "gate" ring
+col_gate_ring <- "#1E2A3A" # subtle concentric "gate" rings
+col_central <- "#243650" # central solid hexagon (lightest slate)
 col_check <- "#2BD46A" # the checkmark — valid green
 col_check_core <- "#9CF7C2" # bright inner highlight of the check
 col_glow <- "#2BD46A" # glow source colour
@@ -81,19 +82,24 @@ render_layer <- function(p, width = 3000, height = 3480) {
 # Base: hex field, border, inner gate ring, the checkmark, and the wordmark.
 build_base_layer <- function() {
   hex_outer <- hex_vertices(0, 0, 0.62)
-  hex_inner <- hex_vertices(0, 0, 0.50)
   check <- check_path()
+
+  # Concentric hexagon outlines stepping inward from the border.
+  ring_radii <- c(0.52, 0.43, 0.34, 0.25, 0.16)
+  rings <- lapply(ring_radii, function(r) {
+    hv <- hex_vertices(0, 0, r)
+    geom_path(data = rbind(hv, hv[1, ]), aes(x, y), colour = col_gate_ring, linewidth = 1.6)
+  })
+  # The innermost hexagon is solid.
+  hex_centre <- hex_vertices(0, 0, 0.08)
 
   ggplot() +
     # Hex field
     geom_polygon(data = hex_outer, aes(x, y), fill = col_hex_fill, colour = col_hex_edge, linewidth = 7) +
-    # Inner "gate" ring
-    geom_path(
-      data = rbind(hex_inner, hex_inner[1, ]),
-      aes(x, y),
-      colour = col_gate_ring,
-      linewidth = 2
-    ) +
+    # Concentric "gate" rings
+    rings +
+    # Central solid hexagon
+    geom_polygon(data = hex_centre, aes(x, y), fill = col_central, colour = NA) +
     # Checkmark — outer stroke
     geom_path(
       data = check,
