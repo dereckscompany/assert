@@ -41,7 +41,7 @@ average_price <- function(prices, weights) {
   assert_all_positive(prices)
   assert_same_length(prices, weights)
 
-  sum(prices * weights) / sum(weights)
+  return(sum(prices * weights) / sum(weights))
 }
 
 average_price(c(10, 20, 30), c(1, 1, 2))
@@ -67,7 +67,7 @@ supplied:
 connect <- function(host, port = NULL) {
   assert_scalar_character(host)
   assert_scalar_integer(port, null_ok = TRUE)
-  invisible(TRUE)
+  return(invisible(TRUE))
 }
 
 connect("localhost")          # port omitted — fine
@@ -110,4 +110,11 @@ See `vignette("assert")` for a tour.
 
 ## License
 
-MIT
+MIT © Dereck Mezquita. See [LICENSE](LICENSE) for details.
+
+## Citation
+
+If you use `assert` in your work, please cite it:
+
+> Mezquita, D. (2026). assert.
+> <https://github.com/dereckscompany/assert>. ORCID: 0000-0002-9307-6762

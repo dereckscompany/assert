@@ -16,5 +16,4 @@
 ^\.lintr$
 ^air\.toml$
 ^README\.Rmd$
-^LICENSE\.md$
 ^README\.html$
