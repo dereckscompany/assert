@@ -10,6 +10,8 @@
   : Assert that all values fall within a range
 - [`assert_at_least_one()`](https://dereckscompany.github.io/assert/reference/assert_at_least_one.md)
   : Assert that at least one of several arguments is supplied
+- [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md)
+  : Assert that values fall between two bounds
 - [`assert_class()`](https://dereckscompany.github.io/assert/reference/assert_class.md)
   : Assert that an object inherits from a class
 - [`assert_column_names()`](https://dereckscompany.github.io/assert/reference/assert_column_names.md)
@@ -22,6 +24,10 @@
   : Assert that an object is a data frame
 - [`assert_data_table()`](https://dereckscompany.github.io/assert/reference/assert_data_table.md)
   : Assert that an object is a data table
+- [`assert_date()`](https://dereckscompany.github.io/assert/reference/assert_date.md)
+  : Assert that an object is a date
+- [`assert_datetime()`](https://dereckscompany.github.io/assert/reference/assert_datetime.md)
+  : Assert that an object is a date-time
 - [`assert_disjoint()`](https://dereckscompany.github.io/assert/reference/assert_disjoint.md)
   : Assert that two objects share no values
 - [`assert_exactly_one()`](https://dereckscompany.github.io/assert/reference/assert_exactly_one.md)
@@ -69,10 +75,16 @@
   : Assert that a data frame has an exact number of columns
 - [`assert_number_of_rows()`](https://dereckscompany.github.io/assert/reference/assert_number_of_rows.md)
   : Assert that a data frame has an exact number of rows
+- [`assert_range()`](https://dereckscompany.github.io/assert/reference/assert_range.md)
+  : Assert that two bounds form a range
 - [`assert_same_length()`](https://dereckscompany.github.io/assert/reference/assert_same_length.md)
   : Assert that objects share the same length
 - [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md)
   : Assert that an object is a single whole number used as a count
+- [`assert_scalar_date()`](https://dereckscompany.github.io/assert/reference/assert_scalar_date.md)
+  : Assert that an object is a single date
+- [`assert_scalar_datetime()`](https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.md)
+  : Assert that an object is a single date-time
 - [`assert_set_equal()`](https://dereckscompany.github.io/assert/reference/assert_set_equal.md)
   : Assert that two objects hold the same set of values
 - [`assert_sorted()`](https://dereckscompany.github.io/assert/reference/assert_sorted.md)

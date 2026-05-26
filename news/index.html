@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,9 +28,17 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.2" id="assert-002">assert 0.0.2<a class="anchor" aria-label="anchor" href="#assert-002"></a></h2>
+<p>New assertions for dates, date-times, and ranges.</p>
+<ul><li>
+<strong>Date and date-time types</strong>: <code><a href="../reference/assert_date.html">assert_date()</a></code>, <code><a href="../reference/assert_datetime.html">assert_datetime()</a></code>, <code><a href="../reference/assert_scalar_date.html">assert_scalar_date()</a></code>, <code><a href="../reference/assert_scalar_datetime.html">assert_scalar_datetime()</a></code>. The scalar forms require length 1 and reject <code>NA</code>. The date-time checks accept any <code>POSIXct</code>, including values created with lubridate.</li>
+<li>
+<strong>Ranges</strong> (work on any comparable type — numbers, dates, date-times, strings): <code>assert_range(lower, upper)</code> checks that two bounds form a sensible range (<code>lower &lt;= upper</code>), treating a <code>NULL</code> bound as open-ended; <code>assert_between(x, lower, upper)</code> checks that values fall within bounds, with either bound optional.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.1" id="assert-001">assert 0.0.1<a class="anchor" aria-label="anchor" href="#assert-001"></a></h2>
 <p>First release of <strong>assert</strong>, a lightweight toolkit of readable assertion helpers for validating function inputs and outputs.</p>

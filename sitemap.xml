@@ -10,12 +10,15 @@
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_all_whole_numbers.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_all_within_range.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_at_least_one.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_between.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_class.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_column_names.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_column_types.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_columns_are_type.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_data_frame.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_data_table.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_date.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_datetime.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_disjoint.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_exactly_one.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_false.html</loc></url>
@@ -39,8 +42,11 @@
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_null.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_number_of_columns.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_number_of_rows.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_range.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_same_length.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_count.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_date.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_set_equal.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_sorted.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_true.html</loc></url>

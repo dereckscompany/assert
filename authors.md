@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/dereckscompany/assert/blob/v0.0.1/inst/CITATION)
+[`inst/CITATION`](https://github.com/dereckscompany/assert/blob/v0.0.2/inst/CITATION)
 
 Mezquita, D. (2026). assert: Assert. R package version 0.0.0.9000.
 Available at https://github.com/dereckscompany/assert

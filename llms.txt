@@ -115,6 +115,8 @@ people |>
 |----|----|
 | Scalars | [`assert_scalar_character()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md), [`assert_scalar_integer()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md), [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md) |
 | Vectors | [`assert_character()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md), [`assert_numeric()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md), [`assert_list()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md), [`assert_list_of()`](https://dereckscompany.github.io/assert/reference/assert_list_of.md) |
+| Dates & times | [`assert_date()`](https://dereckscompany.github.io/assert/reference/assert_date.md), [`assert_datetime()`](https://dereckscompany.github.io/assert/reference/assert_datetime.md), [`assert_scalar_datetime()`](https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.md) |
+| Ranges | [`assert_range()`](https://dereckscompany.github.io/assert/reference/assert_range.md), [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md) |
 | Length & names | [`assert_length()`](https://dereckscompany.github.io/assert/reference/assert_length.md), [`assert_not_empty()`](https://dereckscompany.github.io/assert/reference/assert_not_empty.md), [`assert_named()`](https://dereckscompany.github.io/assert/reference/assert_named.md), [`assert_has_names()`](https://dereckscompany.github.io/assert/reference/assert_has_names.md) |
 | Values | [`assert_no_missing_values()`](https://dereckscompany.github.io/assert/reference/assert_no_missing_values.md), [`assert_all_positive()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md), [`assert_all_within_range()`](https://dereckscompany.github.io/assert/reference/assert_all_within_range.md), [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md) |
 | Strings | [`assert_matches_pattern()`](https://dereckscompany.github.io/assert/reference/assert_matches_pattern.md), [`assert_no_empty_strings()`](https://dereckscompany.github.io/assert/reference/assert_no_empty_strings.md), [`assert_minimum_characters()`](https://dereckscompany.github.io/assert/reference/assert_minimum_characters.md) |
@@ -153,6 +155,8 @@ If you use `assert` in your work, please cite it:
   : Assert that all values fall within a range
 - [`assert_at_least_one()`](https://dereckscompany.github.io/assert/reference/assert_at_least_one.md)
   : Assert that at least one of several arguments is supplied
+- [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md)
+  : Assert that values fall between two bounds
 - [`assert_class()`](https://dereckscompany.github.io/assert/reference/assert_class.md)
   : Assert that an object inherits from a class
 - [`assert_column_names()`](https://dereckscompany.github.io/assert/reference/assert_column_names.md)
@@ -165,6 +169,10 @@ If you use `assert` in your work, please cite it:
   : Assert that an object is a data frame
 - [`assert_data_table()`](https://dereckscompany.github.io/assert/reference/assert_data_table.md)
   : Assert that an object is a data table
+- [`assert_date()`](https://dereckscompany.github.io/assert/reference/assert_date.md)
+  : Assert that an object is a date
+- [`assert_datetime()`](https://dereckscompany.github.io/assert/reference/assert_datetime.md)
+  : Assert that an object is a date-time
 - [`assert_disjoint()`](https://dereckscompany.github.io/assert/reference/assert_disjoint.md)
   : Assert that two objects share no values
 - [`assert_exactly_one()`](https://dereckscompany.github.io/assert/reference/assert_exactly_one.md)
@@ -212,10 +220,16 @@ If you use `assert` in your work, please cite it:
   : Assert that a data frame has an exact number of columns
 - [`assert_number_of_rows()`](https://dereckscompany.github.io/assert/reference/assert_number_of_rows.md)
   : Assert that a data frame has an exact number of rows
+- [`assert_range()`](https://dereckscompany.github.io/assert/reference/assert_range.md)
+  : Assert that two bounds form a range
 - [`assert_same_length()`](https://dereckscompany.github.io/assert/reference/assert_same_length.md)
   : Assert that objects share the same length
 - [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md)
   : Assert that an object is a single whole number used as a count
+- [`assert_scalar_date()`](https://dereckscompany.github.io/assert/reference/assert_scalar_date.md)
+  : Assert that an object is a single date
+- [`assert_scalar_datetime()`](https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.md)
+  : Assert that an object is a single date-time
 - [`assert_set_equal()`](https://dereckscompany.github.io/assert/reference/assert_set_equal.md)
   : Assert that two objects hold the same set of values
 - [`assert_sorted()`](https://dereckscompany.github.io/assert/reference/assert_sorted.md)
