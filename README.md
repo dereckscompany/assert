@@ -117,4 +117,5 @@ MIT © Dereck Mezquita. See [LICENSE](LICENSE) for details.
 If you use `assert` in your work, please cite it:
 
 > Mezquita, D. (2026). assert.
-> <https://github.com/dereckscompany/assert>. ORCID: 0000-0002-9307-6762
+> <https://github.com/dereckscompany/assert>. ORCID:
+> [0000-0002-9307-6762](https://orcid.org/0000-0002-9307-6762)
