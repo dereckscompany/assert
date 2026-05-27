@@ -67,6 +67,31 @@ test_that("assert_scalar_positive checks single finite positive numbers", {
   expect_error(assert_scalar_positive("a"), "single positive number")
 })
 
+test_that("assert_scalar_non_negative checks single finite non-negative numbers", {
+  expect_invisible(assert_scalar_non_negative(0))
+  expect_invisible(assert_scalar_non_negative(42))
+  expect_invisible(assert_scalar_non_negative(0.5))
+  expect_invisible(assert_scalar_non_negative(NULL, null_ok = TRUE))
+  expect_error(assert_scalar_non_negative(-1), "single non-negative number")
+  expect_error(assert_scalar_non_negative(Inf), "single non-negative number")
+  expect_error(assert_scalar_non_negative(NA_real_), "single non-negative number")
+  expect_error(assert_scalar_non_negative(c(1, 2)), "single non-negative number")
+  expect_error(assert_scalar_non_negative("a"), "single non-negative number")
+})
+
+test_that("assert_scalar_positive_integer checks single positive whole numbers", {
+  expect_invisible(assert_scalar_positive_integer(1L))
+  expect_invisible(assert_scalar_positive_integer(42))
+  expect_invisible(assert_scalar_positive_integer(NULL, null_ok = TRUE))
+  expect_error(assert_scalar_positive_integer(0), "single positive whole number")
+  expect_error(assert_scalar_positive_integer(-1), "single positive whole number")
+  expect_error(assert_scalar_positive_integer(1.5), "single positive whole number")
+  expect_error(assert_scalar_positive_integer(Inf), "single positive whole number")
+  expect_error(assert_scalar_positive_integer(NA_real_), "single positive whole number")
+  expect_error(assert_scalar_positive_integer(c(1, 2)), "single positive whole number")
+  expect_error(assert_scalar_positive_integer("a"), "single positive whole number")
+})
+
 test_that("assert_class checks inheritance", {
   expect_invisible(assert_class(Sys.Date(), "Date"))
   expect_error(assert_class(1, "Date"), "inherit from class")

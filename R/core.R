@@ -189,6 +189,55 @@ assert_scalar_positive <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x
   return(invisible(x))
 }
 
+#' Assert that an object is a single non-negative number
+#'
+#' Checks that `x` is a single, finite, non-negative number (zero or greater).
+#' `NA`, `NaN`, `Inf`, and negative values are all rejected. The zero-inclusive
+#' counterpart of [assert_scalar_positive()].
+#'
+#' @inheritParams scalar-assertions
+#' @return The input `x`, invisibly.
+#'
+#' @examples
+#' assert_scalar_non_negative(0)
+#' assert_scalar_non_negative(42)
+#'
+#' @export
+assert_scalar_non_negative <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  if (length(x) != 1L || !is.numeric(x) || !is.finite(x) || x < 0) {
+    abort_assertion(arg, "be a single non-negative number", call)
+  }
+  return(invisible(x))
+}
+
+#' Assert that an object is a single positive whole number
+#'
+#' Checks that `x` is a single positive whole number (`1`, `2`, `3`, ...).
+#' Doubles with no fractional part (such as `3`) are accepted, as are integers;
+#' `NA`, `NaN`, `Inf`, zero, negative, and fractional values are rejected. The
+#' strictly-positive counterpart of [assert_scalar_count()].
+#'
+#' @inheritParams scalar-assertions
+#' @return The input `x`, invisibly.
+#'
+#' @examples
+#' assert_scalar_positive_integer(1L)
+#' assert_scalar_positive_integer(42)
+#'
+#' @export
+assert_scalar_positive_integer <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  if (length(x) != 1L || !is.numeric(x) || !is.finite(x) || x < 1 || x != round(x)) {
+    abort_assertion(arg, "be a single positive whole number", call)
+  }
+  return(invisible(x))
+}
+
 # ---- Vector type assertions -------------------------------------------------
 # These check the type but allow any length.
 
