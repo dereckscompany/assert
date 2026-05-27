@@ -6,8 +6,6 @@
   : Assert that all values are finite
 - [`assert_all_whole_numbers()`](https://dereckscompany.github.io/assert/reference/assert_all_whole_numbers.md)
   : Assert that values are whole numbers
-- [`assert_all_within_range()`](https://dereckscompany.github.io/assert/reference/assert_all_within_range.md)
-  : Assert that all values fall within a range
 - [`assert_at_least_one()`](https://dereckscompany.github.io/assert/reference/assert_at_least_one.md)
   : Assert that at least one of several arguments is supplied
 - [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md)
@@ -17,9 +15,7 @@
 - [`assert_column_names()`](https://dereckscompany.github.io/assert/reference/assert_column_names.md)
   : Assert that a data frame has exactly these columns
 - [`assert_column_types()`](https://dereckscompany.github.io/assert/reference/assert_column_types.md)
-  : Assert that columns of a data frame have specific types
-- [`assert_columns_are_type()`](https://dereckscompany.github.io/assert/reference/assert_columns_are_type.md)
-  : Assert that a set of columns share a single type
+  : Assert that a set of columns are all of one type
 - [`assert_data_frame()`](https://dereckscompany.github.io/assert/reference/assert_data_frame.md)
   : Assert that an object is a data frame
 - [`assert_data_table()`](https://dereckscompany.github.io/assert/reference/assert_data_table.md)
@@ -57,12 +53,12 @@
   : Assert that an object has names
 - [`assert_no_duplicates()`](https://dereckscompany.github.io/assert/reference/assert_no_duplicates.md)
   : Assert that an object contains no duplicate values
-- [`assert_no_empty_strings()`](https://dereckscompany.github.io/assert/reference/assert_no_empty_strings.md)
-  : Assert that character values are not empty strings
 - [`assert_no_missing_in_columns()`](https://dereckscompany.github.io/assert/reference/assert_no_missing_in_columns.md)
   : Assert that columns of a data frame contain no missing values
 - [`assert_no_missing_values()`](https://dereckscompany.github.io/assert/reference/assert_no_missing_values.md)
   : Assert that an object contains no missing values
+- [`assert_nonempty_strings()`](https://dereckscompany.github.io/assert/reference/assert_nonempty_strings.md)
+  : Assert that character values are not empty strings
 - [`assert_not_empty()`](https://dereckscompany.github.io/assert/reference/assert_not_empty.md)
   : Assert that an object is not empty
 - [`assert_not_empty_data_frame()`](https://dereckscompany.github.io/assert/reference/assert_not_empty_data_frame.md)
@@ -75,8 +71,6 @@
   : Assert that a data frame has an exact number of columns
 - [`assert_number_of_rows()`](https://dereckscompany.github.io/assert/reference/assert_number_of_rows.md)
   : Assert that a data frame has an exact number of rows
-- [`assert_one_of()`](https://dereckscompany.github.io/assert/reference/assert_one_of.md)
-  : Assert that a single value belongs to a set
 - [`assert_range()`](https://dereckscompany.github.io/assert/reference/assert_range.md)
   : Assert that two bounds form a range
 - [`assert_same_length()`](https://dereckscompany.github.io/assert/reference/assert_same_length.md)
@@ -99,6 +93,8 @@
   : Assert that an object's names are unique
 - [`assert_unique_rows()`](https://dereckscompany.github.io/assert/reference/assert_unique_rows.md)
   : Assert that a data frame has no duplicate rows
+- [`assert_value_in_set()`](https://dereckscompany.github.io/assert/reference/assert_value_in_set.md)
+  : Assert that a single value belongs to a set
 - [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md)
   : Assert that all values belong to a set
 - [`assert_all_greater_than()`](https://dereckscompany.github.io/assert/reference/comparison-assertions.md)

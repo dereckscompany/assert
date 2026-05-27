@@ -105,7 +105,8 @@ people <- data.frame(name = c("Ada", "Alan"), age = c(36L, 41L))
 people |>
   assert_data_frame() |>
   assert_has_columns(c("name", "age")) |>
-  assert_column_types(list(name = "character", age = "integer")) |>
+  assert_column_types("character", "name") |>
+  assert_column_types("integer", "age") |>
   invisible()
 ```
 
@@ -118,8 +119,8 @@ people |>
 | Dates & times | [`assert_date()`](https://dereckscompany.github.io/assert/reference/assert_date.md), [`assert_datetime()`](https://dereckscompany.github.io/assert/reference/assert_datetime.md), [`assert_scalar_datetime()`](https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.md) |
 | Ranges | [`assert_range()`](https://dereckscompany.github.io/assert/reference/assert_range.md), [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md) |
 | Length & names | [`assert_length()`](https://dereckscompany.github.io/assert/reference/assert_length.md), [`assert_not_empty()`](https://dereckscompany.github.io/assert/reference/assert_not_empty.md), [`assert_named()`](https://dereckscompany.github.io/assert/reference/assert_named.md), [`assert_has_names()`](https://dereckscompany.github.io/assert/reference/assert_has_names.md) |
-| Values | [`assert_no_missing_values()`](https://dereckscompany.github.io/assert/reference/assert_no_missing_values.md), [`assert_all_positive()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md), [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md), [`assert_one_of()`](https://dereckscompany.github.io/assert/reference/assert_one_of.md) |
-| Strings | [`assert_matches_pattern()`](https://dereckscompany.github.io/assert/reference/assert_matches_pattern.md), [`assert_no_empty_strings()`](https://dereckscompany.github.io/assert/reference/assert_no_empty_strings.md), [`assert_minimum_characters()`](https://dereckscompany.github.io/assert/reference/assert_minimum_characters.md) |
+| Values | [`assert_no_missing_values()`](https://dereckscompany.github.io/assert/reference/assert_no_missing_values.md), [`assert_all_positive()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md), [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md), [`assert_value_in_set()`](https://dereckscompany.github.io/assert/reference/assert_value_in_set.md) |
+| Strings | [`assert_matches_pattern()`](https://dereckscompany.github.io/assert/reference/assert_matches_pattern.md), [`assert_nonempty_strings()`](https://dereckscompany.github.io/assert/reference/assert_nonempty_strings.md), [`assert_minimum_characters()`](https://dereckscompany.github.io/assert/reference/assert_minimum_characters.md) |
 | Comparisons | [`assert_all_greater_than()`](https://dereckscompany.github.io/assert/reference/comparison-assertions.md), [`assert_all_less_than_or_equal()`](https://dereckscompany.github.io/assert/reference/comparison-assertions.md), [`assert_sorted()`](https://dereckscompany.github.io/assert/reference/assert_sorted.md), [`assert_same_length()`](https://dereckscompany.github.io/assert/reference/assert_same_length.md) |
 | Sets | [`assert_set_equal()`](https://dereckscompany.github.io/assert/reference/assert_set_equal.md), [`assert_disjoint()`](https://dereckscompany.github.io/assert/reference/assert_disjoint.md) |
 | Arguments | [`assert_mutually_exclusive()`](https://dereckscompany.github.io/assert/reference/assert_mutually_exclusive.md), [`assert_at_least_one()`](https://dereckscompany.github.io/assert/reference/assert_at_least_one.md), [`assert_exactly_one()`](https://dereckscompany.github.io/assert/reference/assert_exactly_one.md) |

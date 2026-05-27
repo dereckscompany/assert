@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,14 +28,26 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.4/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.5/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.5" id="assert-005">assert 0.0.5<a class="anchor" aria-label="anchor" href="#assert-005"></a></h2>
+<p>Naming and consistency cleanup.</p>
+<ul><li>
+<code>assert_no_empty_strings()</code> renamed to <code><a href="../reference/assert_nonempty_strings.html">assert_nonempty_strings()</a></code>.</li>
+<li>
+<code>assert_one_of()</code> renamed to <code><a href="../reference/assert_value_in_set.html">assert_value_in_set()</a></code>, parallel with <code><a href="../reference/assert_values_in_set.html">assert_values_in_set()</a></code>.</li>
+<li>
+<code><a href="../reference/assert_column_types.html">assert_column_types()</a></code> now checks that a set of <code>columns</code> are all one <code>type</code> — <code>assert_column_types(x, type, columns)</code>, stacked for multiple types. The previous named-list form and the separate <code>assert_columns_are_type()</code> are removed.</li>
+<li>
+<code>assert_all_within_range()</code> removed; use <code><a href="../reference/assert_between.html">assert_between()</a></code>.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.4" id="assert-004">assert 0.0.4<a class="anchor" aria-label="anchor" href="#assert-004"></a></h2>
-<ul><li>Removed the <code>non_empty</code> argument from <code><a href="../reference/scalar-assertions.html">assert_scalar_character()</a></code> (added in 0.0.3). Compose with <code><a href="../reference/assert_no_empty_strings.html">assert_no_empty_strings()</a></code> to reject <code>""</code>, keeping the one-condition-per-function design.</li>
+<ul><li>Removed the <code>non_empty</code> argument from <code><a href="../reference/scalar-assertions.html">assert_scalar_character()</a></code> (added in 0.0.3). Compose with <code>assert_no_empty_strings()</code> to reject <code>""</code>, keeping the one-condition-per-function design.</li>
 <li>New <code><a href="../reference/assert_scalar_positive.html">assert_scalar_positive()</a></code>: a single, finite, positive number — the positive-and-finite counterpart of <code><a href="../reference/assert_scalar_count.html">assert_scalar_count()</a></code>.</li>
-<li>New <code><a href="../reference/assert_one_of.html">assert_one_of()</a></code>: a single value belonging to a set, the scalar counterpart of <code><a href="../reference/assert_values_in_set.html">assert_values_in_set()</a></code>.</li>
+<li>New <code>assert_one_of()</code>: a single value belonging to a set, the scalar counterpart of <code><a href="../reference/assert_values_in_set.html">assert_values_in_set()</a></code>.</li>
 <li>
 <code><a href="../reference/assert_scalar_count.html">assert_scalar_count()</a></code> now rejects non-finite values (<code>Inf</code> previously passed).</li>
 </ul></div>
@@ -65,7 +77,7 @@
 <li>
 <strong>Length and names</strong>: <code><a href="../reference/assert_length.html">assert_length()</a></code>, <code><a href="../reference/assert_minimum_length.html">assert_minimum_length()</a></code>, <code><a href="../reference/assert_minimum_length.html">assert_maximum_length()</a></code>, <code><a href="../reference/assert_not_empty.html">assert_not_empty()</a></code>, <code><a href="../reference/assert_named.html">assert_named()</a></code>, <code><a href="../reference/assert_unique_names.html">assert_unique_names()</a></code>, <code><a href="../reference/assert_has_names.html">assert_has_names()</a></code>.</li>
 <li>
-<strong>Values</strong>: <code><a href="../reference/assert_no_missing_values.html">assert_no_missing_values()</a></code>, <code><a href="../reference/assert_no_duplicates.html">assert_no_duplicates()</a></code>, <code><a href="../reference/assert_all_finite.html">assert_all_finite()</a></code>, <code><a href="../reference/assert_all_whole_numbers.html">assert_all_whole_numbers()</a></code>, <code><a href="../reference/assert_no_empty_strings.html">assert_no_empty_strings()</a></code>, <code><a href="../reference/sign-assertions.html">assert_all_positive()</a></code>, <code><a href="../reference/sign-assertions.html">assert_all_non_negative()</a></code>, <code><a href="../reference/sign-assertions.html">assert_all_negative()</a></code>, <code><a href="../reference/sign-assertions.html">assert_all_non_positive()</a></code>, <code><a href="../reference/assert_all_within_range.html">assert_all_within_range()</a></code>, <code><a href="../reference/assert_values_in_set.html">assert_values_in_set()</a></code>, <code><a href="../reference/assert_matches_pattern.html">assert_matches_pattern()</a></code>.</li>
+<strong>Values</strong>: <code><a href="../reference/assert_no_missing_values.html">assert_no_missing_values()</a></code>, <code><a href="../reference/assert_no_duplicates.html">assert_no_duplicates()</a></code>, <code><a href="../reference/assert_all_finite.html">assert_all_finite()</a></code>, <code><a href="../reference/assert_all_whole_numbers.html">assert_all_whole_numbers()</a></code>, <code>assert_no_empty_strings()</code>, <code><a href="../reference/sign-assertions.html">assert_all_positive()</a></code>, <code><a href="../reference/sign-assertions.html">assert_all_non_negative()</a></code>, <code><a href="../reference/sign-assertions.html">assert_all_negative()</a></code>, <code><a href="../reference/sign-assertions.html">assert_all_non_positive()</a></code>, <code>assert_all_within_range()</code>, <code><a href="../reference/assert_values_in_set.html">assert_values_in_set()</a></code>, <code><a href="../reference/assert_matches_pattern.html">assert_matches_pattern()</a></code>.</li>
 <li>
 <strong>Strings</strong>: <code><a href="../reference/assert_minimum_characters.html">assert_minimum_characters()</a></code>, <code><a href="../reference/assert_maximum_characters.html">assert_maximum_characters()</a></code>.</li>
 <li>
@@ -75,7 +87,7 @@
 <li>
 <strong>Argument groups</strong>: <code><a href="../reference/assert_mutually_exclusive.html">assert_mutually_exclusive()</a></code>, <code><a href="../reference/assert_at_least_one.html">assert_at_least_one()</a></code>, <code><a href="../reference/assert_exactly_one.html">assert_exactly_one()</a></code>.</li>
 <li>
-<strong>Data frames and data tables</strong>: <code><a href="../reference/assert_data_frame.html">assert_data_frame()</a></code>, <code><a href="../reference/assert_data_table.html">assert_data_table()</a></code>, <code><a href="../reference/assert_not_empty_data_frame.html">assert_not_empty_data_frame()</a></code>, <code><a href="../reference/assert_number_of_rows.html">assert_number_of_rows()</a></code>, <code><a href="../reference/assert_number_of_columns.html">assert_number_of_columns()</a></code>, <code><a href="../reference/assert_has_columns.html">assert_has_columns()</a></code>, <code><a href="../reference/assert_column_names.html">assert_column_names()</a></code>, <code><a href="../reference/assert_no_missing_in_columns.html">assert_no_missing_in_columns()</a></code>, <code><a href="../reference/assert_column_types.html">assert_column_types()</a></code>, <code><a href="../reference/assert_columns_are_type.html">assert_columns_are_type()</a></code>, <code><a href="../reference/assert_unique_rows.html">assert_unique_rows()</a></code>.</li>
+<strong>Data frames and data tables</strong>: <code><a href="../reference/assert_data_frame.html">assert_data_frame()</a></code>, <code><a href="../reference/assert_data_table.html">assert_data_table()</a></code>, <code><a href="../reference/assert_not_empty_data_frame.html">assert_not_empty_data_frame()</a></code>, <code><a href="../reference/assert_number_of_rows.html">assert_number_of_rows()</a></code>, <code><a href="../reference/assert_number_of_columns.html">assert_number_of_columns()</a></code>, <code><a href="../reference/assert_has_columns.html">assert_has_columns()</a></code>, <code><a href="../reference/assert_column_names.html">assert_column_names()</a></code>, <code><a href="../reference/assert_no_missing_in_columns.html">assert_no_missing_in_columns()</a></code>, <code><a href="../reference/assert_column_types.html">assert_column_types()</a></code>, <code>assert_columns_are_type()</code>, <code><a href="../reference/assert_unique_rows.html">assert_unique_rows()</a></code>.</li>
 <li>
 <strong>Conditions</strong>: <code><a href="../reference/assert_true.html">assert_true()</a></code>, <code><a href="../reference/assert_false.html">assert_false()</a></code>, <code><a href="../reference/assert_null.html">assert_null()</a></code>, <code><a href="../reference/assert_not_null.html">assert_not_null()</a></code>.</li>
 </ul></div>

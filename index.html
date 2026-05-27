@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +134,8 @@
 <span><span class="va">people</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/assert_data_frame.html">assert_data_frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/assert_has_columns.html">assert_has_columns</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"age"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"character"</span>, age <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="st">"character"</span>, <span class="st">"name"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="st">"integer"</span>, <span class="st">"age"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -184,13 +185,13 @@
 <tr>
 <td>Values</td>
 <td>
-<code><a href="reference/assert_no_missing_values.html">assert_no_missing_values()</a></code>, <code><a href="reference/sign-assertions.html">assert_all_positive()</a></code>, <code><a href="reference/assert_values_in_set.html">assert_values_in_set()</a></code>, <code><a href="reference/assert_one_of.html">assert_one_of()</a></code>
+<code><a href="reference/assert_no_missing_values.html">assert_no_missing_values()</a></code>, <code><a href="reference/sign-assertions.html">assert_all_positive()</a></code>, <code><a href="reference/assert_values_in_set.html">assert_values_in_set()</a></code>, <code><a href="reference/assert_value_in_set.html">assert_value_in_set()</a></code>
 </td>
 </tr>
 <tr>
 <td>Strings</td>
 <td>
-<code><a href="reference/assert_matches_pattern.html">assert_matches_pattern()</a></code>, <code><a href="reference/assert_no_empty_strings.html">assert_no_empty_strings()</a></code>, <code><a href="reference/assert_minimum_characters.html">assert_minimum_characters()</a></code>
+<code><a href="reference/assert_matches_pattern.html">assert_matches_pattern()</a></code>, <code><a href="reference/assert_nonempty_strings.html">assert_nonempty_strings()</a></code>, <code><a href="reference/assert_minimum_characters.html">assert_minimum_characters()</a></code>
 </td>
 </tr>
 <tr>

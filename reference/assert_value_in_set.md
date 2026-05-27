@@ -1,17 +1,16 @@
-# Assert that values fall between two bounds
+# Assert that a single value belongs to a set
 
-Checks that every element of `x` lies between `lower` and `upper`,
-inclusive. Works for any comparable type: numbers, dates, date-times,
-strings. Pass `NULL` for a bound to leave that side open. Missing values
-cause the check to fail.
+Checks that `x` is a single value (length 1) equal to one of
+`allowed_values`. The scalar counterpart of
+[`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md),
+which checks every element of a vector.
 
 ## Usage
 
 ``` r
-assert_between(
+assert_value_in_set(
   x,
-  lower = NULL,
-  upper = NULL,
+  allowed_values,
   null_ok = FALSE,
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
@@ -24,13 +23,9 @@ assert_between(
 
   Object to check.
 
-- lower:
+- allowed_values:
 
-  Lower bound (inclusive), or `NULL` for unbounded below.
-
-- upper:
-
-  Upper bound (inclusive), or `NULL` for unbounded above.
+  Vector of permitted values.
 
 - null_ok:
 
@@ -55,6 +50,5 @@ The input `x`, invisibly.
 ## Examples
 
 ``` r
-assert_between(5, 0, 10)
-assert_between(Sys.time(), lower = as.POSIXct("2000-01-01"))
+assert_value_in_set("b", allowed_values = c("a", "b", "c"))
 ```

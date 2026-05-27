@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Getting started with assert</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.4/vignettes/assert.Rmd" class="external-link"><code>vignettes/assert.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.5/vignettes/assert.Rmd" class="external-link"><code>vignettes/assert.Rmd</code></a></small>
       <div class="d-none name"><code>assert.Rmd</code></div>
     </div>
 
@@ -159,13 +159,13 @@ supplied.</p>
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">assert</span><span class="op">[</span></span>
 <span>    <span class="va">assert_all_positive</span>,</span>
-<span>    <span class="va">assert_all_within_range</span>,</span>
+<span>    <span class="va">assert_between</span>,</span>
 <span>    <span class="va">assert_values_in_set</span></span>
 <span>  <span class="op">]</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/sign-assertions.html">assert_all_positive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/assert_all_within_range.html">assert_all_within_range</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span><span class="op">)</span>, minimum <span class="op">=</span> <span class="fl">0</span>, maximum <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/assert_between.html">assert_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span><span class="op">)</span>, lower <span class="op">=</span> <span class="fl">0</span>, upper <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/assert_values_in_set.html">assert_values_in_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"buy"</span>, <span class="st">"sell"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"buy"</span>, <span class="st">"sell"</span>, <span class="st">"hold"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -218,7 +218,9 @@ structure and column types in one place.</p>
 <span><span class="va">trades</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/assert_data_frame.html">assert_data_frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/assert_has_columns.html">assert_has_columns</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symbol"</span>, <span class="st">"quantity"</span>, <span class="st">"price"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>symbol <span class="op">=</span> <span class="st">"character"</span>, quantity <span class="op">=</span> <span class="st">"integer"</span>, price <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="st">"character"</span>, <span class="st">"symbol"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="st">"integer"</span>, <span class="st">"quantity"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/assert_column_types.html">assert_column_types</a></span><span class="op">(</span><span class="st">"numeric"</span>, <span class="st">"price"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/assert_unique_rows.html">assert_unique_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>

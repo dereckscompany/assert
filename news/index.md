@@ -1,20 +1,36 @@
 # Changelog
 
+## assert 0.0.5
+
+Naming and consistency cleanup.
+
+- `assert_no_empty_strings()` renamed to
+  [`assert_nonempty_strings()`](https://dereckscompany.github.io/assert/reference/assert_nonempty_strings.md).
+- `assert_one_of()` renamed to
+  [`assert_value_in_set()`](https://dereckscompany.github.io/assert/reference/assert_value_in_set.md),
+  parallel with
+  [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md).
+- [`assert_column_types()`](https://dereckscompany.github.io/assert/reference/assert_column_types.md)
+  now checks that a set of `columns` are all one `type` —
+  `assert_column_types(x, type, columns)`, stacked for multiple types.
+  The previous named-list form and the separate
+  `assert_columns_are_type()` are removed.
+- `assert_all_within_range()` removed; use
+  [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md).
+
 ## assert 0.0.4
 
 - Removed the `non_empty` argument from
   [`assert_scalar_character()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
-  (added in 0.0.3). Compose with
-  [`assert_no_empty_strings()`](https://dereckscompany.github.io/assert/reference/assert_no_empty_strings.md)
-  to reject `""`, keeping the one-condition-per-function design.
+  (added in 0.0.3). Compose with `assert_no_empty_strings()` to reject
+  `""`, keeping the one-condition-per-function design.
 - New
   [`assert_scalar_positive()`](https://dereckscompany.github.io/assert/reference/assert_scalar_positive.md):
   a single, finite, positive number — the positive-and-finite
   counterpart of
   [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md).
-- New
-  [`assert_one_of()`](https://dereckscompany.github.io/assert/reference/assert_one_of.md):
-  a single value belonging to a set, the scalar counterpart of
+- New `assert_one_of()`: a single value belonging to a set, the scalar
+  counterpart of
   [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md).
 - [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md)
   now rejects non-finite values (`Inf` previously passed).
@@ -89,12 +105,12 @@ to `NULL`.
   [`assert_no_duplicates()`](https://dereckscompany.github.io/assert/reference/assert_no_duplicates.md),
   [`assert_all_finite()`](https://dereckscompany.github.io/assert/reference/assert_all_finite.md),
   [`assert_all_whole_numbers()`](https://dereckscompany.github.io/assert/reference/assert_all_whole_numbers.md),
-  [`assert_no_empty_strings()`](https://dereckscompany.github.io/assert/reference/assert_no_empty_strings.md),
+  `assert_no_empty_strings()`,
   [`assert_all_positive()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md),
   [`assert_all_non_negative()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md),
   [`assert_all_negative()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md),
   [`assert_all_non_positive()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md),
-  [`assert_all_within_range()`](https://dereckscompany.github.io/assert/reference/assert_all_within_range.md),
+  `assert_all_within_range()`,
   [`assert_values_in_set()`](https://dereckscompany.github.io/assert/reference/assert_values_in_set.md),
   [`assert_matches_pattern()`](https://dereckscompany.github.io/assert/reference/assert_matches_pattern.md).
 - **Strings**:
@@ -124,7 +140,7 @@ to `NULL`.
   [`assert_column_names()`](https://dereckscompany.github.io/assert/reference/assert_column_names.md),
   [`assert_no_missing_in_columns()`](https://dereckscompany.github.io/assert/reference/assert_no_missing_in_columns.md),
   [`assert_column_types()`](https://dereckscompany.github.io/assert/reference/assert_column_types.md),
-  [`assert_columns_are_type()`](https://dereckscompany.github.io/assert/reference/assert_columns_are_type.md),
+  `assert_columns_are_type()`,
   [`assert_unique_rows()`](https://dereckscompany.github.io/assert/reference/assert_unique_rows.md).
 - **Conditions**:
   [`assert_true()`](https://dereckscompany.github.io/assert/reference/assert_true.md),

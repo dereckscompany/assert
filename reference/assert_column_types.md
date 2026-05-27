@@ -1,7 +1,8 @@
-# Assert that columns of a data frame have specific types
+# Assert that a set of columns are all of one type
 
-Checks that `x` is a data frame containing each named column, and that
-each column is of the type given in `types`. Type names are matched as
+Checks that `x` is a data frame containing every name in `columns`, and
+that all of those columns are of `type`. To validate several types, call
+again with a different `type` and column set. Type names are matched as
 in [`is.character()`](https://rdrr.io/r/base/character.html),
 [`is.numeric()`](https://rdrr.io/r/base/numeric.html),
 [`is.integer()`](https://rdrr.io/r/base/integer.html),
@@ -18,7 +19,8 @@ matched against the column's class with
 ``` r
 assert_column_types(
   x,
-  types,
+  type,
+  columns,
   null_ok = FALSE,
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
@@ -31,11 +33,13 @@ assert_column_types(
 
   Object to check.
 
-- types:
+- type:
 
-  A named list or named character vector mapping column names to the
-  expected type of each column, for example
-  `list(age = "integer", name = "character")`.
+  Single string naming the type that every listed column must be.
+
+- columns:
+
+  Character vector of column names to check.
 
 - null_ok:
 
@@ -60,6 +64,6 @@ The input `x`, invisibly.
 ## Examples
 
 ``` r
-people <- data.frame(name = "Ada", age = 36L)
-assert_column_types(people, list(name = "character", age = "integer"))
+people <- data.frame(name = "Ada", height = 1.8, weight = 75.0)
+assert_column_types(people, "numeric", c("height", "weight"))
 ```

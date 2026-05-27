@@ -112,13 +112,13 @@ Beyond types, you can assert the *content* of a vector.
 box::use(
   assert[
     assert_all_positive,
-    assert_all_within_range,
+    assert_between,
     assert_values_in_set
   ]
 )
 
 assert_all_positive(c(1, 2, 3))
-assert_all_within_range(c(0.2, 0.5, 0.9), minimum = 0, maximum = 1)
+assert_between(c(0.2, 0.5, 0.9), lower = 0, upper = 1)
 assert_values_in_set(c("buy", "sell"), c("buy", "sell", "hold"))
 invisible(NULL)
 ```
@@ -174,7 +174,9 @@ trades <- data.frame(
 trades |>
   assert_data_frame() |>
   assert_has_columns(c("symbol", "quantity", "price")) |>
-  assert_column_types(list(symbol = "character", quantity = "integer", price = "numeric")) |>
+  assert_column_types("character", "symbol") |>
+  assert_column_types("integer", "quantity") |>
+  assert_column_types("numeric", "price") |>
   assert_unique_rows() |>
   invisible()
 ```
