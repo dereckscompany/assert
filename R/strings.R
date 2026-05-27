@@ -1,6 +1,6 @@
 # String assertions check the number of characters in each element of a
 # character vector. For pattern matching see assert_matches_pattern(), and for
-# rejecting empty strings see assert_no_empty_strings().
+# rejecting empty strings see assert_nonempty_strings().
 
 #' Assert that strings have at least a minimum number of characters
 #'

@@ -37,7 +37,7 @@ The input \code{x}, invisibly.
 Checks that every element of \code{x} lies between \code{lower} and \code{upper}, inclusive.
 Works for any comparable type: numbers, dates, date-times, strings. Pass
 \code{NULL} for a bound to leave that side open. Missing values cause the check to
-fail. For numeric-only bounds you may also use \code{\link[=assert_all_within_range]{assert_all_within_range()}}.
+fail.
 }
 \examples{
 assert_between(5, 0, 10)

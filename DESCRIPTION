@@ -1,6 +1,6 @@
 Package: assert
 Title: Readable Assertions for Validating Function Inputs and Outputs
-Version: 0.0.4
+Version: 0.0.5
 URL: https://dereckscompany.github.io/assert,
     https://github.com/dereckscompany/assert
 BugReports: https://github.com/dereckscompany/assert/issues
@@ -23,6 +23,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Suggests:
     box,
+    data.table,
     knitr,
     pkgdown,
     rmarkdown,

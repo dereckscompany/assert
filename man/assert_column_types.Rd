@@ -2,11 +2,12 @@
 % Please edit documentation in R/data_frame.R
 \name{assert_column_types}
 \alias{assert_column_types}
-\title{Assert that columns of a data frame have specific types}
+\title{Assert that a set of columns are all of one type}
 \usage{
 assert_column_types(
   x,
-  types,
+  type,
+  columns,
   null_ok = FALSE,
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
@@ -15,9 +16,9 @@ assert_column_types(
 \arguments{
 \item{x}{Object to check.}
 
-\item{types}{A named list or named character vector mapping column names to
-the expected type of each column, for example
-\code{list(age = "integer", name = "character")}.}
+\item{type}{Single string naming the type that every listed column must be.}
+
+\item{columns}{Character vector of column names to check.}
 
 \item{null_ok}{Single logical. If \code{TRUE}, a \code{NULL} value passes the check
 without error. Use this for optional arguments that default to \code{NULL}.
@@ -33,15 +34,16 @@ calling function, so errors point at the user's code.}
 The input \code{x}, invisibly.
 }
 \description{
-Checks that \code{x} is a data frame containing each named column, and that each
-column is of the type given in \code{types}. Type names are matched as in
+Checks that \code{x} is a data frame containing every name in \code{columns}, and that
+all of those columns are of \code{type}. To validate several types, call again with
+a different \code{type} and column set. Type names are matched as in
 \code{\link[=is.character]{is.character()}}, \code{\link[=is.numeric]{is.numeric()}}, \code{\link[=is.integer]{is.integer()}}, \code{\link[=is.double]{is.double()}},
 \code{\link[=is.logical]{is.logical()}}, \code{\link[=is.complex]{is.complex()}}, \code{\link[=is.factor]{is.factor()}}, and \code{\link[=is.list]{is.list()}}; any other
 name is matched against the column's class with \code{\link[=inherits]{inherits()}} (for example
 "Date").
 }
 \examples{
-people <- data.frame(name = "Ada", age = 36L)
-assert_column_types(people, list(name = "character", age = "integer"))
+people <- data.frame(name = "Ada", height = 1.8, weight = 75.0)
+assert_column_types(people, "numeric", c("height", "weight"))
 
 }

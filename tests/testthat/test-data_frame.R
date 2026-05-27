@@ -39,29 +39,31 @@ test_that("missing-in-columns and unique-rows checks work", {
   expect_error(assert_unique_rows(data.frame(a = c(1, 1), b = c(3, 3))), "duplicate rows")
 })
 
-test_that("assert_column_types checks each column's type", {
-  people <- data.frame(name = "Ada", age = 36L, stringsAsFactors = FALSE)
-  expect_invisible(assert_column_types(people, list(name = "character", age = "integer")))
+test_that("assert_column_types checks a set of columns share one type", {
+  people <- data.frame(name = "Ada", height = 1.8, weight = 75.0, stringsAsFactors = FALSE)
+  expect_invisible(assert_column_types(people, "numeric", c("height", "weight")))
   expect_error(
-    assert_column_types(people, list(age = "character")),
-    "expected character"
+    assert_column_types(people, "numeric", c("height", "name")),
+    "name"
   )
-  expect_error(assert_column_types(people, list(missing = "integer")), "missing")
-  expect_error(assert_column_types(people, list("character")), "must be named")
+  expect_error(assert_column_types(people, "numeric", "missing"), "missing")
 })
 
 test_that("assert_column_types falls back to inherits for arbitrary classes", {
   events <- data.frame(when = Sys.Date(), label = "x", stringsAsFactors = FALSE)
-  expect_invisible(assert_column_types(events, list(when = "Date")))
-  expect_error(assert_column_types(events, list(label = "Date")), "expected Date")
+  expect_invisible(assert_column_types(events, "Date", "when"))
+  expect_error(assert_column_types(events, "Date", "label"), "type Date")
 })
 
-test_that("assert_columns_are_type checks a shared type", {
-  measurements <- data.frame(height = 1.8, weight = 75.0, label = "a", stringsAsFactors = FALSE)
-  expect_invisible(assert_columns_are_type(measurements, c("height", "weight"), "numeric"))
-  expect_error(
-    assert_columns_are_type(measurements, c("height", "label"), "numeric"),
-    "label"
-  )
-  expect_error(assert_columns_are_type(measurements, "missing", "numeric"), "missing")
+test_that("data-frame column checks work on a real data.table", {
+  skip_if_not_installed("data.table")
+  dt <- data.table::data.table(symbol = "BTC/USDT", price = 50000, qty = 1L, ts = Sys.time())
+  expect_invisible(assert_has_columns(dt, c("symbol", "price")))
+  expect_invisible(assert_column_types(dt, "numeric", "price"))
+  expect_error(assert_column_types(dt, "numeric", c("price", "symbol")), "symbol")
+  expect_invisible(assert_no_missing_in_columns(dt, c("symbol", "price")))
+  expect_invisible(assert_unique_rows(dt))
+
+  dt_na <- data.table::data.table(a = c(1, NA), b = c("x", "y"))
+  expect_error(assert_no_missing_in_columns(dt_na, "a"), "missing")
 })

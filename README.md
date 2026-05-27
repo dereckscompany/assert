@@ -100,7 +100,8 @@ people <- data.frame(name = c("Ada", "Alan"), age = c(36L, 41L))
 people |>
   assert_data_frame() |>
   assert_has_columns(c("name", "age")) |>
-  assert_column_types(list(name = "character", age = "integer")) |>
+  assert_column_types("character", "name") |>
+  assert_column_types("integer", "age") |>
   invisible()
 ```
 
@@ -113,8 +114,8 @@ people |>
 | Dates & times | `assert_date()`, `assert_datetime()`, `assert_scalar_datetime()` |
 | Ranges | `assert_range()`, `assert_between()` |
 | Length & names | `assert_length()`, `assert_not_empty()`, `assert_named()`, `assert_has_names()` |
-| Values | `assert_no_missing_values()`, `assert_all_positive()`, `assert_values_in_set()`, `assert_one_of()` |
-| Strings | `assert_matches_pattern()`, `assert_no_empty_strings()`, `assert_minimum_characters()` |
+| Values | `assert_no_missing_values()`, `assert_all_positive()`, `assert_values_in_set()`, `assert_value_in_set()` |
+| Strings | `assert_matches_pattern()`, `assert_nonempty_strings()`, `assert_minimum_characters()` |
 | Comparisons | `assert_all_greater_than()`, `assert_all_less_than_or_equal()`, `assert_sorted()`, `assert_same_length()` |
 | Sets | `assert_set_equal()`, `assert_disjoint()` |
 | Arguments | `assert_mutually_exclusive()`, `assert_at_least_one()`, `assert_exactly_one()` |

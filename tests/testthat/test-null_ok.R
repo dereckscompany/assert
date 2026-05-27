@@ -3,7 +3,6 @@ test_that("null_ok = TRUE lets NULL pass across assertion families", {
   expect_invisible(assert_numeric(NULL, null_ok = TRUE))
   expect_invisible(assert_length(NULL, 3, null_ok = TRUE))
   expect_invisible(assert_all_positive(NULL, null_ok = TRUE))
-  expect_invisible(assert_all_within_range(NULL, 0, 10, null_ok = TRUE))
   expect_invisible(assert_data_frame(NULL, null_ok = TRUE))
   expect_invisible(assert_has_columns(NULL, "a", null_ok = TRUE))
   expect_invisible(assert_all_greater_than(NULL, 0, null_ok = TRUE))

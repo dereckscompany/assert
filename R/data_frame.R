@@ -221,7 +221,7 @@ assert_no_missing_in_columns <- function(
   } else {
     assert_has_columns(x, columns, arg = arg, call = call)
   }
-  columns_with_missing <- columns[vapply(x[columns], anyNA, logical(1))]
+  columns_with_missing <- columns[vapply(columns, function(column) anyNA(x[[column]]), logical(1))]
   if (length(columns_with_missing) > 0L) {
     formatted <- paste(columns_with_missing, collapse = ", ")
     abort_assertion(arg, paste0("not contain missing values in columns: ", formatted), call)
@@ -258,84 +258,35 @@ value_matches_type <- function(value, type) {
   return(predicate(value))
 }
 
-#' Assert that columns of a data frame have specific types
+#' Assert that a set of columns are all of one type
 #'
-#' Checks that `x` is a data frame containing each named column, and that each
-#' column is of the type given in `types`. Type names are matched as in
+#' Checks that `x` is a data frame containing every name in `columns`, and that
+#' all of those columns are of `type`. To validate several types, call again with
+#' a different `type` and column set. Type names are matched as in
 #' [is.character()], [is.numeric()], [is.integer()], [is.double()],
 #' [is.logical()], [is.complex()], [is.factor()], and [is.list()]; any other
 #' name is matched against the column's class with [inherits()] (for example
 #' "Date").
 #'
 #' @inheritParams scalar-assertions
-#' @param types A named list or named character vector mapping column names to
-#'   the expected type of each column, for example
-#'   `list(age = "integer", name = "character")`.
-#'
-#' @return The input `x`, invisibly.
-#'
-#' @examples
-#' people <- data.frame(name = "Ada", age = 36L)
-#' assert_column_types(people, list(name = "character", age = "integer"))
-#'
-#' @export
-assert_column_types <- function(x, types, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
-  if (passes_as_null(x, null_ok)) {
-    return(invisible(x))
-  }
-  assert_data_frame(x, arg = arg, call = call)
-  columns <- names(types)
-  if (is.null(columns) || any(columns == "")) {
-    cli::cli_abort("{.arg types} must be named with the column names to check.", call = call)
-  }
-  assert_has_columns(x, columns, arg = arg, call = call)
-
-  mismatches <- character(0)
-  for (column in columns) {
-    expected_type <- types[[column]]
-    if (!value_matches_type(x[[column]], expected_type)) {
-      mismatches <- c(mismatches, paste0(column, " (expected ", expected_type, ")"))
-    }
-  }
-  if (length(mismatches) > 0L) {
-    formatted <- paste(mismatches, collapse = ", ")
-    abort_assertion(arg, paste0("have columns of the expected types: ", formatted), call)
-  }
-  return(invisible(x))
-}
-
-#' Assert that a set of columns share a single type
-#'
-#' Checks that `x` is a data frame containing every name in `columns`, and
-#' that all of those columns are of `type`. Type names are matched as described
-#' in [assert_column_types()].
-#'
-#' @inheritParams scalar-assertions
-#' @param columns Character vector of column names to check.
 #' @param type Single string naming the type that every listed column must be.
+#' @param columns Character vector of column names to check.
 #'
 #' @return The input `x`, invisibly.
 #'
 #' @examples
-#' measurements <- data.frame(height = 1.8, weight = 75.0)
-#' assert_columns_are_type(measurements, c("height", "weight"), "numeric")
+#' people <- data.frame(name = "Ada", height = 1.8, weight = 75.0)
+#' assert_column_types(people, "numeric", c("height", "weight"))
 #'
 #' @export
-assert_columns_are_type <- function(
-  x,
-  columns,
-  type,
-  null_ok = FALSE,
-  arg = rlang::caller_arg(x),
-  call = rlang::caller_env()
-) {
+assert_column_types <- function(x, type, columns, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
   if (passes_as_null(x, null_ok)) {
     return(invisible(x))
   }
   assert_data_frame(x, arg = arg, call = call)
   assert_has_columns(x, columns, arg = arg, call = call)
 
-  wrong_columns <- columns[!vapply(x[columns], value_matches_type, logical(1), type = type)]
+  wrong_columns <- columns[!vapply(columns, function(column) value_matches_type(x[[column]], type), logical(1))]
   if (length(wrong_columns) > 0L) {
     formatted <- paste(wrong_columns, collapse = ", ")
     abort_assertion(arg, paste0("have columns of type ", type, "; these are not: ", formatted), call)
