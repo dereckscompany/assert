@@ -279,7 +279,14 @@ value_matches_type <- function(value, type) {
 #' assert_column_types(people, "numeric", c("height", "weight"))
 #'
 #' @export
-assert_column_types <- function(x, type, columns, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+assert_column_types <- function(
+  x,
+  type,
+  columns,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+) {
   if (passes_as_null(x, null_ok)) {
     return(invisible(x))
   }

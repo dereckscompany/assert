@@ -1,3 +1,8 @@
+# assert 0.0.6
+
+* New `assert_scalar_non_negative()`: a single, finite, non-negative number (zero or greater) — the zero-inclusive counterpart of `assert_scalar_positive()`.
+* New `assert_scalar_positive_integer()`: a single positive whole number (`1`, `2`, `3`, ...) — the strictly-positive counterpart of `assert_scalar_count()`.
+
 # assert 0.0.5
 
 Naming and consistency cleanup.

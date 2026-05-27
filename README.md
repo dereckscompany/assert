@@ -109,7 +109,7 @@ people |>
 
 | Group | Examples |
 |----|----|
-| Scalars | `assert_scalar_character()`, `assert_scalar_count()`, `assert_scalar_positive()` |
+| Scalars | `assert_scalar_character()`, `assert_scalar_count()`, `assert_scalar_positive()`, `assert_scalar_non_negative()`, `assert_scalar_positive_integer()` |
 | Vectors | `assert_character()`, `assert_numeric()`, `assert_list()`, `assert_list_of()` |
 | Dates & times | `assert_date()`, `assert_datetime()`, `assert_scalar_datetime()` |
 | Ranges | `assert_range()`, `assert_between()` |
