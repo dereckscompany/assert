@@ -81,8 +81,12 @@
   : Assert that an object is a single date
 - [`assert_scalar_datetime()`](https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.md)
   : Assert that an object is a single date-time
+- [`assert_scalar_non_negative()`](https://dereckscompany.github.io/assert/reference/assert_scalar_non_negative.md)
+  : Assert that an object is a single non-negative number
 - [`assert_scalar_positive()`](https://dereckscompany.github.io/assert/reference/assert_scalar_positive.md)
   : Assert that an object is a single positive number
+- [`assert_scalar_positive_integer()`](https://dereckscompany.github.io/assert/reference/assert_scalar_positive_integer.md)
+  : Assert that an object is a single positive whole number
 - [`assert_set_equal()`](https://dereckscompany.github.io/assert/reference/assert_set_equal.md)
   : Assert that two objects hold the same set of values
 - [`assert_sorted()`](https://dereckscompany.github.io/assert/reference/assert_sorted.md)

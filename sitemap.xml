@@ -45,7 +45,9 @@
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_count.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_date.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_datetime.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_non_negative.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_positive.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_scalar_positive_integer.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_set_equal.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_sorted.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_true.html</loc></url>

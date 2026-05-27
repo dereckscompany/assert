@@ -1,5 +1,18 @@
 # Changelog
 
+## assert 0.0.6
+
+- New
+  [`assert_scalar_non_negative()`](https://dereckscompany.github.io/assert/reference/assert_scalar_non_negative.md):
+  a single, finite, non-negative number (zero or greater) — the
+  zero-inclusive counterpart of
+  [`assert_scalar_positive()`](https://dereckscompany.github.io/assert/reference/assert_scalar_positive.md).
+- New
+  [`assert_scalar_positive_integer()`](https://dereckscompany.github.io/assert/reference/assert_scalar_positive_integer.md):
+  a single positive whole number (`1`, `2`, `3`, …) — the
+  strictly-positive counterpart of
+  [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md).
+
 ## assert 0.0.5
 
 Naming and consistency cleanup.
