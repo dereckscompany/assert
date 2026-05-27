@@ -54,3 +54,16 @@ test_that("assert_column_types falls back to inherits for arbitrary classes", {
   expect_invisible(assert_column_types(events, "Date", "when"))
   expect_error(assert_column_types(events, "Date", "label"), "type Date")
 })
+
+test_that("data-frame column checks work on a real data.table", {
+  skip_if_not_installed("data.table")
+  dt <- data.table::data.table(symbol = "BTC/USDT", price = 50000, qty = 1L, ts = Sys.time())
+  expect_invisible(assert_has_columns(dt, c("symbol", "price")))
+  expect_invisible(assert_column_types(dt, "numeric", "price"))
+  expect_error(assert_column_types(dt, "numeric", c("price", "symbol")), "symbol")
+  expect_invisible(assert_no_missing_in_columns(dt, c("symbol", "price")))
+  expect_invisible(assert_unique_rows(dt))
+
+  dt_na <- data.table::data.table(a = c(1, NA), b = c("x", "y"))
+  expect_error(assert_no_missing_in_columns(dt_na, "a"), "missing")
+})
