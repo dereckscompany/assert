@@ -2,12 +2,15 @@
 % Please edit documentation in R/range.R
 \name{assert_between}
 \alias{assert_between}
-\title{Assert that values fall between two bounds}
+\title{Assert that values fall within an interval}
 \usage{
 assert_between(
   x,
   lower = NULL,
   upper = NULL,
+  lower_inclusive = TRUE,
+  upper_inclusive = TRUE,
+  na_ok = FALSE,
   null_ok = FALSE,
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
@@ -16,9 +19,21 @@ assert_between(
 \arguments{
 \item{x}{Object to check.}
 
-\item{lower}{Lower bound (inclusive), or \code{NULL} for unbounded below.}
+\item{lower}{Lower bound, or \code{NULL} for unbounded below. Must be the same
+class as \code{x} (no coercion is performed); a mismatched class compares
+silently wrong.}
 
-\item{upper}{Upper bound (inclusive), or \code{NULL} for unbounded above.}
+\item{upper}{Upper bound, or \code{NULL} for unbounded above.}
+
+\item{lower_inclusive}{Single logical. If \code{TRUE} (default) the lower bound is
+inclusive (\code{x >= lower}); if \code{FALSE} it is exclusive (\code{x > lower}).}
+
+\item{upper_inclusive}{Single logical. If \code{TRUE} (default) the upper bound is
+inclusive (\code{x <= upper}); if \code{FALSE} it is exclusive (\code{x < upper}).}
+
+\item{na_ok}{Single logical. If \code{FALSE} (default) any \code{NA} in \code{x} fails the
+check; if \code{TRUE}, \code{NA} elements are ignored and only the non-missing values
+are range-checked.}
 
 \item{null_ok}{Single logical. If \code{TRUE}, a \code{NULL} value passes the check
 without error. Use this for optional arguments that default to \code{NULL}.
@@ -34,13 +49,18 @@ calling function, so errors point at the user's code.}
 The input \code{x}, invisibly.
 }
 \description{
-Checks that every element of \code{x} lies between \code{lower} and \code{upper}, inclusive.
-Works for any comparable type: numbers, dates, date-times, strings. Pass
-\code{NULL} for a bound to leave that side open. Missing values cause the check to
-fail.
+Checks that every element of \code{x} lies within the interval \verb{[lower, upper]}.
+Each end is independently inclusive (closed, the default) or exclusive (open)
+via \code{lower_inclusive} / \code{upper_inclusive}, so every interval shape is
+expressible: \verb{[a, b]}, \verb{]a, b[}, \verb{]a, b]}, \verb{[a, b[}. Pass \code{NULL} for a bound to
+leave that side unbounded (\verb{]-Inf, b]}, \verb{[a, Inf[}). Comparisons use only \code{<} /
+\code{>}, so this works for any comparable type — numbers, integers, dates,
+date-times, even strings — and never coerces.
 }
 \examples{
-assert_between(5, 0, 10)
+assert_between(5, 0, 10) # [0, 10]
+assert_between(0.5, 0, 1, lower_inclusive = FALSE) # ]0, 1]
+assert_between(c(1, NA, 3), 0, 10, na_ok = TRUE)
 assert_between(Sys.time(), lower = as.POSIXct("2000-01-01"))
 
 }

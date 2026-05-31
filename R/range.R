@@ -44,21 +44,35 @@ assert_range <- function(
   return(invisible(NULL))
 }
 
-#' Assert that values fall between two bounds
+#' Assert that values fall within an interval
 #'
-#' Checks that every element of `x` lies between `lower` and `upper`, inclusive.
-#' Works for any comparable type: numbers, dates, date-times, strings. Pass
-#' `NULL` for a bound to leave that side open. Missing values cause the check to
-#' fail.
+#' Checks that every element of `x` lies within the interval `[lower, upper]`.
+#' Each end is independently inclusive (closed, the default) or exclusive (open)
+#' via `lower_inclusive` / `upper_inclusive`, so every interval shape is
+#' expressible: `[a, b]`, `]a, b[`, `]a, b]`, `[a, b[`. Pass `NULL` for a bound to
+#' leave that side unbounded (`]-Inf, b]`, `[a, Inf[`). Comparisons use only `<` /
+#' `>`, so this works for any comparable type — numbers, integers, dates,
+#' date-times, even strings — and never coerces.
 #'
 #' @inheritParams scalar-assertions
-#' @param lower Lower bound (inclusive), or `NULL` for unbounded below.
-#' @param upper Upper bound (inclusive), or `NULL` for unbounded above.
+#' @param lower Lower bound, or `NULL` for unbounded below. Must be the same
+#'   class as `x` (no coercion is performed); a mismatched class compares
+#'   silently wrong.
+#' @param upper Upper bound, or `NULL` for unbounded above.
+#' @param lower_inclusive Single logical. If `TRUE` (default) the lower bound is
+#'   inclusive (`x >= lower`); if `FALSE` it is exclusive (`x > lower`).
+#' @param upper_inclusive Single logical. If `TRUE` (default) the upper bound is
+#'   inclusive (`x <= upper`); if `FALSE` it is exclusive (`x < upper`).
+#' @param na_ok Single logical. If `FALSE` (default) any `NA` in `x` fails the
+#'   check; if `TRUE`, `NA` elements are ignored and only the non-missing values
+#'   are range-checked.
 #'
 #' @return The input `x`, invisibly.
 #'
 #' @examples
-#' assert_between(5, 0, 10)
+#' assert_between(5, 0, 10) # [0, 10]
+#' assert_between(0.5, 0, 1, lower_inclusive = FALSE) # ]0, 1]
+#' assert_between(c(1, NA, 3), 0, 10, na_ok = TRUE)
 #' assert_between(Sys.time(), lower = as.POSIXct("2000-01-01"))
 #'
 #' @export
@@ -66,6 +80,9 @@ assert_between <- function(
   x,
   lower = NULL,
   upper = NULL,
+  lower_inclusive = TRUE,
+  upper_inclusive = TRUE,
+  na_ok = FALSE,
   null_ok = FALSE,
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
@@ -77,13 +94,24 @@ assert_between <- function(
     cli::cli_abort("Provide at least one of {.arg lower} or {.arg upper}.", call = call)
   }
   if (anyNA(x)) {
-    abort_assertion(arg, "not contain missing values", call)
+    if (!isTRUE(na_ok)) {
+      abort_assertion(arg, "not contain missing values", call)
+    }
+    x <- x[!is.na(x)]
   }
-  if (!is.null(lower) && any(x < lower)) {
-    abort_assertion(arg, "be at least {lower}", call)
+  if (!is.null(lower)) {
+    if (isTRUE(lower_inclusive)) {
+      if (any(x < lower)) abort_assertion(arg, "be at least {lower}", call)
+    } else {
+      if (any(x <= lower)) abort_assertion(arg, "be greater than {lower}", call)
+    }
   }
-  if (!is.null(upper) && any(x > upper)) {
-    abort_assertion(arg, "be at most {upper}", call)
+  if (!is.null(upper)) {
+    if (isTRUE(upper_inclusive)) {
+      if (any(x > upper)) abort_assertion(arg, "be at most {upper}", call)
+    } else {
+      if (any(x >= upper)) abort_assertion(arg, "be less than {upper}", call)
+    }
   }
   return(invisible(x))
 }
