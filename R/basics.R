@@ -120,3 +120,60 @@ assert_list_of <- function(x, type, null_ok = FALSE, arg = rlang::caller_arg(x),
   }
   return(invisible(x))
 }
+
+#' Assert that an object satisfies at least one of several checks
+#'
+#' The disjunction ("one of") counterpart to stacking assertions, which is
+#' conjunction ("all of"). Runs each assertion in `...` against `x` and accepts
+#' as soon as one succeeds; if every one fails, raises a single error that lists
+#' each alternative's requirement. Use it for a value that may legitimately be
+#' one of several types or shapes — e.g. a numeric *or* a character vector, or an
+#' object of one R6 class *or* another.
+#'
+#' Each `...` entry is a function taking `x` as its first argument. Pass an
+#' existing assertion by name for a simple type alternative, or a small closure
+#' that stacks several checks for a constrained alternative.
+#'
+#' @inheritParams scalar-assertions
+#' @param ... One or more assertion functions, each called as `f(x)`. `x` passes
+#'   if any of them accepts it without raising an error.
+#'
+#' @return The input `x`, invisibly.
+#'
+#' @examples
+#' assert_any_of(42, assert_numeric, assert_character)
+#' assert_any_of("a", assert_numeric, assert_character)
+#'
+#' # A constrained alternative is a closure stacking several checks:
+#' assert_any_of(
+#'   3L,
+#'   function(v) {
+#'     assert_scalar_integer(v)
+#'     assert_between(v, 1L, 6L)
+#'   },
+#'   function(v) assert_scalar_character(v)
+#' )
+#'
+#' @export
+assert_any_of <- function(x, ..., null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  checks <- list(...)
+  if (length(checks) == 0L) {
+    cli::cli_abort("Provide at least one assertion to {.fn assert_any_of}.", call = call)
+  }
+  reasons <- character(0)
+  for (check in checks) {
+    err <- tryCatch(
+      {
+        check(x)
+        return(invisible(x))
+      },
+      error = function(e) e
+    )
+    reasons <- c(reasons, conditionMessage(err))
+  }
+  detail <- paste(reasons, collapse = " | ")
+  cli::cli_abort("{.arg {arg}} must satisfy at least one of: {detail}", call = call)
+}
