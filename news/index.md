@@ -1,5 +1,32 @@
 # Changelog
 
+## assert 0.0.7
+
+- New
+  [`assert_any_of()`](https://dereckscompany.github.io/assert/reference/assert_any_of.md):
+  passes if `x` satisfies at least one of several assertions — the
+  disjunction (“one of”) counterpart to stacking checks (which is
+  conjunction). Alternatives are functions `f(x)`; on total failure it
+  lists every alternative’s requirement.
+- [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md)
+  gains `lower_inclusive` / `upper_inclusive` flags, so every interval
+  shape is expressible (`[a, b]`, `]a, b[`, `]a, b]`, `[a, b[`), and
+  `na_ok` to ignore `NA` elements. It remains class-agnostic (`<`/`>`),
+  so open-bounded ranges now also work on `Date` / `POSIXct`. Defaults
+  preserve the previous closed-both, NA-fails behaviour.
+- New
+  [`assert_raw()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md)
+  and
+  [`assert_scalar_raw()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md):
+  the previously-missing `raw` type checks (`raw` has no `NA`, so the
+  scalar form has no [`is.na()`](https://rdrr.io/r/base/NA.html) guard).
+- New
+  [`assert_scalar_factor()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md):
+  the single-value `factor` check, completing the scalar family.
+- New
+  [`assert_length_between()`](https://dereckscompany.github.io/assert/reference/assert_length_between.md):
+  an inclusive `min..max` length check in one call.
+
 ## assert 0.0.6
 
 - New

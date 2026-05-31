@@ -6,10 +6,12 @@
   : Assert that all values are finite
 - [`assert_all_whole_numbers()`](https://dereckscompany.github.io/assert/reference/assert_all_whole_numbers.md)
   : Assert that values are whole numbers
+- [`assert_any_of()`](https://dereckscompany.github.io/assert/reference/assert_any_of.md)
+  : Assert that an object satisfies at least one of several checks
 - [`assert_at_least_one()`](https://dereckscompany.github.io/assert/reference/assert_at_least_one.md)
   : Assert that at least one of several arguments is supplied
 - [`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md)
-  : Assert that values fall between two bounds
+  : Assert that values fall within an interval
 - [`assert_class()`](https://dereckscompany.github.io/assert/reference/assert_class.md)
   : Assert that an object inherits from a class
 - [`assert_column_names()`](https://dereckscompany.github.io/assert/reference/assert_column_names.md)
@@ -36,6 +38,8 @@
   : Assert that an object contains required names
 - [`assert_length()`](https://dereckscompany.github.io/assert/reference/assert_length.md)
   : Assert that an object has an exact length
+- [`assert_length_between()`](https://dereckscompany.github.io/assert/reference/assert_length_between.md)
+  : Assert that an object's length falls within an inclusive range
 - [`assert_list_of()`](https://dereckscompany.github.io/assert/reference/assert_list_of.md)
   : Assert that every element of a list is of a given type
 - [`assert_matches_pattern()`](https://dereckscompany.github.io/assert/reference/assert_matches_pattern.md)
@@ -112,6 +116,8 @@
   [`assert_scalar_double()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
   [`assert_scalar_logical()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
   [`assert_scalar_complex()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
+  [`assert_scalar_factor()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
+  [`assert_scalar_raw()`](https://dereckscompany.github.io/assert/reference/scalar-assertions.md)
   : Assert that an object is a single value of a given type
 - [`assert_all_positive()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md)
   [`assert_all_non_negative()`](https://dereckscompany.github.io/assert/reference/sign-assertions.md)
@@ -127,4 +133,5 @@
   [`assert_list()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md)
   [`assert_factor()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md)
   [`assert_function()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md)
+  [`assert_raw()`](https://dereckscompany.github.io/assert/reference/vector-assertions.md)
   : Assert that an object is a vector of a given type

@@ -71,6 +71,13 @@ assert_function(
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
 )
+
+assert_raw(
+  x,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+)
 ```
 
 ## Arguments

@@ -53,6 +53,20 @@ assert_scalar_complex(
   arg = rlang::caller_arg(x),
   call = rlang::caller_env()
 )
+
+assert_scalar_factor(
+  x,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+)
+
+assert_scalar_raw(
+  x,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+)
 ```
 
 ## Arguments

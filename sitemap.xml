@@ -8,6 +8,7 @@
 <url><loc>https://dereckscompany.github.io/assert/news/index.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_all_finite.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_all_whole_numbers.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_any_of.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_at_least_one.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_between.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_class.html</loc></url>
@@ -23,6 +24,7 @@
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_has_columns.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_has_names.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_length.html</loc></url>
+<url><loc>https://dereckscompany.github.io/assert/reference/assert_length_between.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_list_of.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_matches_pattern.html</loc></url>
 <url><loc>https://dereckscompany.github.io/assert/reference/assert_maximum_characters.html</loc></url>

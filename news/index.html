@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">assert</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,9 +28,18 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.6/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/dereckscompany/assert/blob/v0.0.7/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.7" id="assert-007">assert 0.0.7<a class="anchor" aria-label="anchor" href="#assert-007"></a></h2>
+<ul><li>New <code><a href="../reference/assert_any_of.html">assert_any_of()</a></code>: passes if <code>x</code> satisfies at least one of several assertions — the disjunction (“one of”) counterpart to stacking checks (which is conjunction). Alternatives are functions <code>f(x)</code>; on total failure it lists every alternative’s requirement.</li>
+<li>
+<code><a href="../reference/assert_between.html">assert_between()</a></code> gains <code>lower_inclusive</code> / <code>upper_inclusive</code> flags, so every interval shape is expressible (<code>[a, b]</code>, <code>]a, b[</code>, <code>]a, b]</code>, <code>[a, b[</code>), and <code>na_ok</code> to ignore <code>NA</code> elements. It remains class-agnostic (<code>&lt;</code>/<code>&gt;</code>), so open-bounded ranges now also work on <code>Date</code> / <code>POSIXct</code>. Defaults preserve the previous closed-both, NA-fails behaviour.</li>
+<li>New <code><a href="../reference/vector-assertions.html">assert_raw()</a></code> and <code><a href="../reference/scalar-assertions.html">assert_scalar_raw()</a></code>: the previously-missing <code>raw</code> type checks (<code>raw</code> has no <code>NA</code>, so the scalar form has no <code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code> guard).</li>
+<li>New <code><a href="../reference/scalar-assertions.html">assert_scalar_factor()</a></code>: the single-value <code>factor</code> check, completing the scalar family.</li>
+<li>New <code><a href="../reference/assert_length_between.html">assert_length_between()</a></code>: an inclusive <code>min..max</code> length check in one call.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.6" id="assert-006">assert 0.0.6<a class="anchor" aria-label="anchor" href="#assert-006"></a></h2>
 <ul><li>New <code><a href="../reference/assert_scalar_non_negative.html">assert_scalar_non_negative()</a></code>: a single, finite, non-negative number (zero or greater) — the zero-inclusive counterpart of <code><a href="../reference/assert_scalar_positive.html">assert_scalar_positive()</a></code>.</li>
