@@ -118,10 +118,18 @@ box::use(
 )
 
 assert_all_positive(c(1, 2, 3))
-assert_between(c(0.2, 0.5, 0.9), lower = 0, upper = 1)
+assert_between(c(0.2, 0.5, 0.9), lower = 0, upper = 1) # closed: [0, 1]
+assert_between(c(0.2, 0.5, 0.9), lower = 0, upper = 1, lower_inclusive = FALSE) # ]0, 1]
 assert_values_in_set(c("buy", "sell"), c("buy", "sell", "hold"))
 invisible(NULL)
 ```
+
+[`assert_between()`](https://dereckscompany.github.io/assert/reference/assert_between.md)
+treats each bound as inclusive by default; set `lower_inclusive` or
+`upper_inclusive` to `FALSE` for an open end, leave a bound `NULL` for a
+one-sided range, and pass `na_ok = TRUE` to permit `NA` elements. It
+compares with `<` / `>` only, so the same call works for dates and
+date-times.
 
 ## Relationships between arguments
 
@@ -179,6 +187,35 @@ trades |>
   assert_column_types("numeric", "price") |>
   assert_unique_rows() |>
   invisible()
+```
+
+## One of several types
+
+Stacking assertions means “all of these must hold”. When a value may
+legitimately be one of several types or shapes,
+[`assert_any_of()`](https://dereckscompany.github.io/assert/reference/assert_any_of.md)
+is the “or”: it accepts the value if **any** of the listed checks
+passes, and on failure reports every alternative it tried. Each
+alternative is a function taking the value — an existing assertion by
+name, or a small closure stacking several checks.
+
+``` r
+
+box::use(assert[assert_any_of, assert_numeric, assert_character])
+
+identifier <- function(x) {
+  assert_any_of(x, assert_numeric, assert_character)
+  return(x)
+}
+
+identifier(42)
+#> [1] 42
+identifier("abc")
+#> [1] "abc"
+identifier(TRUE) # neither numeric nor character
+#> Error in `identifier()`:
+#> ! `x` must satisfy at least one of: `x` must be a numeric vector. | `x`
+#>   must be a character vector.
 ```
 
 ## The escape hatch

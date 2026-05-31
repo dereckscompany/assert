@@ -165,9 +165,17 @@ supplied.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/sign-assertions.html">assert_all_positive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/assert_between.html">assert_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span><span class="op">)</span>, lower <span class="op">=</span> <span class="fl">0</span>, upper <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/assert_between.html">assert_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span><span class="op">)</span>, lower <span class="op">=</span> <span class="fl">0</span>, upper <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># closed: [0, 1]</span></span>
+<span><span class="fu"><a href="../reference/assert_between.html">assert_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span><span class="op">)</span>, lower <span class="op">=</span> <span class="fl">0</span>, upper <span class="op">=</span> <span class="fl">1</span>, lower_inclusive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># ]0, 1]</span></span>
 <span><span class="fu"><a href="../reference/assert_values_in_set.html">assert_values_in_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"buy"</span>, <span class="st">"sell"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"buy"</span>, <span class="st">"sell"</span>, <span class="st">"hold"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="../reference/assert_between.html">assert_between()</a></code> treats each bound as inclusive by
+default; set <code>lower_inclusive</code> or
+<code>upper_inclusive</code> to <code>FALSE</code> for an open end,
+leave a bound <code>NULL</code> for a one-sided range, and pass
+<code>na_ok = TRUE</code> to permit <code>NA</code> elements. It
+compares with <code>&lt;</code> / <code>&gt;</code> only, so the same
+call works for dates and date-times.</p>
 </div>
 <div class="section level2">
 <h2 id="relationships-between-arguments">Relationships between arguments<a class="anchor" aria-label="anchor" href="#relationships-between-arguments"></a>
@@ -225,11 +233,38 @@ structure and column types in one place.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="one-of-several-types">One of several types<a class="anchor" aria-label="anchor" href="#one-of-several-types"></a>
+</h2>
+<p>Stacking assertions means “all of these must hold”. When a value may
+legitimately be one of several types or shapes,
+<code><a href="../reference/assert_any_of.html">assert_any_of()</a></code> is the “or”: it accepts the value if
+<strong>any</strong> of the listed checks passes, and on failure reports
+every alternative it tried. Each alternative is a function taking the
+value — an existing assertion by name, or a small closure stacking
+several checks.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">[</span><span class="va">assert_any_of</span>, <span class="va">assert_numeric</span>, <span class="va">assert_character</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">identifier</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/assert_any_of.html">assert_any_of</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">assert_numeric</span>, <span class="va">assert_character</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">identifier</span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 42</span></span>
+<span><span class="fu">identifier</span><span class="op">(</span><span class="st">"abc"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "abc"</span></span>
+<span><span class="fu">identifier</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># neither numeric nor character</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `identifier()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> `x` must satisfy at least one of: `x` must be a numeric vector. | `x`</span></span>
+<span><span class="co">#&gt;   must be a character vector.</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="the-escape-hatch">The escape hatch<a class="anchor" aria-label="anchor" href="#the-escape-hatch"></a>
 </h2>
 <p>For any condition without a dedicated assertion, use
 <code><a href="../reference/assert_true.html">assert_true()</a></code> with a custom message.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">assert</span><span class="op">[</span><span class="va">assert_scalar_numeric</span>, <span class="va">assert_true</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">set_threshold</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
