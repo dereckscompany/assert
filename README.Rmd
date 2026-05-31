@@ -108,18 +108,18 @@ people |>
 
 | Group | Examples |
 |-------|----------|
-| Scalars | `assert_scalar_character()`, `assert_scalar_count()`, `assert_scalar_positive()`, `assert_scalar_non_negative()`, `assert_scalar_positive_integer()` |
-| Vectors | `assert_character()`, `assert_numeric()`, `assert_list()`, `assert_list_of()` |
+| Scalars | `assert_scalar_character()`, `assert_scalar_count()`, `assert_scalar_positive()`, `assert_scalar_non_negative()`, `assert_scalar_positive_integer()`, `assert_scalar_factor()`, `assert_scalar_raw()` |
+| Vectors | `assert_character()`, `assert_numeric()`, `assert_raw()`, `assert_list()`, `assert_list_of()` |
 | Dates & times | `assert_date()`, `assert_datetime()`, `assert_scalar_datetime()` |
-| Ranges | `assert_range()`, `assert_between()` |
-| Length & names | `assert_length()`, `assert_not_empty()`, `assert_named()`, `assert_has_names()` |
+| Ranges | `assert_range()`, `assert_between()` (inclusive/exclusive bounds) |
+| Length & names | `assert_length()`, `assert_length_between()`, `assert_not_empty()`, `assert_named()`, `assert_has_names()` |
 | Values | `assert_no_missing_values()`, `assert_all_positive()`, `assert_values_in_set()`, `assert_value_in_set()` |
 | Strings | `assert_matches_pattern()`, `assert_nonempty_strings()`, `assert_minimum_characters()` |
 | Comparisons | `assert_all_greater_than()`, `assert_all_less_than_or_equal()`, `assert_sorted()`, `assert_same_length()` |
 | Sets | `assert_set_equal()`, `assert_disjoint()` |
 | Arguments | `assert_mutually_exclusive()`, `assert_at_least_one()`, `assert_exactly_one()` |
 | Data frames | `assert_data_frame()`, `assert_has_columns()`, `assert_column_types()`, `assert_unique_rows()` |
-| Conditions | `assert_true()`, `assert_false()`, `assert_null()`, `assert_not_null()` |
+| Conditions | `assert_true()`, `assert_false()`, `assert_null()`, `assert_not_null()`, `assert_any_of()` |
 
 See `vignette("assert")` for a tour.
 
