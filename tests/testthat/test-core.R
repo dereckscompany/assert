@@ -92,6 +92,30 @@ test_that("assert_scalar_positive_integer checks single positive whole numbers",
   expect_error(assert_scalar_positive_integer("a"), "single positive whole number")
 })
 
+test_that("assert_scalar_factor checks a single factor value", {
+  expect_invisible(assert_scalar_factor(factor("a")))
+  expect_invisible(assert_scalar_factor(NULL, null_ok = TRUE))
+  expect_error(assert_scalar_factor("a"), "single factor")
+  expect_error(assert_scalar_factor(factor(c("a", "b"))), "single factor")
+  expect_error(assert_scalar_factor(factor(NA)), "single factor")
+})
+
+test_that("assert_scalar_raw checks a single raw byte (no NA notion)", {
+  expect_invisible(assert_scalar_raw(as.raw(1)))
+  expect_invisible(assert_scalar_raw(NULL, null_ok = TRUE))
+  expect_error(assert_scalar_raw(1L), "single raw")
+  expect_error(assert_scalar_raw(as.raw(1:2)), "single raw")
+})
+
+test_that("assert_raw checks a raw vector at any length", {
+  expect_invisible(assert_raw(as.raw(0)))
+  expect_invisible(assert_raw(as.raw(1:32)))
+  expect_invisible(assert_raw(raw(0)))
+  expect_invisible(assert_raw(NULL, null_ok = TRUE))
+  expect_error(assert_raw(1L), "raw vector")
+  expect_error(assert_raw("a"), "raw vector")
+})
+
 test_that("assert_class checks inheritance", {
   expect_invisible(assert_class(Sys.Date(), "Date"))
   expect_error(assert_class(1, "Date"), "inherit from class")

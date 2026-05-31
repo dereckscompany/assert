@@ -8,6 +8,8 @@
 \alias{assert_scalar_double}
 \alias{assert_scalar_logical}
 \alias{assert_scalar_complex}
+\alias{assert_scalar_factor}
+\alias{assert_scalar_raw}
 \title{Assert that an object is a single value of a given type}
 \usage{
 assert_scalar_character(
@@ -46,6 +48,20 @@ assert_scalar_logical(
 )
 
 assert_scalar_complex(
+  x,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+)
+
+assert_scalar_factor(
+  x,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+)
+
+assert_scalar_raw(
   x,
   null_ok = FALSE,
   arg = rlang::caller_arg(x),

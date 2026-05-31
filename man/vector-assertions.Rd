@@ -11,6 +11,7 @@
 \alias{assert_list}
 \alias{assert_factor}
 \alias{assert_function}
+\alias{assert_raw}
 \title{Assert that an object is a vector of a given type}
 \usage{
 assert_character(
@@ -70,6 +71,13 @@ assert_factor(
 )
 
 assert_function(
+  x,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+)
+
+assert_raw(
   x,
   null_ok = FALSE,
   arg = rlang::caller_arg(x),
