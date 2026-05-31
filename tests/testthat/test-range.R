@@ -78,3 +78,20 @@ test_that("assert_between na_ok ignores NA elements", {
   expect_error(assert_between(c(1, NA, 30), 0, 10, na_ok = TRUE), "at most 10")
   expect_invisible(assert_between(NA_real_, 0, 10, na_ok = TRUE))
 })
+
+test_that("assert_between na_ok returns the original input unchanged (not the filtered vector)", {
+  x <- c(1, NA, 3)
+  expect_identical(assert_between(x, 0, 10, na_ok = TRUE), x)
+})
+
+test_that("assert_between rejects NULL by default (null_ok = FALSE)", {
+  expect_error(assert_between(NULL, 0, 10), "not be NULL")
+})
+
+test_that("assert_between rejects inverted bounds (lower > upper)", {
+  expect_error(assert_between(5, 10, 0), "less than or equal")
+  expect_error(
+    assert_between(as.Date("2024-06-01"), as.Date("2024-12-31"), as.Date("2024-01-01")),
+    "less than or equal"
+  )
+})

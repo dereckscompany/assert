@@ -100,6 +100,12 @@ assert_length_between <- function(
   if (passes_as_null(x, null_ok)) {
     return(invisible(x))
   }
+  if (minimum_length > maximum_length) {
+    cli::cli_abort(
+      "{.arg minimum_length} must be less than or equal to {.arg maximum_length}.",
+      call = call
+    )
+  }
   n <- length(x)
   if (n < minimum_length || n > maximum_length) {
     abort_assertion(arg, "have length between {minimum_length} and {maximum_length}", call)

@@ -43,6 +43,12 @@ object of one R6 class \emph{or} another.
 Each \code{...} entry is a function taking \code{x} as its first argument. Pass an
 existing assertion by name for a simple type alternative, or a small closure
 that stacks several checks for a constrained alternative.
+
+Note: a check function that errors for \emph{any} reason — including a bug in its
+own code, not just an assertion failure — counts as that alternative failing.
+This is inherent to a try-first combinator, which cannot tell an assertion
+failure from an unrelated error. Keep the check functions to assertions, and
+if a check is non-trivial, test it on its own.
 }
 \examples{
 assert_any_of(42, assert_numeric, assert_character)

@@ -134,6 +134,12 @@ assert_list_of <- function(x, type, null_ok = FALSE, arg = rlang::caller_arg(x),
 #' existing assertion by name for a simple type alternative, or a small closure
 #' that stacks several checks for a constrained alternative.
 #'
+#' Note: a check function that errors for *any* reason — including a bug in its
+#' own code, not just an assertion failure — counts as that alternative failing.
+#' This is inherent to a try-first combinator, which cannot tell an assertion
+#' failure from an unrelated error. Keep the check functions to assertions, and
+#' if a check is non-trivial, test it on its own.
+#'
 #' @inheritParams scalar-assertions
 #' @param ... One or more assertion functions, each called as `f(x)`. `x` passes
 #'   if any of them accepts it without raising an error.
@@ -174,6 +180,8 @@ assert_any_of <- function(x, ..., null_ok = FALSE, arg = rlang::caller_arg(x), c
     )
     reasons <- c(reasons, conditionMessage(err))
   }
-  detail <- paste(reasons, collapse = " | ")
-  cli::cli_abort("{.arg {arg}} must satisfy at least one of: {detail}", call = call)
+  cli::cli_abort(
+    "{.arg {arg}} must satisfy at least one of: {paste(reasons, collapse = ' | ')}",
+    call = call
+  )
 }

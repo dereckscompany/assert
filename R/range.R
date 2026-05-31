@@ -65,7 +65,7 @@ assert_range <- function(
 #'   inclusive (`x <= upper`); if `FALSE` it is exclusive (`x < upper`).
 #' @param na_ok Single logical. If `FALSE` (default) any `NA` in `x` fails the
 #'   check; if `TRUE`, `NA` elements are ignored and only the non-missing values
-#'   are range-checked.
+#'   are range-checked. Either way `x` is returned unchanged (including any `NA`).
 #'
 #' @return The input `x`, invisibly.
 #'
@@ -90,27 +90,35 @@ assert_between <- function(
   if (passes_as_null(x, null_ok)) {
     return(invisible(x))
   }
+  if (is.null(x)) {
+    abort_assertion(arg, "not be NULL", call)
+  }
   if (is.null(lower) && is.null(upper)) {
     cli::cli_abort("Provide at least one of {.arg lower} or {.arg upper}.", call = call)
   }
-  if (anyNA(x)) {
+  if (!is.null(lower) && !is.null(upper) && isTRUE(any(lower > upper))) {
+    cli::cli_abort("{.arg lower} must be less than or equal to {.arg upper}.", call = call)
+  }
+  # Range-check the non-missing values; `x` itself is returned unchanged.
+  values <- x
+  if (anyNA(values)) {
     if (!isTRUE(na_ok)) {
       abort_assertion(arg, "not contain missing values", call)
     }
-    x <- x[!is.na(x)]
+    values <- values[!is.na(values)]
   }
   if (!is.null(lower)) {
     if (isTRUE(lower_inclusive)) {
-      if (any(x < lower)) abort_assertion(arg, "be at least {lower}", call)
+      if (any(values < lower)) abort_assertion(arg, "be at least {lower}", call)
     } else {
-      if (any(x <= lower)) abort_assertion(arg, "be greater than {lower}", call)
+      if (any(values <= lower)) abort_assertion(arg, "be greater than {lower}", call)
     }
   }
   if (!is.null(upper)) {
     if (isTRUE(upper_inclusive)) {
-      if (any(x > upper)) abort_assertion(arg, "be at most {upper}", call)
+      if (any(values > upper)) abort_assertion(arg, "be at most {upper}", call)
     } else {
-      if (any(x >= upper)) abort_assertion(arg, "be less than {upper}", call)
+      if (any(values >= upper)) abort_assertion(arg, "be less than {upper}", call)
     }
   }
   return(invisible(x))

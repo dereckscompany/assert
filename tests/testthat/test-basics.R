@@ -47,7 +47,7 @@ test_that("assert_any_of fails when every alternative fails, listing each reason
 test_that("assert_any_of supports constrained alternatives (closures stacking checks)", {
   d6 <- function(x) {
     assert_scalar_integer(x)
-    assert_between(x, 1L, 6L)
+    return(assert_between(x, 1L, 6L))
   }
   expect_invisible(assert_any_of(3L, d6, function(v) assert_scalar_character(v)))
   expect_invisible(assert_any_of("d6", d6, function(v) assert_scalar_character(v)))

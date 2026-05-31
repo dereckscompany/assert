@@ -33,7 +33,7 @@ inclusive (\code{x <= upper}); if \code{FALSE} it is exclusive (\code{x < upper}
 
 \item{na_ok}{Single logical. If \code{FALSE} (default) any \code{NA} in \code{x} fails the
 check; if \code{TRUE}, \code{NA} elements are ignored and only the non-missing values
-are range-checked.}
+are range-checked. Either way \code{x} is returned unchanged (including any \code{NA}).}
 
 \item{null_ok}{Single logical. If \code{TRUE}, a \code{NULL} value passes the check
 without error. Use this for optional arguments that default to \code{NULL}.
