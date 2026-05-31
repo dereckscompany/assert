@@ -40,3 +40,58 @@ test_that("assert_between supports open bounds and rejects NA", {
   expect_error(assert_between(c(1, NA), 0, 10), "missing values")
   expect_invisible(assert_between(NULL, 0, 10, null_ok = TRUE))
 })
+
+test_that("assert_between honours inclusive/exclusive bounds independently", {
+  # ]0, 1] : lower exclusive, upper inclusive
+  expect_invisible(assert_between(c(0.5, 1), 0, 1, lower_inclusive = FALSE))
+  expect_error(assert_between(0, 0, 1, lower_inclusive = FALSE), "greater than 0")
+  # [0, 1[ : lower inclusive, upper exclusive
+  expect_invisible(assert_between(c(0, 0.5), 0, 1, upper_inclusive = FALSE))
+  expect_error(assert_between(1, 0, 1, upper_inclusive = FALSE), "less than 1")
+  # ]0, 1[ : both exclusive
+  expect_invisible(assert_between(0.5, 0, 1, lower_inclusive = FALSE, upper_inclusive = FALSE))
+  expect_error(assert_between(1, 0, 1, lower_inclusive = FALSE, upper_inclusive = FALSE), "less than 1")
+})
+
+test_that("assert_between exclusive bounds work on Date/POSIXct (class-agnostic, no is.numeric gate)", {
+  expect_invisible(assert_between(
+    as.Date("2024-06-01"),
+    as.Date("2024-01-01"),
+    as.Date("2024-12-31"),
+    lower_inclusive = FALSE,
+    upper_inclusive = FALSE
+  ))
+  expect_error(
+    assert_between(as.Date("2024-01-01"), as.Date("2024-01-01"), lower_inclusive = FALSE),
+    "greater than"
+  )
+  # one-sided open upper on a date-time
+  expect_invisible(assert_between(
+    as.POSIXct("2024-06-01", tz = "UTC"),
+    upper = as.POSIXct("2025-01-01", tz = "UTC"),
+    upper_inclusive = FALSE
+  ))
+})
+
+test_that("assert_between na_ok ignores NA elements", {
+  expect_invisible(assert_between(c(1, NA, 3), 0, 10, na_ok = TRUE))
+  expect_error(assert_between(c(1, NA, 30), 0, 10, na_ok = TRUE), "at most 10")
+  expect_invisible(assert_between(NA_real_, 0, 10, na_ok = TRUE))
+})
+
+test_that("assert_between na_ok returns the original input unchanged (not the filtered vector)", {
+  x <- c(1, NA, 3)
+  expect_identical(assert_between(x, 0, 10, na_ok = TRUE), x)
+})
+
+test_that("assert_between rejects NULL by default (null_ok = FALSE)", {
+  expect_error(assert_between(NULL, 0, 10), "not be NULL")
+})
+
+test_that("assert_between rejects inverted bounds (lower > upper)", {
+  expect_error(assert_between(5, 10, 0), "less than or equal")
+  expect_error(
+    assert_between(as.Date("2024-06-01"), as.Date("2024-12-31"), as.Date("2024-01-01")),
+    "less than or equal"
+  )
+})

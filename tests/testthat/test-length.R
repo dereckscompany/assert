@@ -9,6 +9,19 @@ test_that("length assertions work", {
   expect_error(assert_not_empty(integer(0)), "not be empty")
 })
 
+test_that("assert_length_between checks an inclusive length range", {
+  expect_invisible(assert_length_between(1:5, 1, 10))
+  expect_invisible(assert_length_between(1:3, 3, 3))
+  expect_invisible(assert_length_between(character(0), 0, 2))
+  expect_error(assert_length_between(1:5, 1, 4), "between 1 and 4")
+  expect_error(assert_length_between(integer(0), 1, 4), "between 1 and 4")
+  expect_invisible(assert_length_between(NULL, 1, 4, null_ok = TRUE))
+})
+
+test_that("assert_length_between rejects inverted bounds with a clear message", {
+  expect_error(assert_length_between(1:3, 5, 2), "less than or equal")
+})
+
 test_that("name assertions work", {
   expect_invisible(assert_named(c(a = 1, b = 2)))
   expect_error(assert_named(c(1, 2)), "have names")

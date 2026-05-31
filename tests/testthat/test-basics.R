@@ -27,3 +27,33 @@ test_that("assert_list_of checks element types", {
   expect_error(assert_list_of(1:3, "numeric"), "be a list")
   expect_invisible(assert_list_of(NULL, "character", null_ok = TRUE))
 })
+
+test_that("assert_any_of accepts when any alternative passes", {
+  expect_invisible(assert_any_of(42, assert_numeric, assert_character))
+  expect_invisible(assert_any_of("a", assert_numeric, assert_character))
+  expect_invisible(assert_any_of(NULL, assert_numeric, null_ok = TRUE))
+})
+
+test_that("assert_any_of fails when every alternative fails, listing each reason", {
+  err <- expect_error(
+    assert_any_of(TRUE, assert_numeric, assert_character),
+    "at least one of"
+  )
+  # the combined message surfaces both alternatives' requirements
+  expect_match(conditionMessage(err), "numeric")
+  expect_match(conditionMessage(err), "character")
+})
+
+test_that("assert_any_of supports constrained alternatives (closures stacking checks)", {
+  d6 <- function(x) {
+    assert_scalar_integer(x)
+    return(assert_between(x, 1L, 6L))
+  }
+  expect_invisible(assert_any_of(3L, d6, function(v) assert_scalar_character(v)))
+  expect_invisible(assert_any_of("d6", d6, function(v) assert_scalar_character(v)))
+  expect_error(assert_any_of(7L, d6, function(v) assert_scalar_character(v)), "at least one of")
+})
+
+test_that("assert_any_of requires at least one check", {
+  expect_error(assert_any_of(1), "at least one assertion")
+})

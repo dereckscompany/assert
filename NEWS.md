@@ -1,3 +1,11 @@
+# assert 0.0.7
+
+* New `assert_any_of()`: passes if `x` satisfies at least one of several assertions — the disjunction ("one of") counterpart to stacking checks (which is conjunction). Alternatives are functions `f(x)`; on total failure it lists every alternative's requirement.
+* `assert_between()` gains `lower_inclusive` / `upper_inclusive` flags, so every interval shape is expressible (`[a, b]`, `]a, b[`, `]a, b]`, `[a, b[`), and `na_ok` to ignore `NA` elements. It remains class-agnostic (`<`/`>`), so open-bounded ranges now also work on `Date` / `POSIXct`. Defaults preserve the previous closed-both, NA-fails behaviour.
+* New `assert_raw()` and `assert_scalar_raw()`: the previously-missing `raw` type checks (`raw` has no `NA`, so the scalar form has no `is.na()` guard).
+* New `assert_scalar_factor()`: the single-value `factor` check, completing the scalar family.
+* New `assert_length_between()`: an inclusive `min..max` length check in one call.
+
 # assert 0.0.6
 
 * New `assert_scalar_non_negative()`: a single, finite, non-negative number (zero or greater) — the zero-inclusive counterpart of `assert_scalar_positive()`.

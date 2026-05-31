@@ -139,6 +139,31 @@ assert_scalar_complex <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x)
   return(invisible(x))
 }
 
+#' @rdname scalar-assertions
+#' @export
+assert_scalar_factor <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  if (length(x) != 1L || !is.factor(x) || is.na(x)) {
+    abort_assertion(arg, "be a single factor value", call)
+  }
+  return(invisible(x))
+}
+
+#' @rdname scalar-assertions
+#' @export
+assert_scalar_raw <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  # raw has no NA representation, so there is no is.na() guard.
+  if (length(x) != 1L || !is.raw(x)) {
+    abort_assertion(arg, "be a single raw byte", call)
+  }
+  return(invisible(x))
+}
+
 # ---- Scalar value assertions ------------------------------------------------
 # Convenience checks that combine "single value" with a content constraint.
 
@@ -363,6 +388,18 @@ assert_function <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call
   }
   if (!is.function(x)) {
     abort_assertion(arg, "be a function", call)
+  }
+  return(invisible(x))
+}
+
+#' @rdname vector-assertions
+#' @export
+assert_raw <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  if (!is.raw(x)) {
+    abort_assertion(arg, "be a raw vector", call)
   }
   return(invisible(x))
 }

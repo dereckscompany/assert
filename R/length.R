@@ -71,6 +71,48 @@ assert_maximum_length <- function(
   return(invisible(x))
 }
 
+#' Assert that an object's length falls within an inclusive range
+#'
+#' Checks that `minimum_length <= length(x) <= maximum_length`, both inclusive.
+#' The single-call form of stacking [assert_minimum_length()] and
+#' [assert_maximum_length()].
+#'
+#' @inheritParams scalar-assertions
+#' @param minimum_length Single non-negative whole number: the smallest allowed
+#'   length.
+#' @param maximum_length Single non-negative whole number: the largest allowed
+#'   length.
+#'
+#' @return The input `x`, invisibly.
+#'
+#' @examples
+#' assert_length_between(1:5, 1, 10)
+#'
+#' @export
+assert_length_between <- function(
+  x,
+  minimum_length,
+  maximum_length,
+  null_ok = FALSE,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  if (minimum_length > maximum_length) {
+    cli::cli_abort(
+      "{.arg minimum_length} must be less than or equal to {.arg maximum_length}.",
+      call = call
+    )
+  }
+  n <- length(x)
+  if (n < minimum_length || n > maximum_length) {
+    abort_assertion(arg, "have length between {minimum_length} and {maximum_length}", call)
+  }
+  return(invisible(x))
+}
+
 #' Assert that an object is not empty
 #'
 #' Checks that `x` has length greater than zero.
