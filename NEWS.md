@@ -1,3 +1,7 @@
+# assert 0.0.8
+
+* New `assert_count()`: the vector counterpart of `assert_scalar_count()` — every value must be a non-negative whole number (`0`, `1`, `2`, ...), accepting integer-valued doubles (`c(0, 1, 2)`) and integers (`4L`); missing, infinite, fractional, and negative values fail.
+
 # assert 0.0.7
 
 * New `assert_any_of()`: passes if `x` satisfies at least one of several assertions — the disjunction ("one of") counterpart to stacking checks (which is conjunction). Alternatives are functions `f(x)`; on total failure it lists every alternative's requirement.
