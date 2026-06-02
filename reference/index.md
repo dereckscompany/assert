@@ -18,6 +18,8 @@
   : Assert that a data frame has exactly these columns
 - [`assert_column_types()`](https://dereckscompany.github.io/assert/reference/assert_column_types.md)
   : Assert that a set of columns are all of one type
+- [`assert_count()`](https://dereckscompany.github.io/assert/reference/assert_count.md)
+  : Assert that values are counts
 - [`assert_data_frame()`](https://dereckscompany.github.io/assert/reference/assert_data_frame.md)
   : Assert that an object is a data frame
 - [`assert_data_table()`](https://dereckscompany.github.io/assert/reference/assert_data_table.md)

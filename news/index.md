@@ -1,5 +1,15 @@
 # Changelog
 
+## assert 0.0.8
+
+- New
+  [`assert_count()`](https://dereckscompany.github.io/assert/reference/assert_count.md):
+  the vector counterpart of
+  [`assert_scalar_count()`](https://dereckscompany.github.io/assert/reference/assert_scalar_count.md)
+  — every value must be a non-negative whole number (`0`, `1`, `2`, …),
+  accepting integer-valued doubles (`c(0, 1, 2)`) and integers (`4L`);
+  missing, infinite, fractional, and negative values fail.
+
 ## assert 0.0.7
 
 - New
