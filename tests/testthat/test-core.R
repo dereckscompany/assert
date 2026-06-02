@@ -54,6 +54,20 @@ test_that("assert_scalar_count checks single non-negative whole numbers", {
   expect_error(assert_scalar_count("a"), "non-negative whole number")
 })
 
+test_that("assert_count checks vectors of non-negative whole numbers", {
+  expect_invisible(assert_count(c(0, 1, 2)))
+  expect_invisible(assert_count(4L))
+  expect_invisible(assert_count(integer(0)))
+  expect_invisible(assert_count(c(0L, 5L, 10L)))
+  expect_error(assert_count(c(1, -1)), "non-negative whole numbers")
+  expect_error(assert_count(c(1, 1.5)), "non-negative whole numbers")
+  expect_error(assert_count(c(1, NA)), "non-negative whole numbers")
+  expect_error(assert_count(c(1, Inf)), "non-negative whole numbers")
+  expect_error(assert_count(c(1, NaN)), "non-negative whole numbers")
+  expect_error(assert_count("a"), "non-negative whole numbers")
+  expect_invisible(assert_count(NULL, null_ok = TRUE))
+})
+
 test_that("assert_scalar_positive checks single finite positive numbers", {
   expect_invisible(assert_scalar_positive(42))
   expect_invisible(assert_scalar_positive(0.5))

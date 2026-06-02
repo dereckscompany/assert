@@ -190,6 +190,32 @@ assert_scalar_count <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), 
   return(invisible(x))
 }
 
+#' Assert that values are counts
+#'
+#' Checks that `x` is numeric and every value is a non-negative whole number
+#' (`0`, `1`, `2`, ...). Doubles with no fractional part (such as `3` or
+#' `c(1, 2, 3)`) are accepted, as are integers. The vector counterpart of
+#' [assert_scalar_count()]; missing, infinite, fractional, and negative values
+#' all cause the check to fail.
+#'
+#' @inheritParams scalar-assertions
+#' @return The input `x`, invisibly.
+#'
+#' @examples
+#' assert_count(c(0, 1, 2))
+#' assert_count(4L)
+#'
+#' @export
+assert_count <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), call = rlang::caller_env()) {
+  if (passes_as_null(x, null_ok)) {
+    return(invisible(x))
+  }
+  if (!is.numeric(x) || any(!is.finite(x)) || any(x < 0) || any(x != round(x))) {
+    abort_assertion(arg, "contain only non-negative whole numbers", call)
+  }
+  return(invisible(x))
+}
+
 #' Assert that an object is a single positive number
 #'
 #' Checks that `x` is a single, finite, positive number (greater than zero).

@@ -113,7 +113,7 @@ people |>
 | Dates & times | `assert_date()`, `assert_datetime()`, `assert_scalar_datetime()` |
 | Ranges | `assert_range()`, `assert_between()` (inclusive/exclusive bounds) |
 | Length & names | `assert_length()`, `assert_length_between()`, `assert_not_empty()`, `assert_named()`, `assert_has_names()` |
-| Values | `assert_no_missing_values()`, `assert_all_positive()`, `assert_values_in_set()`, `assert_value_in_set()` |
+| Values | `assert_no_missing_values()`, `assert_all_positive()`, `assert_count()`, `assert_all_whole_numbers()`, `assert_values_in_set()`, `assert_value_in_set()` |
 | Strings | `assert_matches_pattern()`, `assert_nonempty_strings()`, `assert_minimum_characters()` |
 | Comparisons | `assert_all_greater_than()`, `assert_all_less_than_or_equal()`, `assert_sorted()`, `assert_same_length()` |
 | Sets | `assert_set_equal()`, `assert_disjoint()` |
