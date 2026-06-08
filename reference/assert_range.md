@@ -1,9 +1,12 @@
 # Assert that two bounds form a range
 
-Checks that `lower` is less than or equal to `upper`, so the two values
-form a sensible (non-inverted) range. Works for any comparable type:
-numbers, dates, date-times, strings. If either bound is `NULL` the range
-is treated as open-ended on that side and the check passes — handy for
+Checks that `lower` and `upper` form a sensible (non-inverted) range. By
+default equal bounds are allowed (`lower <= upper`, a point range); set
+`allow_equal = FALSE` to require them strictly ordered
+(`lower < upper`), rejecting `lower == upper` — handy for half-open
+windows like `start < end`. Works for any comparable type: numbers,
+dates, date-times, strings. If either bound is `NULL` the range is
+treated as open-ended on that side and the check passes — handy for
 optional `start` / `end` arguments.
 
 ## Usage
@@ -12,6 +15,7 @@ optional `start` / `end` arguments.
 assert_range(
   lower,
   upper,
+  allow_equal = TRUE,
   arg_lower = rlang::caller_arg(lower),
   arg_upper = rlang::caller_arg(upper),
   call = rlang::caller_env()
@@ -27,6 +31,12 @@ assert_range(
 - upper:
 
   The upper bound, or `NULL` for unbounded above.
+
+- allow_equal:
+
+  Single logical. If `TRUE` (default) the bounds may be equal
+  (`lower <= upper`); if `FALSE` they must be strictly ordered
+  (`lower < upper`), so equal bounds fail.
 
 - arg_lower:
 
@@ -49,6 +59,8 @@ assert_range(
 
 ``` r
 assert_range(0, 10)
+assert_range(5, 5) # equal bounds: passes by default
+assert_range(5, 6, allow_equal = FALSE) # strict ordering required
 assert_range(as.Date("2026-01-01"), as.Date("2026-12-31"))
 assert_range(NULL, 10) # open-ended below: passes
 ```
