@@ -7,6 +7,7 @@
 assert_range(
   lower,
   upper,
+  allow_equal = TRUE,
   arg_lower = rlang::caller_arg(lower),
   arg_upper = rlang::caller_arg(upper),
   call = rlang::caller_env()
@@ -16,6 +17,10 @@ assert_range(
 \item{lower}{The lower bound, or \code{NULL} for unbounded below.}
 
 \item{upper}{The upper bound, or \code{NULL} for unbounded above.}
+
+\item{allow_equal}{Single logical. If \code{TRUE} (default) the bounds may be equal
+(\code{lower <= upper}); if \code{FALSE} they must be strictly ordered (\code{lower < upper}),
+so equal bounds fail.}
 
 \item{arg_lower}{Name used to refer to \code{lower} in error messages.}
 
@@ -28,14 +33,18 @@ calling function, so errors point at the user's code.}
 \code{NULL}, invisibly.
 }
 \description{
-Checks that \code{lower} is less than or equal to \code{upper}, so the two values form
-a sensible (non-inverted) range. Works for any comparable type: numbers,
-dates, date-times, strings. If either bound is \code{NULL} the range is treated as
-open-ended on that side and the check passes — handy for optional \code{start} /
-\code{end} arguments.
+Checks that \code{lower} and \code{upper} form a sensible (non-inverted) range. By
+default equal bounds are allowed (\code{lower <= upper}, a point range); set
+\code{allow_equal = FALSE} to require them strictly ordered (\code{lower < upper}),
+rejecting \code{lower == upper} — handy for half-open windows like \code{start < end}.
+Works for any comparable type: numbers, dates, date-times, strings. If either
+bound is \code{NULL} the range is treated as open-ended on that side and the check
+passes — handy for optional \code{start} / \code{end} arguments.
 }
 \examples{
 assert_range(0, 10)
+assert_range(5, 5) # equal bounds: passes by default
+assert_range(5, 6, allow_equal = FALSE) # strict ordering required
 assert_range(as.Date("2026-01-01"), as.Date("2026-12-31"))
 assert_range(NULL, 10) # open-ended below: passes
 

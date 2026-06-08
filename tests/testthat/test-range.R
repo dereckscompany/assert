@@ -21,6 +21,52 @@ test_that("assert_range names the offending arguments", {
   expect_error(f(10, 0), "start")
 })
 
+test_that("assert_range allow_equal = FALSE requires strictly ordered bounds across types", {
+  # ── integer doubles ──
+  expect_invisible(assert_range(0, 10, allow_equal = FALSE))
+  expect_error(assert_range(5, 5, allow_equal = FALSE), "less than")
+  expect_error(assert_range(10, 0, allow_equal = FALSE), "less than")
+  # ── integers (typed) ──
+  expect_invisible(assert_range(0L, 10L, allow_equal = FALSE))
+  expect_error(assert_range(5L, 5L, allow_equal = FALSE), "less than")
+  # ── fractional floats (a hair apart passes; identical fails) ──
+  expect_invisible(assert_range(1.5, 1.5000001, allow_equal = FALSE))
+  expect_error(assert_range(1.5, 1.5, allow_equal = FALSE), "less than")
+  expect_error(assert_range(2.5, 1.5, allow_equal = FALSE), "less than")
+  # ── Date ──
+  expect_invisible(assert_range(as.Date("2026-01-01"), as.Date("2026-12-31"), allow_equal = FALSE))
+  expect_error(
+    assert_range(as.Date("2026-06-01"), as.Date("2026-06-01"), allow_equal = FALSE),
+    "less than"
+  )
+  # ── POSIXct date-times ──
+  t <- as.POSIXct("2026-01-01 09:00", tz = "UTC")
+  expect_invisible(assert_range(t, t + 1, allow_equal = FALSE))
+  expect_error(assert_range(t, t, allow_equal = FALSE), "less than")
+  # ── character strings (class-agnostic, relies only on < / >) ──
+  expect_invisible(assert_range("a", "b", allow_equal = FALSE))
+  expect_error(assert_range("a", "a", allow_equal = FALSE), "less than")
+  # ── NULL bounds stay open-ended even under strict mode ──
+  expect_invisible(assert_range(NULL, 5, allow_equal = FALSE))
+  expect_invisible(assert_range(5, NULL, allow_equal = FALSE))
+  expect_invisible(assert_range(NULL, NULL, allow_equal = FALSE))
+})
+
+test_that("assert_range allow_equal = TRUE (default) still permits equal bounds across types", {
+  expect_invisible(assert_range(5, 5))
+  expect_invisible(assert_range(5, 5, allow_equal = TRUE))
+  expect_invisible(assert_range(1.5, 1.5))
+  expect_invisible(assert_range(as.Date("2026-06-01"), as.Date("2026-06-01")))
+  expect_invisible(assert_range(
+    as.POSIXct("2026-01-01 09:00", tz = "UTC"),
+    as.POSIXct("2026-01-01 09:00", tz = "UTC")
+  ))
+  expect_invisible(assert_range("a", "a"))
+  # strict-mode error still names the offending argument
+  g <- function(start, end) assert_range(start, end, allow_equal = FALSE)
+  expect_error(g(5, 5), "start")
+})
+
 test_that("assert_between checks inclusive bounds across types", {
   expect_invisible(assert_between(5, 0, 10))
   expect_invisible(assert_between(c(0, 5, 10), 0, 10))

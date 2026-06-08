@@ -1,3 +1,7 @@
+# assert 0.0.9
+
+* `assert_range()` gains an `allow_equal` flag (default `TRUE`). With the default, equal bounds form a valid point range (`lower <= upper`), exactly as before; `allow_equal = FALSE` requires the bounds to be strictly ordered (`lower < upper`) and rejects `lower == upper` — handy for half-open windows such as `start < end`. `NULL` bounds stay open-ended in either mode, and the default preserves the previous behaviour.
+
 # assert 0.0.8
 
 * New `assert_count()`: the vector counterpart of `assert_scalar_count()` — every value must be a non-negative whole number (`0`, `1`, `2`, ...), accepting integer-valued doubles (`c(0, 1, 2)`) and integers (`4L`); missing, infinite, fractional, and negative values fail.
