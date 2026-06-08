@@ -4,14 +4,19 @@
 
 #' Assert that two bounds form a range
 #'
-#' Checks that `lower` is less than or equal to `upper`, so the two values form
-#' a sensible (non-inverted) range. Works for any comparable type: numbers,
-#' dates, date-times, strings. If either bound is `NULL` the range is treated as
-#' open-ended on that side and the check passes — handy for optional `start` /
-#' `end` arguments.
+#' Checks that `lower` and `upper` form a sensible (non-inverted) range. By
+#' default equal bounds are allowed (`lower <= upper`, a point range); set
+#' `allow_equal = FALSE` to require them strictly ordered (`lower < upper`),
+#' rejecting `lower == upper` — handy for half-open windows like `start < end`.
+#' Works for any comparable type: numbers, dates, date-times, strings. If either
+#' bound is `NULL` the range is treated as open-ended on that side and the check
+#' passes — handy for optional `start` / `end` arguments.
 #'
 #' @param lower The lower bound, or `NULL` for unbounded below.
 #' @param upper The upper bound, or `NULL` for unbounded above.
+#' @param allow_equal Single logical. If `TRUE` (default) the bounds may be equal
+#'   (`lower <= upper`); if `FALSE` they must be strictly ordered (`lower < upper`),
+#'   so equal bounds fail.
 #' @param arg_lower Name used to refer to `lower` in error messages.
 #' @param arg_upper Name used to refer to `upper` in error messages.
 #' @param call Environment used as the error's call context. Defaults to the
@@ -21,6 +26,8 @@
 #'
 #' @examples
 #' assert_range(0, 10)
+#' assert_range(5, 5) # equal bounds: passes by default
+#' assert_range(5, 6, allow_equal = FALSE) # strict ordering required
 #' assert_range(as.Date("2026-01-01"), as.Date("2026-12-31"))
 #' assert_range(NULL, 10) # open-ended below: passes
 #'
@@ -28,6 +35,7 @@
 assert_range <- function(
   lower,
   upper,
+  allow_equal = TRUE,
   arg_lower = rlang::caller_arg(lower),
   arg_upper = rlang::caller_arg(upper),
   call = rlang::caller_env()
@@ -35,11 +43,16 @@ assert_range <- function(
   if (is.null(lower) || is.null(upper)) {
     return(invisible(NULL))
   }
-  if (isTRUE(any(lower > upper))) {
-    cli::cli_abort(
-      "{.arg {arg_lower}} must be less than or equal to {.arg {arg_upper}}.",
-      call = call
-    )
+  # allow_equal = TRUE  -> only `lower > upper` is inverted (equal bounds are fine).
+  # allow_equal = FALSE -> `lower >= upper` is inverted (equal bounds rejected too).
+  inverted <- if (isTRUE(allow_equal)) any(lower > upper) else any(lower >= upper)
+  if (isTRUE(inverted)) {
+    msg <- if (isTRUE(allow_equal)) {
+      "{.arg {arg_lower}} must be less than or equal to {.arg {arg_upper}}."
+    } else {
+      "{.arg {arg_lower}} must be less than {.arg {arg_upper}}."
+    }
+    cli::cli_abort(msg, call = call)
   }
   return(invisible(NULL))
 }
