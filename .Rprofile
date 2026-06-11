@@ -1,2 +1,4 @@
-# renv is opt-in: run renv::init() once to create the project library.
-if (file.exists("renv/activate.R")) source("renv/activate.R")
+# renv ships with every package — activate the project library.
+# renv/activate.R bootstraps renv itself if missing; renv::restore()
+# installs the locked packages.
+source("renv/activate.R")
