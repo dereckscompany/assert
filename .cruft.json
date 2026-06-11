@@ -1,7 +1,7 @@
 {
   "template": "https://github.com/dereckscompany/templates-cookiecutter.git",
-  "commit": "1e9a1bf5eb5275ede6047dcd188ddf919fce73a6",
-  "checkout": "1e9a1bf5eb5275ede6047dcd188ddf919fce73a6",
+  "commit": "57fb849963e58842c7d7288329349bda153f5230",
+  "checkout": null,
   "context": {
     "cookiecutter": {
       "package_name": "assert",
@@ -15,8 +15,23 @@
       "license": "MIT",
       "use_rcpp": true,
       "_template": "https://github.com/dereckscompany/templates-cookiecutter.git",
-      "_commit": "1e9a1bf5eb5275ede6047dcd188ddf919fce73a6"
+      "_commit": "57fb849963e58842c7d7288329349bda153f5230"
     }
   },
-  "directory": "template-r-package"
+  "directory": "template-r-package",
+  "skip": [
+    "R/**",
+    "src/**",
+    "man/**",
+    "tests/testthat/**",
+    "vignettes/**",
+    "DESCRIPTION",
+    "NAMESPACE",
+    ".lintr",
+    "_pkgdown.yml",
+    "README.Rmd",
+    "inst/WORDLIST",
+    "renv/**",
+    "renv.lock"
+  ]
 }
