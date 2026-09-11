@@ -1,3 +1,7 @@
+# assert 0.0.10
+
+* `assert_unique_rows()` is now fast on a `data.table`: it was silently taking base R's slow, generic duplicate-row check instead of `data.table`'s own fast one, because `data.table` only hands a caller its optimised version when that caller has declared itself "`data.table`-aware", which this package deliberately never does (it does not require `data.table` to be installed). The fix calls `data.table::uniqueN()` directly for a `data.table` input, sidestepping that awareness check entirely, and leaves every other input on the previous code path. Verified against a randomised sweep of small data frames and data tables (with missing values) so the two paths never disagree; on a 100,000-row data.table this is roughly 60x faster (about 300 ms to about 5 ms per call).
+
 # assert 0.0.9
 
 * `assert_range()` gains an `allow_equal` flag (default `TRUE`). With the default, equal bounds form a valid point range (`lower <= upper`), exactly as before; `allow_equal = FALSE` requires the bounds to be strictly ordered (`lower < upper`) and rejects `lower == upper` — handy for half-open windows such as `start < end`. `NULL` bounds stay open-ended in either mode, and the default preserves the previous behaviour.

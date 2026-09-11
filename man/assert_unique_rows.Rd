@@ -28,7 +28,16 @@ calling function, so errors point at the user's code.}
 The input \code{x}, invisibly.
 }
 \description{
-Assert that a data frame has no duplicate rows
+For a \code{data.table}, this counts duplicate rows with \code{data.table::uniqueN()}
+instead of base R's \code{duplicated()}. \code{duplicated()} on a \code{data.table} is
+normally just as fast, because \code{data.table} registers its own method for
+it — but that method only takes over when the calling package is "aware"
+of \code{data.table} (broadly: imports it), and this package deliberately does
+not require \code{data.table} to be installed at all. Called from a package
+that is not aware, \code{duplicated()} silently falls back to the much slower
+\code{data.frame} method instead of erroring, so the slowdown is easy to miss.
+\code{uniqueN()} sidesteps the whole awareness check because it is an ordinary
+exported function, not a method dispatched through \code{duplicated()}.
 }
 \examples{
 assert_unique_rows(data.frame(a = c(1, 2), b = c(3, 4)))
