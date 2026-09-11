@@ -67,3 +67,20 @@ test_that("data-frame column checks work on a real data.table", {
   dt_na <- data.table::data.table(a = c(1, NA), b = c("x", "y"))
   expect_error(assert_no_missing_in_columns(dt_na, "a"), "missing")
 })
+
+test_that("assert_unique_rows gives the same verdict on a data.table as on the equivalent data.frame", {
+  skip_if_not_installed("data.table")
+
+  unique_df <- data.frame(a = c(1, 2, 3), b = c("x", "y", "z"))
+  duplicate_df <- data.frame(a = c(1, 1, 3), b = c("x", "x", "z"))
+  na_duplicate_df <- data.frame(a = c(1, NA, NA), b = c("x", NA, NA))
+
+  expect_invisible(assert_unique_rows(unique_df))
+  expect_invisible(assert_unique_rows(data.table::as.data.table(unique_df)))
+
+  expect_error(assert_unique_rows(duplicate_df), "duplicate rows")
+  expect_error(assert_unique_rows(data.table::as.data.table(duplicate_df)), "duplicate rows")
+
+  expect_error(assert_unique_rows(na_duplicate_df), "duplicate rows")
+  expect_error(assert_unique_rows(data.table::as.data.table(na_duplicate_df)), "duplicate rows")
+})

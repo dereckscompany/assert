@@ -303,6 +303,17 @@ assert_column_types <- function(
 
 #' Assert that a data frame has no duplicate rows
 #'
+#' For a `data.table`, this counts duplicate rows with `data.table::uniqueN()`
+#' instead of base R's `duplicated()`. `duplicated()` on a `data.table` is
+#' normally just as fast, because `data.table` registers its own method for
+#' it — but that method only takes over when the calling package is "aware"
+#' of `data.table` (broadly: imports it), and this package deliberately does
+#' not require `data.table` to be installed at all. Called from a package
+#' that is not aware, `duplicated()` silently falls back to the much slower
+#' `data.frame` method instead of erroring, so the slowdown is easy to miss.
+#' `uniqueN()` sidesteps the whole awareness check because it is an ordinary
+#' exported function, not a method dispatched through `duplicated()`.
+#'
 #' @inheritParams scalar-assertions
 #' @return The input `x`, invisibly.
 #'
@@ -315,7 +326,12 @@ assert_unique_rows <- function(x, null_ok = FALSE, arg = rlang::caller_arg(x), c
     return(invisible(x))
   }
   assert_data_frame(x, arg = arg, call = call)
-  if (any(duplicated(x))) {
+  if (inherits(x, "data.table") && requireNamespace("data.table", quietly = TRUE)) {
+    has_duplicates <- data.table::uniqueN(x) < nrow(x)
+  } else {
+    has_duplicates <- any(duplicated(x))
+  }
+  if (has_duplicates) {
     abort_assertion(arg, "not contain duplicate rows", call)
   }
   return(invisible(x))
